@@ -1,0 +1,26 @@
+[http_proxy]
+host=localhost:5865
+
+[ui]
+username = ***REMOVED***
+
+[merge-tools]
+filemerge.executable=***REMOVED***
+filemerge.args= $local $other -ancestor $base -merge $output
+
+[extensions]
+hgext.extdiff =
+
+[extdiff]
+cmd.opendiff = fmdiff
+
+[extensions]
+color = 
+
+[color]
+mode=win32
+
+#localbranch extension
+
+[alias]
+atat=stat
