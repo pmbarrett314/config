@@ -1,0 +1,18 @@
+[ui]
+username = ***REMOVED***
+
+#***REMOVED***
+***REMOVED***
+
+[extensions]
+bsi-createremote = ~/Scripts/bsi-createremote.py
+
+[http_proxy]
+host = 127.0.0.1:5865
+
+[extensions]
+color = 
+
+
+[color]
+mode=ansi
