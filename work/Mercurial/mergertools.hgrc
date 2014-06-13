@@ -1,9 +1,0 @@
-[merge-tools]
-filemerge.executable=***REMOVED***
-filemerge.args= $local $other -ancestor $base -merge $output
-
-[extensions]
-hgext.extdiff =
-
-[extdiff]
-cmd.opendiff = fmdiff

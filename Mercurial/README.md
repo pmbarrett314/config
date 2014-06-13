@@ -1,1 +1,0 @@
-Various mercurial configuration stuff
