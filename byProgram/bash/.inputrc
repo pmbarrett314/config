@@ -1,1 +1,38 @@
+$include /etc/inputrc
+
+# set to vi mode
+# set -o vi
+
+
+
+# no beeps
+set bell-style none
+
+# case insensitive
 set completion-ignore-case on
+
+# leave ~ as ~
+set expand-tilde off
+
+#list matches immediately
+set show-all-if-ambiguous on
+
+# Append "/" to all dirnames
+set mark-directories on
+set mark-symlinked-directories on
+
+# show file type in completions
+set visible-stats on
+
+#match hidden files without the .
+set match-hidden-files on
+
+# 8bit input
+
+# Enable 8bit input
+set meta-flag on
+set input-meta on
+# Turns off 8th bit stripping
+set convert-meta off
+# Keep the 8th bit for display
+set output-meta on
