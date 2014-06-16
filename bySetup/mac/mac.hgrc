@@ -1,5 +1,5 @@
-%include ~/Code/stuff/byProgram/default.hgrc
+%include ~/Code/stuff/byProgram/mercurial/default.hgrc
 
-%include ~/Code/stuff/byProgram/unix.hgrc
+%include ~/Code/stuff/byProgram/mercurial/unix.hgrc
 
-%include ~/Code/stuff/byProgram/macmergetools.hgrc
+%include ~/Code/stuff/byProgram/mercurial/macmergetools.hgrc
