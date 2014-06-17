@@ -36,3 +36,15 @@ set input-meta on
 set convert-meta off
 # Keep the 8th bit for display
 set output-meta on
+
+# bind up and down to history search and page up/down to back and forward
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+#"\e[5~": previous-history
+#"\e[6~": next-history
+
+# binds page up/down to history search and up/down to back and forward
+#"\e[A": previous-history
+#"\e[B": next-history
+#"\e[5~": history-search-backward
+#"\e[6~": history-search-forward

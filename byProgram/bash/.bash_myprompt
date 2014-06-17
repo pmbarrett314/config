@@ -1,0 +1,18 @@
+#!/bin/bash
+#setup for prompt
+didCD=true
+
+function didCDfun()
+{
+if $didCD ;
+then
+echo -en "\e[1;32m"
+pwd
+echo -en "\e[0m"
+fi
+didCD=false
+}
+export PROMPT_COMMAND="didCDfun"
+export PS1=' \[\033[0;36m\][\t] $\[\e[0m\]'
+alias pushd='didCD=true&&pushd'
+alias popd='didCD=true&&popd'
