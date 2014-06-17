@@ -1,4 +1,4 @@
-$include /etc/inputrc
+#$include /etc/inputrc
 
 # set to vi mode
 # set -o vi
@@ -6,40 +6,40 @@ $include /etc/inputrc
 
 
 # no beeps
-set bell-style none
+#set bell-style none
 
 # case insensitive
 set completion-ignore-case on
 
 # leave ~ as ~
-set expand-tilde off
+#set expand-tilde off
 
 #list matches immediately
-set show-all-if-ambiguous on
+#set show-all-if-ambiguous on
 
 # Append "/" to all dirnames
-set mark-directories on
-set mark-symlinked-directories on
+#set mark-directories on
+#set mark-symlinked-directories on
 
 # show file type in completions
-set visible-stats on
+#set visible-stats on
 
 #match hidden files without the .
-set match-hidden-files on
+#set match-hidden-files on
 
 # 8bit input
 
 # Enable 8bit input
-set meta-flag on
-set input-meta on
+#set meta-flag on
+#set input-meta on
 # Turns off 8th bit stripping
-set convert-meta off
+#set convert-meta off
 # Keep the 8th bit for display
-set output-meta on
+#set output-meta on
 
 # bind up and down to history search and page up/down to back and forward
-"\e[A": history-search-backward
-"\e[B": history-search-forward
+#"\e[A": history-search-backward
+#"\e[B": history-search-forward
 #"\e[5~": previous-history
 #"\e[6~": next-history
 
