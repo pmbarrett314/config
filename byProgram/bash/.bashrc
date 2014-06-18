@@ -49,23 +49,23 @@ if [ -f ***REMOVED*** ] && ! $MYFIRST; then
     . ***REMOVED***
 fi
 
-if [ -f ~/Code/stuff/byProgram/.bash_ros ] && $MYROS; then
+if [ -f ~/Code/stuff/byProgram/bash/.bash_ros ] && $MYROS; then
   . ~/.bash_ros
 fi
 
-if [ -f ~/Code/stuff/byProgram/.bash_myprompt ] && $MYPROMPT; then
+if [ -f ~/Code/stuff/byProgram/bash/.bash_myprompt ] && $MYPROMPT; then
   . ~/.bash_myprompt
 fi
 
-if [ -f ~/Code/stuff/byProgram/.bash_stack ] && $MYSTACK; then
+if [ -f ~/Code/stuff/byProgram/bash/.bash_stack ] && $MYSTACK; then
     . ~/.bash_stack
 fi
 
-if [ -f ~/Code/stuff/byProgram/.bash_functions ] && $MYFUN; then
+if [ -f ~/Code/stuff/byProgram/bash/.bash_functions ] && $MYFUN; then
     . ~/.bash_functions
 fi
 
-if [ -f ~/Code/stuff/byProgram/.bash_android ] && $MYANDROID; then
+if [ -f ~/Code/stuff/byProgram/bash/.bash_android ] && $MYANDROID; then
   . ~/.bash_android
 fi
 
