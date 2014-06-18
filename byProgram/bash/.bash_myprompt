@@ -1,14 +1,16 @@
 #!/bin/bash
 #setup for prompt
+#if we want stack based navigation, this needs to come first, before .bash_stack
 didCD=true
 
 function didCDfun()
 {
 if $didCD ;
 then
-echo -en "\e[1;32m"
+echo -en "\x1B[1;32m"
+#\x1B used to be \e??
 pwd
-echo -en "\e[0m"
+echo -en "\x1B[0m"
 fi
 didCD=false
 }
@@ -16,3 +18,4 @@ export PROMPT_COMMAND="didCDfun"
 export PS1=' \[\033[0;36m\][\t] $\[\e[0m\]'
 alias pushd='didCD=true&&pushd'
 alias popd='didCD=true&&popd'
+alias cd='didCD=true&&cd'

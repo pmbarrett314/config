@@ -16,6 +16,16 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 
+alias cdir='cd "$@" && dir .'
+
+#alias .="pwd"
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
+alias ~="cd ~"
+
 # some more ls aliases
 # A is all but . and .. mac/cyg
 # G is color on mac, not cyg
