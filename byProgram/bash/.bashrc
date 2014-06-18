@@ -50,31 +50,31 @@ if [ -f ***REMOVED*** ] && ! $MYFIRST; then
 fi
 
 if [ -f ~/Code/stuff/byProgram/bash/.bash_ros ] && $MYROS; then
-  . ~/.bash_ros
+  . ~/Code/stuff/byProgram/bash/.bash_ros
 fi
 
 if [ -f ~/Code/stuff/byProgram/bash/.bash_myprompt ] && $MYPROMPT; then
-  . ~/.bash_myprompt
+  . ~/Code/stuff/byProgram/bash/.bash_myprompt
 fi
 
 if [ -f ~/Code/stuff/byProgram/bash/.bash_stack ] && $MYSTACK; then
-    . ~/.bash_stack
+    . ~/Code/stuff/byProgram/bash/.bash_stack
 fi
 
 if [ -f ~/Code/stuff/byProgram/bash/.bash_functions ] && $MYFUN; then
-    . ~/.bash_functions
+    . ~/Code/stuff/byProgram/bash/.bash_functions
 fi
 
 if [ -f ~/Code/stuff/byProgram/bash/.bash_android ] && $MYANDROID; then
-  . ~/.bash_android
+  . ~/Code/stuff/byProgram/bash/.bash_android
 fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/Code/stuff/byProgram/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f ~/Code/stuff/byProgram/bash/.bash_aliases ]; then
+    . ~/Code/stuff/byProgram/bash/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
