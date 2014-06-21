@@ -1,6 +1,11 @@
 [alias]
 atat=stat
 
+[diff]
+showfunc=true
 
 [extensions]
 purge =
+mq=
+record=
+progress=

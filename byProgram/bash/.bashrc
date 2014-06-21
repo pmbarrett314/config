@@ -9,8 +9,8 @@
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
-#export HISTCONTROL="erasedups:ignoreboth"
+export HISTCONTROL="erasedups:ignoreboth"
+export HISTIGNORE="ls:dir"
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -19,10 +19,22 @@ shopt -s cdspell
 shopt -s dotglob
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=50000000
-HISTFILESIZE=10000000
-#export??
+export HISTSIZE=50000000
+export HISTFILESIZE=10000000
 
+
+
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+			man "$@"
+}
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
