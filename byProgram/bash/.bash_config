@@ -1,0 +1,7 @@
+export MYROS=false
+export MYSTACK=true
+export MYPROMPT=true
+export MYFUN=true
+
+export MYFIRST=true
+export MYANDROID=false
