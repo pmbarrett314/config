@@ -1,6 +1,21 @@
 #!/bin/bash
 #setup for prompt
 #if we want stack based navigation, this needs to come first, before .bash_stack
+
+
+RESET="\[\017\]"
+NORMAL="\[\033[0m\]"
+RED="\[\033[31;1m\]"
+GREEN="\[\033[32;1m\]"
+YELLOW="\[\033[33;1m\]"
+WHITE="\[\033[37;1m\]"
+BLUE="\[\033[36;1m\]"
+SMILEY="${WHITE}:)${NORMAL}"
+FROWNY="${RED}:(${NORMAL}"
+SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
+
+#PS1="${RESET}${YELLOW}\h${NORMAL} \`${SELECT}\` ${YELLOW}>${NORMAL} "
+
 didCD=true
 
 function didCDfun()
@@ -15,7 +30,8 @@ fi
 didCD=false
 }
 export PROMPT_COMMAND="didCDfun"
-export PS1=' \[\033[0;36m\][\t] $\[\e[0m\]'
+export PS1="${RESET}${BLUE}[\t]${NORMAL} \`${SELECT}\` ${BLUE}\$${NORMAL}"
+#export PS1=' \[\033[0;36m\][\t] \$\[\033[0m\]'
 alias pushd='didCD=true&&pushd'
 alias popd='didCD=true&&popd'
 alias cd='didCD=true&&cd'
