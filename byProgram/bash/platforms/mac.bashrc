@@ -9,3 +9,5 @@ alias itunes='open -a iTunes'
 # use textmate
 export EDITOR="/usr/local/bin/mate -w"
 alias edit='open -a /usr/local/bin/mate'
+
+alias bp='open ~/.bash_profile -W && source ~/.bash_profile'

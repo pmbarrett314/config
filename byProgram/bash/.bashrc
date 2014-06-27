@@ -17,12 +17,14 @@ shopt -s histappend
 shopt -s cmdhist
 shopt -s cdspell
 shopt -s dotglob
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 export HISTSIZE=50000000
 export HISTFILESIZE=10000000
-
-
+export EDITOR='kate -b'
 
 man() {
 	env \
@@ -36,11 +38,6 @@ man() {
 			man "$@"
 }
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-export EDITOR='kate -b'
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -87,6 +84,9 @@ if [ -f ~/Code/stuff/byProgram/bash/platforms/mac.bashrc ] && [[ "$OSTYPE" == "d
 	. ~/Code/stuff/byProgram/bash/platforms/mac.bashrc
 fi
 
+***REMOVED***
+***REMOVED***
+fi
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
