@@ -56,8 +56,8 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -f ***REMOVED*** ] && ! $MYFIRST; then
-    . ***REMOVED***
+if [ -f ~/Code/stuff/byProgram/bash/.bash_config ] && ! $MYFIRST; then
+    . ~/Code/stuff/byProgram/bash/.bash_config
 fi
 
 if [ -f ~/Code/stuff/byProgram/bash/.bash_ros ] && $MYROS; then
