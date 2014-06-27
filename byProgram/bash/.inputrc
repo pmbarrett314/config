@@ -1,7 +1,7 @@
 #$include /etc/inputrc
 
 # set to vi mode
-# set -o vi
+#set -o vi
 
 
 

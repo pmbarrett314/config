@@ -1,3 +1,5 @@
+alias roscd='didCD=true&&roscd'
+
 #source /opt/ros/hydro/setup.bash
 #source ~/Code/intent/devel/setup.bash
 

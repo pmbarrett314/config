@@ -51,9 +51,9 @@ alias zap='rm -iP'
 alias deltree='rm -rfd'
 alias deltreesecure='rm -rfPd'
 
-#clearing
-alias c='clear&&pwd'
-alias cls='clear&&pwd'
+#clears and prints a line
+alias c='clear&&pwd&&printf "%*s\n" "${COLUMNS:-$(tput cols)}" "" | tr " " -'
+alias cls='clear&&pwd&&printf "%*s\n" "${COLUMNS:-$(tput cols)}" "" | tr " " -'
 
 
 #typos
@@ -66,3 +66,6 @@ alias idff='diff'
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+
+#alias stats='history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n$@''

@@ -10,7 +10,7 @@
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 export HISTCONTROL="erasedups:ignoreboth"
-export HISTIGNORE="ls:dir"
+export HISTIGNORE="ls:dir:c"
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -54,8 +54,10 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-
-alias roscd='didCD=true&&roscd'
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
 
 if [ -f ***REMOVED*** ] && ! $MYFIRST; then
     . ***REMOVED***
@@ -79,6 +81,10 @@ fi
 
 if [ -f ~/Code/stuff/byProgram/bash/.bash_android ] && $MYANDROID; then
   . ~/Code/stuff/byProgram/bash/.bash_android
+fi
+
+if [ -f ~/Code/stuff/byProgram/bash/platforms/mac.bashrc ] && [[ "$OSTYPE" == "darwin"* ]]; then
+	. ~/Code/stuff/byProgram/bash/platforms/mac.bashrc
 fi
 
 # Alias definitions.

@@ -1,13 +1,3 @@
-alias bp='open ~/.bash_profile -W && source ~/.bash_profile'
-
-if [ -f ~/Code/stuff/byProgram/bash/.bashrc ]; then
-   . ~/Code/stuff/byProgram/bash/.bashrc
-fi
-
-if [ -f ~/.bash_local ]; then
-	. ~/.bash_local
-fi
-
 alias showfiles='defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder'
 alias hidefiles='defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder'
 
