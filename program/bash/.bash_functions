@@ -23,3 +23,10 @@ extract () {
        echo "'$1' is not a valid file!"
    fi
  }
+
+prank(){
+	while true; do
+		sleep 5
+		say hello
+	done
+}
