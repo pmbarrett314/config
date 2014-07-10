@@ -1,5 +1,5 @@
 [merge-tools]
-filemerge.executable=~/Code/stuff/byProgram/mercurial/opendiff-w
+filemerge.executable=~/Code/stuff/program/mercurial/opendiff-w
 filemerge.args= $local $other -ancestor $base -merge $output
 
 [extensions]

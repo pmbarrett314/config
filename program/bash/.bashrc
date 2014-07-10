@@ -41,7 +41,9 @@ man() {
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-shopt -s globstar
+if ((BASH_VERSINFO[0] >= 4)); then
+shopt -s globstar;
+fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -56,32 +58,32 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -f ~/Code/stuff/byProgram/bash/.bash_config ] && ! $MYFIRST; then
-    . ~/Code/stuff/byProgram/bash/.bash_config
+if [ -f ~/Code/stuff/program/bash/.bash_config ] && ! $MYFIRST; then
+    . ~/Code/stuff/program/bash/.bash_config
 fi
 
-if [ -f ~/Code/stuff/byProgram/bash/.bash_ros ] && $MYROS; then
-  . ~/Code/stuff/byProgram/bash/.bash_ros
+if [ -f ~/Code/stuff/program/bash/.bash_ros ] && $MYROS; then
+  . ~/Code/stuff/program/bash/.bash_ros
 fi
 
-if [ -f ~/Code/stuff/byProgram/bash/.bash_myprompt ] && $MYPROMPT; then
-  . ~/Code/stuff/byProgram/bash/.bash_myprompt
+if [ -f ~/Code/stuff/program/bash/.bash_myprompt ] && $MYPROMPT; then
+  . ~/Code/stuff/program/bash/.bash_myprompt
 fi
 
-if [ -f ~/Code/stuff/byProgram/bash/.bash_stack ] && $MYSTACK; then
-    . ~/Code/stuff/byProgram/bash/.bash_stack
+if [ -f ~/Code/stuff/program/bash/.bash_stack ] && $MYSTACK; then
+    . ~/Code/stuff/program/bash/.bash_stack
 fi
 
-if [ -f ~/Code/stuff/byProgram/bash/.bash_functions ] && $MYFUN; then
-    . ~/Code/stuff/byProgram/bash/.bash_functions
+if [ -f ~/Code/stuff/program/bash/.bash_functions ] && $MYFUN; then
+    . ~/Code/stuff/program/bash/.bash_functions
 fi
 
-if [ -f ~/Code/stuff/byProgram/bash/.bash_android ] && $MYANDROID; then
-  . ~/Code/stuff/byProgram/bash/.bash_android
+if [ -f ~/Code/stuff/program/bash/.bash_android ] && $MYANDROID; then
+  . ~/Code/stuff/program/bash/.bash_android
 fi
 
-if [ -f ~/Code/stuff/byProgram/bash/platforms/mac.bashrc ] && [[ "$OSTYPE" == "darwin"* ]]; then
-	. ~/Code/stuff/byProgram/bash/platforms/mac.bashrc
+if [ -f ~/Code/stuff/program/bash/platforms/mac.bashrc ] && [[ "$OSTYPE" == "darwin"* ]]; then
+	. ~/Code/stuff/program/bash/platforms/mac.bashrc
 fi
 
 ***REMOVED***
@@ -91,8 +93,8 @@ fi
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/Code/stuff/byProgram/bash/.bash_aliases ]; then
-    . ~/Code/stuff/byProgram/bash/.bash_aliases
+if [ -f ~/Code/stuff/program/bash/.bash_aliases ]; then
+    . ~/Code/stuff/program/bash/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable

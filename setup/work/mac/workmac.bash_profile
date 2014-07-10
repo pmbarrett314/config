@@ -1,5 +1,5 @@
-if [ -f ~/Code/stuff/byProgram/bash/.bashrc ]; then
-   . ~/Code/stuff/byProgram/bash/.bashrc
+if [ -f ~/Code/stuff/program/bash/.bashrc ]; then
+   . ~/Code/stuff/program/bash/.bashrc
 fi
 
 if [ -f ~/.bash_local ]; then
