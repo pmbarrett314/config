@@ -29,7 +29,7 @@ echo -en "\x1B[0m"
 fi
 didCD=false
 }
-export PROMPT_COMMAND="didCDfun"
+export PROMPT_COMMAND="didCDfun && history -a"
 export PS1="${RESET}${BLUE}[\t]${NORMAL} \`${SELECT}\` ${BLUE}\$${NORMAL}"
 #export PS1=' \[\033[0;36m\][\t] \$\[\033[0m\]'
 alias pushd='didCD=true&&pushd'

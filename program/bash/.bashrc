@@ -10,7 +10,7 @@
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 export HISTCONTROL="erasedups:ignoreboth"
-export HISTIGNORE="ls:dir:c"
+export HISTIGNORE="ls:dir:c:..:...:....:....."
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -24,7 +24,9 @@ shopt -s checkwinsize
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 export HISTSIZE=50000000
 export HISTFILESIZE=10000000
-export EDITOR='kate -b'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	export EDITOR='kate -b';
+fi
 
 man() {
 	env \
@@ -42,7 +44,7 @@ man() {
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
 if ((BASH_VERSINFO[0] >= 4)); then
-shopt -s globstar;
+	shopt -s globstar;
 fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
@@ -58,32 +60,39 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-if [ -f ~/Code/stuff/program/bash/.bash_config ] && ! $MYFIRST; then
-    . ~/Code/stuff/program/bash/.bash_config
+
+export STUFFDIR="$HOME/Code/stuff"
+export PROGRAMDIR="$STUFFDIR/program"
+export SETUPDIR="$STUFFDIR/setup"
+export BASHDIR="$PROGRAMDIR/bash"
+export PLATFORMDIR="$BASHDIR/platforms"
+
+if [ -f $BASHDIR/.bash_config ] && ! $MYFIRST; then
+    . $BASHDIR/.bash_config
 fi
 
-if [ -f ~/Code/stuff/program/bash/.bash_ros ] && $MYROS; then
-  . ~/Code/stuff/program/bash/.bash_ros
+if [ -f $PLATFORMDIR/.bash_ros ] && $MYROS; then
+  . $PLATFORMDIR/.bash_ros
 fi
 
-if [ -f ~/Code/stuff/program/bash/.bash_myprompt ] && $MYPROMPT; then
-  . ~/Code/stuff/program/bash/.bash_myprompt
+if [ -f $BASHDIR/.bash_myprompt ] && $MYPROMPT; then
+  . $BASHDIR/.bash_myprompt
 fi
 
-if [ -f ~/Code/stuff/program/bash/.bash_stack ] && $MYSTACK; then
-    . ~/Code/stuff/program/bash/.bash_stack
+if [ -f $BASHDIR/.bash_stack ] && $MYSTACK; then
+    . $BASHDIR/.bash_stack
 fi
 
-if [ -f ~/Code/stuff/program/bash/.bash_functions ] && $MYFUN; then
-    . ~/Code/stuff/program/bash/.bash_functions
+if [ -f $BASHDIR/.bash_functions ] && $MYFUN; then
+    . $BASHDIR/.bash_functions
 fi
 
-if [ -f ~/Code/stuff/program/bash/.bash_android ] && $MYANDROID; then
-  . ~/Code/stuff/program/bash/.bash_android
+if [ -f $PLATFORMDIR/.bash_android ] && $MYANDROID; then
+  . $PLATFORMDIR/.bash_android
 fi
 
-if [ -f ~/Code/stuff/program/bash/platforms/mac.bashrc ] && [[ "$OSTYPE" == "darwin"* ]]; then
-	. ~/Code/stuff/program/bash/platforms/mac.bashrc
+if [ -f $PLATFORMDIR/mac.bashrc ] && [[ "$OSTYPE" == "darwin"* ]]; then
+	. $PLATFORMDIR/mac.bashrc
 fi
 
 ***REMOVED***
@@ -93,8 +102,8 @@ fi
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f ~/Code/stuff/program/bash/.bash_aliases ]; then
-    . ~/Code/stuff/program/bash/.bash_aliases
+if [ -f $BASHDIR/.bash_aliases ]; then
+    . $BASHDIR/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
