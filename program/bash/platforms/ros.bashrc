@@ -1,9 +1,3 @@
-alias roscd='didCD=true&&roscd'
-
-#source /opt/ros/hydro/setup.bash
-#source ~/Code/intent/devel/setup.bash
-
-
-#from arch. probably need these there.
-#export PYTHONPATH=$PYTHONPATH:$ROS_ROOT/core/roslib/src
-#alias catkin_make='catkin_make -DPYTHON_EXECUTABLE=/usr/bin/python2'
+if [ -n $MYPROMPT]; then
+	alias roscd='didCD=true&&roscd';
+fi;

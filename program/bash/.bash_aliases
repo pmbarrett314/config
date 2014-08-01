@@ -57,8 +57,6 @@ alias cls='clear&&pwd&&printf "%*s\n" "${COLUMNS:-$(tput cols)}" "" | tr " " -'
 
 
 #typos
-alias gh='hg'
-alias hgin='hg in'
 alias cd..='cd ..'
 alias idff='diff'
 

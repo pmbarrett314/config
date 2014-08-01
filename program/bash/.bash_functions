@@ -23,10 +23,23 @@ extract () {
        echo "'$1' is not a valid file!"
    fi
  }
+	
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+			man "$@"
+}
 
-prank(){
-	while true; do
-		sleep 5
-		say hello
-	done
+function catt() { # Highlight whitespace on the terminal -- rolfwr
+    local C=`printf '\033[0;36m'` R=`printf '\033[0m'`
+    #cat "$@" | sed -e "s/      /${C}▹▹▹▹▹▹▹▹$R/g" -e "s/ /${C}·$R/g" -e "s/$/${C}⁋$R/"
+    #cat "$@" | sed -e "s/ /${C}·$R/g" -e "s/\t/${C} ▹▹ $R/g" -e "s/$/${C}⁋$R/"
+    cat "$@" | sed -e "s/ /${C}·$R/g" | expand | sed -e "s/ \( *\)/${C}▹\1$R/g" -e "s/$/${C}⁋$R/"
+    #cat "$@" | sed -e "s/ /${C}.$R/g" | expand | sed -e "s/ \( *\)/${C}>\1$R/g" -e "s/$/${C}P$R/"
 }

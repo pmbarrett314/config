@@ -24,22 +24,6 @@ shopt -s checkwinsize
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 export HISTSIZE=50000000
 export HISTFILESIZE=10000000
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	export EDITOR='kate -b';
-fi
-
-man() {
-	env \
-		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-		LESS_TERMCAP_md=$(printf "\e[1;31m") \
-		LESS_TERMCAP_me=$(printf "\e[0m") \
-		LESS_TERMCAP_se=$(printf "\e[0m") \
-		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-		LESS_TERMCAP_ue=$(printf "\e[0m") \
-		LESS_TERMCAP_us=$(printf "\e[1;32m") \
-			man "$@"
-}
-
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -50,7 +34,7 @@ fi
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
+# set variable identifying the chroot you work in
 if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
@@ -60,20 +44,12 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-
 export STUFFDIR="$HOME/Code/stuff"
 export PROGRAMDIR="$STUFFDIR/program"
 export SETUPDIR="$STUFFDIR/setup"
 export BASHDIR="$PROGRAMDIR/bash"
 export PLATFORMDIR="$BASHDIR/platforms"
 
-if [ -f $BASHDIR/.bash_config ] && ! $MYFIRST; then
-    . $BASHDIR/.bash_config
-fi
-
-if [ -f $PLATFORMDIR/.bash_ros ] && $MYROS; then
-  . $PLATFORMDIR/.bash_ros
-fi
 
 if [ -f $BASHDIR/.bash_myprompt ] && $MYPROMPT; then
   . $BASHDIR/.bash_myprompt
@@ -83,8 +59,12 @@ if [ -f $BASHDIR/.bash_stack ] && $MYSTACK; then
     . $BASHDIR/.bash_stack
 fi
 
-if [ -f $BASHDIR/.bash_functions ] && $MYFUN; then
+if [ -f $BASHDIR/.bash_functions ]; then
     . $BASHDIR/.bash_functions
+fi
+
+if [ -f $PLATFORMDIR/.bash_ros ] && $MYROS; then
+  . $PLATFORMDIR/.bash_ros
 fi
 
 if [ -f $PLATFORMDIR/.bash_android ] && $MYANDROID; then
@@ -95,9 +75,14 @@ if [ -f $PLATFORMDIR/mac.bashrc ] && [[ "$OSTYPE" == "darwin"* ]]; then
 	. $PLATFORMDIR/mac.bashrc
 fi
 
+if [ -f $PLATFORMDIR/linux.bashrc ] && [[ "$OSTYPE" == "linux-gnu" ]]; then
+	. $PLATFORMDIR/linux.bashrc
+fi
+
 ***REMOVED***
 ***REMOVED***
 fi
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
