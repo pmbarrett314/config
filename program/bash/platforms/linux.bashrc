@@ -1,3 +1,3 @@
-if [[ "$OSTYPE" == "linux-gnu" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	export EDITOR='kate -b';
 fi

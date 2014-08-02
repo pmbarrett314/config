@@ -27,29 +27,64 @@ alias ......="cd ../../../../.."
 alias ~="cd ~"
 
 # some more ls aliases
-# A is all but . and .. mac/cyg
-# G is color on mac, not cyg
-# l is long format mac
-# F displays characters to show filetype mac
-# C is multi column, default behavior mac/cyg
+# A is all but . and .. mac/cyg/rpiarch
+# G is color on mac, 
+# G is no group in long format cyg/rpiarch
+# --color=always is color on cyg/rpiarch
+# l is long format mac/cyg/rpiarch
+# h is human readble with binary prefixes (K is kibibyte, etc.) mac/cyg/rpiarch
+# F displays characters to show filetype (classify) mac/cyg/rpiarch
+# C is multi column, default behavior mac/cyg/rpi
 # T goes with l to show complete time to second mac
+# T does tabsize on cyg/rpiarch
+# --time-style is similar on cyg/rpiarch
 
-alias ls='ls -G'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	alias ls='ls -G'
+	alias dir='ls -lAFT'
+else
+	alias dir='ls -lAF'
+fi
+
+if [[ "$OSTYPE" == "linux-gnu"*]]||[[ "$OSTYPE" == "cygwin"]]; then
+	alias ls='ls --color=auto'
+fi
+
 alias ll='ls -AlF'
 alias la='ls -Ahl'
 alias l='ls -CF'
-alias dir='ls -lAF'
-#alias dir='ls -lAFT'
+
+
 
 # deletions
-#d removes directories as well as other types of files mac
-#r/R removes file hierarchy, implies d mac
-#i asks for confirmation before each file
-#P does secure delete, overwrite with FF,00,FF mac
-alias del='rm -iP'
-alias zap='rm -iP'
-alias deltree='rm -rfd'
-alias deltreesecure='rm -rfPd'
+# d removes directories as well as other types of files mac
+# d removes empty directories rpiarch
+# no d on cygwin, use R/r instead 
+# r/R removes file hierarchy, implies d mac/cyg/rpiarch
+# i asks for confirmation before each file mac/cyg/rpiarch
+# P does secure delete, overwrite with FF,00,FF mac
+# use shred for this on cyg/arch
+# f tries to remove without prompt, regardless of permissions or whether the file exits mac
+# f changes permissions if necessary rpiarch
+# f ignores nonexistent and never prompts cyg
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	alias del='rm -iP'
+	alias zap='rm -iP'
+	alias deltree='rm -rfd'
+	alias deltreesecure='rm -rfPd'
+fi
+
+if [[ "$OSTYPE" == "linux-gnu"*]]||[[ "$OSTYPE" == "cygwin"]]; then
+	alias del='rm -i'
+	alias zap='rm -i'
+	alias deltree='rm -rf'
+	alias deltreesecure='rm -rf'
+fi
+
+if [[ "$OSTYPE" == "linux-gnu"*] ]]; then
+	alias deltree='rm -rfd'
+	alias deltreesecure='rm -rfPd'
+fi
 
 #clears and prints a line
 alias c='clear&&pwd&&printf "%*s\n" "${COLUMNS:-$(tput cols)}" "" | tr " " -'
