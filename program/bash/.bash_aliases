@@ -46,7 +46,7 @@ else
 	alias dir='ls -lAF'
 fi
 
-if [[ "$OSTYPE" == "linux-gnu"*]]||[[ "$OSTYPE" == "cygwin"]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "cygwin" ]]; then
 	alias ls='ls --color=auto'
 fi
 
@@ -74,14 +74,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 	alias deltreesecure='rm -rfPd'
 fi
 
-if [[ "$OSTYPE" == "linux-gnu"*]]||[[ "$OSTYPE" == "cygwin"]]; then
+if [[ "$OSTYPE" == "linux-gnu"* || "$OSTYPE" == "cygwin" ]]; then
 	alias del='rm -i'
 	alias zap='rm -i'
 	alias deltree='rm -rf'
 	alias deltreesecure='rm -rf'
 fi
 
-if [[ "$OSTYPE" == "linux-gnu"*] ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	alias deltree='rm -rfd'
 	alias deltreesecure='rm -rfPd'
 fi
