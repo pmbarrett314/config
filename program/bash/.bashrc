@@ -44,7 +44,7 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-export STUFFDIR="$HOME/Code/stuff"
+
 export PROGRAMDIR="$STUFFDIR/program"
 export SETUPDIR="$STUFFDIR/setup"
 export BASHDIR="$PROGRAMDIR/bash"

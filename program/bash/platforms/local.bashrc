@@ -1,9 +1,3 @@
-#put these in a file on each PC.
-export MYROS=false
-export MYANDROID=false
-export MYSTACK=true
-export MYPROMPT=true
-
 #these need to go in a local file
 ##ROS
 #source /opt/ros/hydro/setup.bash
