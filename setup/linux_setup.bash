@@ -13,7 +13,7 @@ if [ -d "$STUFFDIR/program/nano/" ]; then
 	git clone https://github.com/nanorc/nanorc
 	cd nanorc/
 	make install TEXT=white
-	if[ ! -f ~/.nanorc ]; then
+	if [ ! -f ~/.nanorc ]; then
 		touch ~/.nanorc
 	fi
 	echo "include ~/.nano/syntax/ALL.nanorc" >> ~/.nanorc
