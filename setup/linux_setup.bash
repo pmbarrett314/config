@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ -z ${$STUFFDIR+x} ]; then
-	if [ -d ~/Code/stuff]; then
-		$STUFFDIR=~/Code/stuff/
+if [ -z ${STUFFDIR+x} ]; then
+	if [ -d $HOME/Code/stuff ]; then
+		export STUFFDIR="$HOME/Code/stuff"
 	else
 		echo "The stuff repo could not be found."
 	fi
@@ -35,7 +35,7 @@ else
 fi
 
 if [ ! -f ~/.vimrc ]; then
-	cp $STUFFDIR/program/readline/.vimrc ~/.vimrc
+	cp $STUFFDIR/program/vim/.vimrc ~/.vimrc
 else
 	echo ".vimrc already exists. Doing nothing."
 fi
