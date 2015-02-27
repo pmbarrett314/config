@@ -19,6 +19,7 @@ if [ "$CURRENTUSER" = "root" ]; then
 	COLOR=$RED
 else
 	COLOR=$BLUE
+fi
 
 #PS1="${RESET}${YELLOW}\h${NORMAL} \`${SELECT}\` ${YELLOW}>${NORMAL} "
 
