@@ -16,10 +16,9 @@ SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 
 CURENTUSER=`whoami`
 if [ "$CURRENTUSER" = "root" ]; then
-	COLOR=RED
+	COLOR=$RED
 else
-	COLOR=BLUE
-fi
+	COLOR=$BLUE
 
 #PS1="${RESET}${YELLOW}\h${NORMAL} \`${SELECT}\` ${YELLOW}>${NORMAL} "
 
