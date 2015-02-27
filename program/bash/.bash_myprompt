@@ -14,7 +14,7 @@ SMILEY="${WHITE}:)${NORMAL}"
 FROWNY="${RED}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 
-CURENTUSER=`whoami`
+CURRENTUSER=`id -un`
 if [ "$CURRENTUSER" = "root" ]; then
 	COLOR=$RED
 else
