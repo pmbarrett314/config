@@ -14,6 +14,13 @@ SMILEY="${WHITE}:)${NORMAL}"
 FROWNY="${RED}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 
+CURENTUSER=`whoami`
+if [ "$CURRENTUSER" = "root" ]; then
+	COLOR=RED
+else
+	COLOR=BLUE
+fi
+
 #PS1="${RESET}${YELLOW}\h${NORMAL} \`${SELECT}\` ${YELLOW}>${NORMAL} "
 
 didCD=true
@@ -30,7 +37,7 @@ fi
 didCD=false
 }
 export PROMPT_COMMAND="didCDfun && history -a"
-export PS1="${RESET}${BLUE}[\t]${NORMAL} \`${SELECT}\` ${BLUE}\$${NORMAL}"
+export PS1="${RESET}${COLOR}[\t]${NORMAL} \`${SELECT}\` ${COLOR}\$${NORMAL}"
 #export PS1=' \[\033[0;36m\][\t] \$\[\033[0m\]'
 alias pushd='didCD=true&&pushd'
 alias popd='didCD=true&&popd'
