@@ -1,21 +1,24 @@
 #!/bin/bash
 
-if [ -d ~/Code/stuff]; then
-	$STUFFDIR=~/Code/stuff/
-else
-	echo "The stuff repo is not in the usual directory."
+if [ -z ${STUFFDIR+x} ]; then
+	if [ -d $HOME/Code/stuff ]; then
+		export STUFFDIR="$HOME/Code/stuff"
+	else
+		echo "The stuff repo could not be found."
+	fi
 fi
 
-if [ -d "$STUFFDIR/program/nano/" ]; then
-	cd $STUFFDIR/program/nano/
-	git clone https://github.com/nanorc/nanorc
-	cd nanorc/
-	make install TEXT=white
-	if[ ! -f ~/.nanorc ]; then
-		touch ~/.nanorc
-	fi
-	echo "include ~/.nano/syntax/ALL.nanorc" >> ~/.nanorc
-fi
+
+#if [ -d "$STUFFDIR/program/nano/" ]; then
+#	cd $STUFFDIR/program/nano/
+#	git clone https://github.com/nanorc/nanorc
+#	cd nanorc/
+#	make install TEXT=white
+#	if[ ! -f ~/.nanorc ]; then
+#		touch ~/.nanorc
+#	fi
+#	echo "include ~/.nano/syntax/ALL.nanorc" >> ~/.nanorc
+#fi
 
 if [ ! -f ~/.bash_profile ]; then
 	cp $STUFFDIR/program/bash/platforms/mac.bash_profile ~/.bash_profile
@@ -37,8 +40,4 @@ else
 	echo ".inputrc already exists. Doing nothing."
 fi
 
-if [ ! -f ~/.vimrc ]; then
-	cp $STUFFDIR/program/readline/.vimrc ~/.vimrc
-else
-	echo ".vimrc already exists. Doing nothing."
-fi
+ter
