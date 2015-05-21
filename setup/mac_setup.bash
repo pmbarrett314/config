@@ -39,5 +39,3 @@ if [ ! -f ~/.inputrc ]; then
 else
 	echo ".inputrc already exists. Doing nothing."
 fi
-
-ter
