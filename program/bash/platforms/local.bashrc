@@ -21,5 +21,5 @@
 
 #runadt()
 ##{
-#***REMOVED***
+#PATH TO ADT ECLIPSE
 #}

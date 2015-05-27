@@ -9,5 +9,5 @@ purge =
 mq=
 record=
 progress=
-shelve=***REMOVED***
+shelve=PATH TO HG SHELVE
 churn=
