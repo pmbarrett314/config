@@ -79,9 +79,6 @@ if [ -f $PLATFORMDIR/linux.bashrc ] && [[ "$OSTYPE" == "linux-gnu" ]]; then
 	. $PLATFORMDIR/linux.bashrc
 fi
 
-***REMOVED***
-***REMOVED***
-fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
