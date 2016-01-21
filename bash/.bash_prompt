@@ -38,3 +38,16 @@ export PS1="${RESET}${COLOR}[\t]${NORMAL} \`${SELECT}\` ${COLOR}\$${NORMAL}"
 alias pushd='didCD=true&&pushd'
 alias popd='didCD=true&&popd'
 alias cd='didCD=true&&cd'
+
+# zsh style right prompt support :)
+# https://gist.github.com/bobthecow/1285149
+
+__rprompt() {
+    printf "%*s\r" "$COLUMNS" "$(eval echo "$RPROMPT")"
+}
+
+if [[ ! $PROMPT_COMMAND =~ __rprompt ]]; then
+    export PROMPT_COMMAND="__rprompt; ${PROMPT_COMMAND:-:}"
+fi
+
+export RPROMPT='$(hostname -s)'
