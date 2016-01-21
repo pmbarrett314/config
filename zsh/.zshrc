@@ -58,6 +58,12 @@ antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
 
 antigen apply
 
+if [ -n "${DISPLAY+x}" ]; then
+	if command -v st >> /dev/null; then
+		export VISUAL="st"
+	fi
+fi
+
 
 local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
 omg_ungit_prompt="%~ ${ret_status}%{$reset_color%}"

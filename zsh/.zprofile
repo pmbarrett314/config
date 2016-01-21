@@ -3,5 +3,4 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	return 1
 fi
 
-
 include $PERSONAL_CONFIG_DIR/sh/.profile
