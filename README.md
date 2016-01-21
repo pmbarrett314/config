@@ -1,4 +1,4 @@
-stuff
+config
 =====
 
 Rc's, ignores, etc.
