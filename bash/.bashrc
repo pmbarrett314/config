@@ -1,11 +1,16 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
+echo "rc"
+
+include $HOME/.bash_local
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 #arch expresses it this way.
 #[[ $- != *i* ]] && return
+
+
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -45,47 +50,12 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 
-export PROGRAMDIR="$STUFFDIR/program"
-export SETUPDIR="$STUFFDIR/setup"
-export BASHDIR="$PROGRAMDIR/bash"
-export PLATFORMDIR="$BASHDIR/platforms"
 
+include $PERSONAL_CONFIG_DIR/bash/.bash_prompt
+include $PERSONAL_CONFIG_DIR/bash/.bash_stack
 
-if [ -f $BASHDIR/.bash_myprompt ] && $MYPROMPT; then
-  . $BASHDIR/.bash_myprompt
-fi
-
-if [ -f $BASHDIR/.bash_stack ] && $MYSTACK; then
-    . $BASHDIR/.bash_stack
-fi
-
-if [ -f $BASHDIR/.bash_functions ]; then
-    . $BASHDIR/.bash_functions
-fi
-
-if [ -f $PLATFORMDIR/.bash_ros ] && $MYROS; then
-  . $PLATFORMDIR/.bash_ros
-fi
-
-if [ -f $PLATFORMDIR/.bash_android ] && $MYANDROID; then
-  . $PLATFORMDIR/.bash_android
-fi
-
-if [ -f $PLATFORMDIR/mac.bashrc ] && [[ "$OSTYPE" == "darwin"* ]]; then
-	. $PLATFORMDIR/mac.bashrc
-fi
-
-if [ -f $PLATFORMDIR/linux.bashrc ] && [[ "$OSTYPE" == "linux-gnu" ]]; then
-	. $PLATFORMDIR/linux.bashrc
-fi
-
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-if [ -f $BASHDIR/.bash_aliases ]; then
-    . $BASHDIR/.bash_aliases
+if [[ "$OSTYPE" == "darwin"* ]]; then
+	include $PERSONAL_CONFIG_DIR/bash/platform/mac.bashrc
 fi
 
 # enable programmable completion features (you don't need to enable

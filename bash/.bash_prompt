@@ -21,8 +21,6 @@ else
 	COLOR=$BLUE
 fi
 
-#PS1="${RESET}${YELLOW}\h${NORMAL} \`${SELECT}\` ${YELLOW}>${NORMAL} "
-
 didCD=true
 
 function didCDfun()
@@ -30,7 +28,6 @@ function didCDfun()
 if $didCD ;
 then
 echo -en "\x1B[1;32m"
-#\x1B used to be \e??
 pwd
 echo -en "\x1B[0m"
 fi
@@ -38,7 +35,6 @@ didCD=false
 }
 export PROMPT_COMMAND="didCDfun && history -a"
 export PS1="${RESET}${COLOR}[\t]${NORMAL} \`${SELECT}\` ${COLOR}\$${NORMAL}"
-#export PS1=' \[\033[0;36m\][\t] \$\[\033[0m\]'
 alias pushd='didCD=true&&pushd'
 alias popd='didCD=true&&popd'
 alias cd='didCD=true&&cd'

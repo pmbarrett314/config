@@ -10,7 +10,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 	# use textmate
 	if /usr/local/bin/mate -v>/dev/null; then
-		export EDITOR="/usr/local/bin/mate -w"
+
 		alias edit='open -a /usr/local/bin/mate'
 	fi;
 	

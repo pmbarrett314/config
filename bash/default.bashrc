@@ -1,16 +1,10 @@
-#put these in a file on each PC.
-export MYROS=false
-export MYANDROID=false
-export MYSTACK=true
-export MYPROMPT=true
-
-
-export STUFFDIR="$HOME/Code/stuff"
-
-if [ -f $STUFFDIR/program/bash/.bashrc ]; then
-    . $STUFFDIR/program/bash/.bashrc
+if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
+	echo "PERSONAL_CONFIG_DIR is not set"
+	return 1
 fi
 
-if [ -f ~/.bash_local ]; then
-    . ~/.bash_local
+if [ -z ${BASH_PROFILE_SOURCED+x} ] && [ -f $HOME/.bash_profile ]; then
+	. $HOME/.bash_profile
 fi
+
+include $PERSONAL_CONFIG_DIR/bash/.bashrc
