@@ -5,6 +5,8 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	return 1
 fi
 
+cd $PERSONAL_CONFIG_DIR && git submodule init && git submodule update
+
 . $PERSONAL_CONFIG_DIR/sh/setup.sh
 
 . $PERSONAL_CONFIG_DIR/zsh/setup.sh
