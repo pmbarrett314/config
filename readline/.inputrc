@@ -3,8 +3,6 @@
 # set to vi mode
 #set -o vi
 
-
-
 # no beeps
 #set bell-style none
 
