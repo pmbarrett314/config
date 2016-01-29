@@ -9,6 +9,6 @@ if [[  -a $HOME/.vimrc ]]; then
 	mv $HOME/.vimrc $HOME/.old_vimrc
 	echo "moving .vimrc to .old_vimrc"
 fi
-cp $PERSONAL_CONFIG_DIR/vim/.vimrc $HOME/.vimrc
+cp $PERSONAL_CONFIG_DIR/vim/default.vimrc $HOME/.vimrc
 
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
