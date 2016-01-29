@@ -60,7 +60,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 
 local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
 
-if [ -n "${SKIP_OH_MY_GIT+x}" ]; then
+if [ ! -n "${SKIP_OH_MY_GIT+x}" ]; then
 	antigen-bundle arialdomartini/oh-my-git
 
 	antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
