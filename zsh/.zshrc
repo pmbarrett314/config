@@ -3,6 +3,10 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	return 1
 fi
 
+
+
+include $PERSONAL_CONFIG_DIR/sh/.profile
+
 include $HOME/.zshrc.local
 
 
@@ -52,9 +56,29 @@ antigen bundle autopep8
 antigen bundle virtualenv
 antigen bundle sublime
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen-bundle arialdomartini/oh-my-git
 
-antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
+
+local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
+
+if [ -n "${SKIP_OH_MY_GIT+x}" ]; then
+	antigen-bundle arialdomartini/oh-my-git
+
+	antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
+
+	omg_ungit_prompt="%~ ${ret_status}%{$reset_color%}"
+	omg_second_line="%~ ${ret_status}%{$reset_color%}"
+
+	VIRTUAL_ENV_DISABLE_PROMPT=true
+	function omg_prompt_callback() {
+	    if [ -n "${VIRTUAL_ENV}" ]; then
+	        echo "\e[0;31m(`basename ${VIRTUAL_ENV}`)\e[0m "
+	    fi
+	}
+else
+	PROMPT="%~ ${ret_status}%{$reset_color%}"
+fi
+RPROMPT='%{$reset_color%}%T %{$fg_bold[white]%} %n@%m%{$reset_color%}'
+
 
 antigen apply
 
@@ -63,19 +87,6 @@ if [ -n "${DISPLAY+x}" ]; then
 		export VISUAL="st"
 	fi
 fi
-
-
-local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
-omg_ungit_prompt="%~ ${ret_status}%{$reset_color%}"
-omg_second_line="%~ ${ret_status}%{$reset_color%}"
-RPROMPT='%{$reset_color%}%T %{$fg_bold[white]%} %n@%m%{$reset_color%}'
-
-VIRTUAL_ENV_DISABLE_PROMPT=true
-function omg_prompt_callback() {
-    if [ -n "${VIRTUAL_ENV}" ]; then
-        echo "\e[0;31m(`basename ${VIRTUAL_ENV}`)\e[0m "
-    fi
-}
 
 source virtualenvwrapper.sh
 export WORKON_HOME=~/.virtualenvs
