@@ -5,8 +5,8 @@
     outgoing = log @{u}..
     out = outgoing
 [user]
-    email = you@example.com
-    name = Your Name
+    email = pmbarrett314@gmail.com
+    name = Paul Barrett
 
 [mergetool]
     prompt = false
