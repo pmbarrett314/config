@@ -20,7 +20,7 @@ if [[ $DIST == "Arch" ]]; then
 	pacman -S $PACKAGE_LIST
 fi
 
-elif [[ $DIST == "Ubuntu" ]]
+elif [[ $DIST == "Ubuntu" ]]; then
 	if [[ $CAN_SUDO == false ]]; then
 		echo "You need sudo privileges to do this"
 		return 1
