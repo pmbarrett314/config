@@ -8,8 +8,8 @@ source $PERSONAL_CONFIG_DIR/scripts/os_info.sh
 id -Gn $USER | grep '\bwheel\b' >> /dev/null
 CAN_SUDO=$?
 
-PACKAGE_LIST=(vim git zsh make)
-DIST=get_distro
+PACKAGE_LIST="vim git zsh make"
+DIST=`get_distro`
 
 if [[ $DIST == "Arch" ]]; then
 	if [[ $CAN_SUDO == false ]]; then
@@ -17,14 +17,14 @@ if [[ $DIST == "Arch" ]]; then
 		return 1
 	fi
 	
-	pacman -S $PACKAGE_LIST
+	sudo pacman -S $PACKAGE_LIST
 elif [[ $DIST == "Ubuntu" ]]; then
 	if [[ $CAN_SUDO == false ]]; then
 		echo "You need sudo privileges to do this"
 		return 1
 	fi
 
-	apt-get install $PACKAGE_LIST
+	sudo apt-get install $PACKAGE_LIST
 
 else 
 	echo $DIST
