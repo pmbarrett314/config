@@ -31,9 +31,13 @@ elif [ "${OS}" = "Linux" ] ; then
 		DIST='Mandrake'
 		PSUEDONAME=`cat /etc/mandrake-release | sed s/.*\(// | sed s/\)//`
 		REV=`cat /etc/mandrake-release | sed s/.*release\ // | sed s/\ .*//`
-	elif [ -f /etc/debian_version ] ; then
-		DIST="Debian `cat /etc/debian_version`"
-		REV=""
+	elif [ -f /etc/debian_version ] ; then	
+		if [ `awk -F= '/DISTRIB_ID/ {print $2}' /etc/lsb-release` = "Ubuntu" ]; then
+			DIST="Ubuntu"
+		else
+			DIST="Debian `cat /etc/debian_version`"
+			REV=""
+		fi
 	elif [ -f /etc/arch-release ] ; then
 		DIST="Arch"
 	fi
