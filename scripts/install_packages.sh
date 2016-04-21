@@ -8,7 +8,7 @@ source $PERSONAL_CONFIG_DIR/scripts/os_info.sh
 id -Gn $USER | grep '\bwheel\b' >> /dev/null
 CAN_SUDO=$?
 
-PACKAGE_LIST=(vim git zsh)
+PACKAGE_LIST=(vim git zsh make)
 DIST=get_distro
 
 if [[ $DIST == "Arch" ]]; then
