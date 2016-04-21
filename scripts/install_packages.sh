@@ -25,6 +25,9 @@ elif [[ $DIST == "Ubuntu" ]]; then
 	fi
 
 	apt-get install $PACKAGE_LIST
+
+else 
+	echo $DIST
 fi
 
 if command -v pip >> /dev/null && [[ $CAN_SUDO == true ]]; then
