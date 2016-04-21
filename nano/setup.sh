@@ -11,3 +11,5 @@ if [ ! -f $HOME/.nanorc ]; then
 	touch $HOME/.nanorc
 fi
 echo "include $HOME/.nano/syntax/ALL.nanorc" >> ~/.nanorc
+
+cd $PERSONAL_CONFIG_DIR
