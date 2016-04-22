@@ -39,15 +39,17 @@ alias pushd='didCD=true&&pushd'
 alias popd='didCD=true&&popd'
 alias cd='didCD=true&&cd'
 
-# zsh style right prompt support :)
-# https://gist.github.com/bobthecow/1285149
+if [ ! -n "${SKIP_BASH_RPROMPT+x}" ]; then
+	# zsh style right prompt support :)
+	# https://gist.github.com/bobthecow/1285149
 
-__rprompt() {
-    printf "%*s\r" "$COLUMNS" "$(eval echo "$RPROMPT")"
-}
+	__rprompt() {
+	    printf "%*s\r" "$COLUMNS" "$(eval echo "$RPROMPT")"
+	}
 
-if [[ ! $PROMPT_COMMAND =~ __rprompt ]]; then
-    export PROMPT_COMMAND="__rprompt; ${PROMPT_COMMAND:-:}"
+	if [[ ! $PROMPT_COMMAND =~ __rprompt ]]; then
+	    export PROMPT_COMMAND="__rprompt; ${PROMPT_COMMAND:-:}"
+	fi
+
+	export RPROMPT='$(hostname -s)'
 fi
-
-export RPROMPT='$(hostname -s)'
