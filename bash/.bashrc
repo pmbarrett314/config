@@ -3,12 +3,15 @@
 # for examples
 include $HOME/.bash_local
 
+
+include $PERSONAL_CONFIG_DIR/bash/.bash_profile 
+
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 #arch expresses it this way.
 #[[ $- != *i* ]] && return
 
-
+include $PERSONAL_CONFIG_DIR/sh/.rc
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options

@@ -1,8 +1,6 @@
 export PERSONAL_CONFIG_DIR="$HOME/code/config"
-export BASH_PROFILE_SOURCED=1
 
-include () {
-    [[ -f "$1" ]] && source "$1"
-}
+INCLUDE="$PERSONAL_CONFIG_DIR/code/config/sh/.include"
+[[ -f $INCLUDE ]] && source "$INCLUDE"
 
 include $PERSONAL_CONFIG_DIR/bash/.bash_profile 

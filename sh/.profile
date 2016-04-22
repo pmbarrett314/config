@@ -4,5 +4,4 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 fi
 
 include $PERSONAL_CONFIG_DIR/sh/.env
-include $PERSONAL_CONFIG_DIR/sh/.functions
-include $PERSONAL_CONFIG_DIR/sh/.aliases
+include $PERSONAL_CONFIG_DIR/sh/.rc

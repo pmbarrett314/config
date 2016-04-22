@@ -3,8 +3,7 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	return 1
 fi
 
-if [ -z ${BASH_PROFILE_SOURCED+x} ] && [ -f $HOME/.bash_profile ]; then
-	. $HOME/.bash_profile
-fi
+INCLUDE="$PERSONAL_CONFIG_DIR/code/config/sh/.include"
+[[ -f $INCLUDE ]] && source "$INCLUDE"
 
 include $PERSONAL_CONFIG_DIR/bash/.bashrc
