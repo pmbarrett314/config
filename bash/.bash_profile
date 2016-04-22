@@ -3,7 +3,7 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	return 1
 fi
 
-if [ -n ${BASH_PROFILE_SOURCED+x} ]; then
+if [ -n "${BASH_PROFILE_SOURCED+x}" ]; then
 	return
 fi
 

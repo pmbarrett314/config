@@ -3,7 +3,7 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	return 1
 fi
 
-INCLUDE="$PERSONAL_CONFIG_DIR/code/config/sh/.include"
+INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
 [[ -f $INCLUDE ]] && source "$INCLUDE"
 
 include $PERSONAL_CONFIG_DIR/bash/.bashrc
