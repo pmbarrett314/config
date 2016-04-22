@@ -7,9 +7,11 @@ include $HOME/.bash_local
 include $PERSONAL_CONFIG_DIR/bash/.bash_profile 
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
-#arch expresses it this way.
-#[[ $- != *i* ]] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 
 include $PERSONAL_CONFIG_DIR/sh/.rc
 
