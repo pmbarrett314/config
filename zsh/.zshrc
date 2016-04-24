@@ -4,8 +4,11 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 fi
 
 
+export ANTIGEN_PLUGINS=(sudo git pip pyton autopep8 virtualenv sublime zsh-users/zsh-syntax-highlighting)
 
-include $PERSONAL_CONFIG_DIR/sh/.profile
+
+
+include $PERSONAL_CONFIG_DIR/sh/.rc
 
 include $HOME/.zshrc.local
 
@@ -48,14 +51,7 @@ source $PERSONAL_CONFIG_DIR/zsh/antigen/antigen.zsh
 
 antigen use oh-my-zsh
 
-antigen bundle sudo
-antigen bundle git
-antigen bundle pip
-antigen bundle python
-antigen bundle autopep8
-antigen bundle virtualenv
-antigen bundle sublime
-antigen bundle zsh-users/zsh-syntax-highlighting
+for PLUGIN in ANTIGEN_PLUGINS; do antigen bundle $PLUGIN; done
 
 
 local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
