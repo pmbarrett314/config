@@ -1,7 +1,4 @@
-if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
-	echo "PERSONAL_CONFIG_DIR is not set"
-	return 1
-fi
+export PERSONAL_CONFIG_DIR="$HOME/code/config"
 
 INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
 [[ -f $INCLUDE ]] && source "$INCLUDE"

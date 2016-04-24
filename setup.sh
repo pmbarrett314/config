@@ -17,4 +17,6 @@ cd $PERSONAL_CONFIG_DIR && git submodule init && git submodule update
 
 . $PERSONAL_CONFIG_DIR/vim/setup.sh
 
+. $PERSONAL_CONFIG_DIR/git/setup.sh
+
 . $PERSONAL_CONFIG_DIR/nano/setup.sh
