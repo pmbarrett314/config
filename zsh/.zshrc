@@ -4,7 +4,7 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 fi
 
 
-export ANTIGEN_PLUGINS=(sudo git pip pyton autopep8 virtualenv sublime zsh-users/zsh-syntax-highlighting)
+ANTIGEN_PLUGINS=(sudo git pip pyton autopep8 virtualenv sublime zsh-users/zsh-syntax-highlighting)
 
 
 
