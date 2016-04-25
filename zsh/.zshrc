@@ -6,7 +6,7 @@ fi
 
 ANTIGEN_PLUGINS=(sudo git pip pyton autopep8 virtualenv sublime zsh-users/zsh-syntax-highlighting)
 
-funtion add_to_antigen_plugins(){
+function add_to_antigen_plugins(){
 	ANTIGEN_PLUGINS+=( $1 )
 }
 
