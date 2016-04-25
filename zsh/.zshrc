@@ -3,8 +3,8 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	return 1
 fi
 
-
-export ANTIGEN_PLUGINS="sudo:git:pip:python:autopep8:virtualenv:sublime:zsh-users/zsh-syntax-highlighting"
+#some defaults
+export ANTIGEN_PLUGINS="sudo:git:pip:python:autopep8:virtualenv:zsh-users/zsh-syntax-highlighting"
 
 function add_to_antigen_plugins(){
 	ANTIGEN_PLUGINS=$ANTIGEN_PLUGINS|sed 's/\:$1\://'
@@ -12,7 +12,9 @@ function add_to_antigen_plugins(){
 }
 
 function remove_from_antigen_plugins(){
-        ANTIGEN_PLUGINS=$ANTIGEN_PLUGINS|sed 's/\:$1\://'
+        ANTIGEN_PLUGINS=$ANTIGEN_PLUGINS|sed 's/:$1:/:/'
+        ANTIGEN_PLUGINS=$ANTIGEN_PLUGINS|sed 's/$1://'
+        ANTIGEN_PLUGINS=$ANTIGEN_PLUGINS|sed 's/:$1//'
 }
 
 
