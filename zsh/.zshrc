@@ -12,9 +12,9 @@ function add_to_antigen_plugins(){
 }
 
 function remove_from_antigen_plugins(){
-	export ANTIGEN_PLUGINS=echo "$ANTIGEN_PLUGINS"|sed 's/:$1:/:/'
-	export ANTIGEN_PLUGINS=echo "$ANTIGEN_PLUGINS"|sed 's/:$1/:/'
-	export ANTIGEN_PLUGINS=echo "$ANTIGEN_PLUGINS"|sed 's/$1:/:/'
+	ANTIGEN_PLUGINS=echo "$ANTIGEN_PLUGINS"|sed 's/:$1:/:/'
+	ANTIGEN_PLUGINS=echo "$ANTIGEN_PLUGINS"|sed 's/:$1/:/'
+	ANTIGEN_PLUGINS=echo "$ANTIGEN_PLUGINS"|sed 's/$1:/:/'
 }
 
 
