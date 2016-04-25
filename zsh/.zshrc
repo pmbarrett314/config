@@ -4,15 +4,17 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 fi
 
 
-ANTIGEN_PLUGINS=(sudo git pip pyton autopep8 virtualenv sublime zsh-users/zsh-syntax-highlighting)
+export ANTIGEN_PLUGINS="sudo:git:pip:python:autopep8:virtualenv:sublime:zsh-users/zsh-syntax-highlighting"
 
 function add_to_antigen_plugins(){
-	ANTIGEN_PLUGINS+=( $1 )
+	ANTIGEN_PLUGINS=ANTIGEN_PLUGINS|sed 's/\:$1\://'
+	ANTIGEN_PLUGINS+=":$1"
 }
 
 function remove_from_antigen_plugins(){
-	ANTIGEN_PLUGINS=("${(@)ANTIGEN_PLUGINS:#$1}")
+        ANTIGEN_PLUGINS=ANTIGEN_PLUGINS|sed 's/\:$1\://'
 }
+
 
 include $PERSONAL_CONFIG_DIR/sh/.rc
 
@@ -57,7 +59,7 @@ source $PERSONAL_CONFIG_DIR/zsh/antigen/antigen.zsh
 
 antigen use oh-my-zsh
 
-for PLUGIN in ANTIGEN_PLUGINS; do antigen bundle $PLUGIN; done
+for PLUGIN in $(echo $ANTIGEN_PLUGINS | sed "s/:/ /g"); do antigen bundle $PLUGIN; done
 
 
 local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
