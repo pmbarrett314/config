@@ -85,7 +85,7 @@ if [ ! -n "${SKIP_OH_MY_GIT+x}" ]; then
 	antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
 	RPROMPT='%{$reset_color%}%T %{$fg_bold[white]%} %n@%m%{$reset_color%}'
 else
-	antigen theme $PERSONAL_CONFIG_DIR/zsh/pmbarrett314 --no-local-clone
+	antigen theme $PERSONAL_CONFIG_DIR/zsh --no-local-clone
 fi
 
 
