@@ -71,10 +71,6 @@ for PLUGIN in $(echo $ANTIGEN_PLUGINS | sed "s/:/ /g"); do antigen bundle $PLUGI
 local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
 
 if [ ! -n "${SKIP_OH_MY_GIT+x}" ]; then
-	antigen-bundle arialdomartini/oh-my-git
-
-	antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
-
 	omg_ungit_prompt="%~ ${ret_status}%{$reset_color%}"
 	omg_second_line="%~ ${ret_status}%{$reset_color%}"
 
@@ -84,10 +80,14 @@ if [ ! -n "${SKIP_OH_MY_GIT+x}" ]; then
 	        echo "\e[0;31m(`basename ${VIRTUAL_ENV}`)\e[0m "
 	    fi
 	}
+
+	antigen-bundle arialdomartini/oh-my-git
+	antigen theme arialdomartini/oh-my-git-themes oppa-lana-style
+	RPROMPT='%{$reset_color%}%T %{$fg_bold[white]%} %n@%m%{$reset_color%}'
 else
-	PROMPT="%~ ${ret_status}%{$reset_color%}"
+	antigen theme pmbarrett314/config zsh/pmbarrett314
 fi
-RPROMPT='%{$reset_color%}%T %{$fg_bold[white]%} %n@%m%{$reset_color%}'
+
 
 
 antigen apply
