@@ -12,13 +12,12 @@ function add_to_antigen_plugins(){
 }
 
 function remove_from_antigen_plugins(){
-	export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS"|sed 's/:$1:/:/')
  	escaped_lhs=$(printf '%s\n' ":$1:" | sed 's:[][\/.^$*]:\\&:g')
     export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS"|sed "s/$escaped_lhs/:/")
     escaped_lhs=$(printf '%s\n' ":$1" | sed 's:[][\/.^$*]:\\&:g')
     export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS"|sed "s/$escaped_lhs/:/")
     escaped_lhs=$(printf '%s\n' "$1:" | sed 's:[][\/.^$*]:\\&:g')
-    exprt ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS"|sed "s/$escaped_lhs/:/")
+    export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS"|sed "s/$escaped_lhs/:/")
 
 }
 
