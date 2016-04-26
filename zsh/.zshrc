@@ -68,9 +68,10 @@ antigen use oh-my-zsh
 for PLUGIN in $(echo $ANTIGEN_PLUGINS | sed "s/:/ /g"); do antigen bundle $PLUGIN; done
 
 
-local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
+
 
 if [ ! -n "${SKIP_OH_MY_GIT+x}" ]; then
+	local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
 	omg_ungit_prompt="%~ ${ret_status}%{$reset_color%}"
 	omg_second_line="%~ ${ret_status}%{$reset_color%}"
 
