@@ -14,6 +14,6 @@ function exit_smiley() {
 }
 
 local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
-PROMPT="\$(virtualenv_info)%~ \$(exit_smiley)%{$reset_color%}"
+PROMPT="\$(virtualenv_info)%* \$(exit_smiley)%{$reset_color%} $fg[cyan]%#%{$reset_color%}"
 RPROMPT='%{$reset_color%}%T %{$fg_bold[white]%} %n@%m%{$reset_color%}'
 
