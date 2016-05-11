@@ -15,7 +15,7 @@ CAN_SUDO=$?
 DIST=`get_distro`
 
 if [[ $DIST == "Arch" ]]; then
-	PACKAGE_LIST="vim git zsh make"
+	PACKAGE_LIST="vim git zsh make python-pip"
 	if [[ $CAN_SUDO == false ]]; then
 		echo "You need sudo privileges to do this"
 		return 1
