@@ -3,9 +3,6 @@
 # for examples
 include $HOME/.bash_local
 
-
-include $PERSONAL_CONFIG_DIR/bash/.bash_profile 
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
