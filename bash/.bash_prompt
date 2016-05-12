@@ -8,31 +8,31 @@ NORMAL="\[\033[0m\]"
 RED="\[\033[31;1m\]"
 GREEN="\[\033[32;1m\]"
 YELLOW="\[\033[33;1m\]"
+MAGENTA="\[\033[35;1m\]"
 WHITE="\[\033[37;1m\]"
 BLUE="\[\033[36;1m\]"
-SMILEY="${WHITE}:)${NORMAL}"
+SMILEY="${GREEN}:)${NORMAL}"
 FROWNY="${RED}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 
 CURRENTUSER=`id -un`
 if [ "$CURRENTUSER" = "root" ]; then
-	COLOR=$RED
+    COLOR=$RED
 else
-	COLOR=$BLUE
+    COLOR=$BLUE
 fi
 
 didCD=true
 
-function didCDfun()
-{
-if $didCD ;
-then
-echo -en "\x1B[1;32m"
-pwd
-echo -en "\x1B[0m"
-fi
-didCD=false
+function didCDfun() {
+    if $didCD ;then
+        echo -en "\x1B[1;35m"
+        pwd
+        echo -en "\x1B[0m"
+    fi
+    didCD=false
 }
+
 export PROMPT_COMMAND="didCDfun && history -a"
 export PS1="${RESET}${COLOR}[\t]${NORMAL} \`${SELECT}\` ${COLOR}\$${NORMAL}"
 alias pushd='didCD=true&&pushd'

@@ -16,9 +16,11 @@ function exit_smiley() {
 DID_CD=true
 
 function precmd() {
+    print -n -P "%{$fg_bold[magenta]%}"
     if "$DID_CD"; then
         pwd
     fi
+    print -n -P "%{$reset_color%}"
     DID_CD=false
 }
 
@@ -27,6 +29,5 @@ function chpwd() {
 }
 
 local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
-PROMPT="\$(virtualenv_info)%* \$(exit_smiley)%{$reset_color%} $fg[cyan]%#%{$reset_color%}"
+PROMPT="\$(virtualenv_info)%{$fg_bold[cyan]%}[%*]%{$reset_color%} \$(exit_smiley)%{$reset_color%} $fg[cyan]%#%{$reset_color%}"
 RPROMPT='%{$reset_color%}%{$fg_bold[white]%} %n@%m%{$reset_color%}'
-
