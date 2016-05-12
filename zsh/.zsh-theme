@@ -1,4 +1,4 @@
-function virtualenv_info {
+function virtualenv_info() {
     previous_exit=$?
     [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
     return previous_exit
@@ -11,6 +11,19 @@ function exit_smiley() {
     else
         echo "%{$fg_bold[red]%}:( %s"
     fi
+}
+
+DID_CD=true
+
+function precmd() {
+    if "$DID_CD"; then
+        pwd
+    fi
+    DID_CD=false
+}
+
+function chpwd() {
+    DID_CD=true
 }
 
 local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
