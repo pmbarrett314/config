@@ -7,9 +7,9 @@ function virtualenv_info {
 function exit_smiley() {
     exit_status=`print -P "%?"`
     if [[ exit_status -eq 0 ]]; then
-	echo "%{$fg_bold[green]%}:%)"
+        echo "%{$fg_bold[green]%}:%)"
     else
-	echo "%{$fg_bold[red]%}:( %s"
+        echo "%{$fg_bold[red]%}:( %s"
     fi
 }
 
