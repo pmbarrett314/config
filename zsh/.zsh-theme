@@ -9,7 +9,7 @@ function exit_smiley() {
     if [[ exit_status -eq 0 ]]; then
         echo "%{$fg_bold[green]%}:%)"
     else
-        echo "%{$fg_bold[red]%}:( %s"
+        echo "%{$fg_bold[red]%}:("
     fi
 }
 
@@ -29,5 +29,5 @@ function chpwd() {
 }
 
 local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
-PROMPT="\$(virtualenv_info)%{$fg_bold[cyan]%}[%*]%{$reset_color%} \$(exit_smiley)%{$reset_color%} $fg[cyan]%#%{$reset_color%}"
+PROMPT="\$(virtualenv_info)%{$fg_bold[cyan]%}[%*]%{$reset_color%} \$(exit_smiley)%{$reset_color%} %{$fg[cyan]%}%#%{$reset_color%}"
 RPROMPT='%{$reset_color%}%{$fg_bold[white]%} %n@%m%{$reset_color%}'
