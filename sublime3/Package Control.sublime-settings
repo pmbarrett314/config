@@ -5,6 +5,19 @@
 	],
 	"installed_packages":
 	[
+		"AdvancedNewFile",
+		"Anaconda",
+		"AutoPEP8",
+		"Diffy",
 		"Dotfiles Syntax Highlighting"
+		"Git",
+		"GitGutter",
+		"Local History",
+		"Package Control",
+		"Python 3",
+		"requirementstxt",
+		"SideBarEnhancements",
+		"SublimeLinter",
+		"WordCount"
 	]
 }

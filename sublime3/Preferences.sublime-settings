@@ -3,5 +3,8 @@
 	[
 		"Vintage"
 	],
-    "translate_tabs_to_spaces": true
+    "translate_tabs_to_spaces": true,
+    "color_scheme": "Packages/User/SublimeLinter/Monokai (SL).tmTheme",
+	"font_face": "Inconsolata",
+	"font_size": 11,
 }
