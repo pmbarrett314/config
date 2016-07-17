@@ -26,6 +26,8 @@ include $PERSONAL_CONFIG_DIR/sh/.rc
 
 include $HOME/.zshrc.local
 
+include $PERSONAL_CONFIG_DIR/scripts/os_info.sh 
+
 
 setopt NO_BEEP
 setopt AUTO_PUSHD
@@ -107,6 +109,13 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 alias back="pushd"
 alias pacman='sudo pacman'
 
-eval "$($(echo -n "dGhlZnVjayAtLWFsaWFzIG9vcHM=" | base64 -d))"
+
+OS=`get_os`
+
+if [[ $OS = "macos" ]] ; then
+	eval "$($(echo -n "dGhlZnVjayAtLWFsaWFzIG9vcHM=" | base64 -D))"
+else	
+	eval "$($(echo -n "dGhlZnVjayAtLWFsaWFzIG9vcHM=" | base64 -d))"
+fi
 
 bindkey -e

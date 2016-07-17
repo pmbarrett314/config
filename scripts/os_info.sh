@@ -44,11 +44,16 @@ elif [ "${OS}" = "Linux" ] ; then
 	if [ -f /etc/UnitedLinux-release ] ; then
 		DIST="${DIST}[`cat /etc/UnitedLinux-release | tr "\n" ' ' | sed s/VERSION.*//`]"
 	fi
-	
-	OSSTR="${OS} ${DIST} ${REV}(${PSUEDONAME} ${KERNEL} ${MACH})"
 
+	OSSTR="${OS} ${DIST} ${REV}(${PSUEDONAME} ${KERNEL} ${MACH})"
+elif [ "${OS}" = "Darwin" ] ; then
+	OS=macos
 fi
 
 get_distro() {
 	echo ${DIST}
+}
+
+get_os() {
+	echo ${OS}
 }
