@@ -21,4 +21,4 @@ cd $PERSONAL_CONFIG_DIR && git submodule init && git submodule update
 
 . $PERSONAL_CONFIG_DIR/nano/setup.sh
 
-. $PERSONAL_CONFIG_DIR/inputrc/setup.sh
+. $PERSONAL_CONFIG_DIR/readline/setup.sh
