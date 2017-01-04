@@ -41,9 +41,9 @@ alias ~="cd ~"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	alias ls='ls -G'
-	alias dir='ls -lAFT'
+	alias dir='ls -lhAFT'
 else
-	alias dir='ls -lAF'
+	alias dir='ls -lhAF'
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "cygwin" ]]; then
