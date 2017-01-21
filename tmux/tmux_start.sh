@@ -21,7 +21,7 @@ do
             tmux -2 new -s "$SESSION_NAME"
             break
             ;;
-        "BASH")
+        "ZSH")
             zsh -l -i
             break;;
         *) 
