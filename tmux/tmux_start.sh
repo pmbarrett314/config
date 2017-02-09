@@ -9,7 +9,12 @@ tmux has-session -t _default || tmux new-session -s _default -d
 
 # present menu for user to choose which workspace to open
 PS3="Please choose your session: "
-options=($(tmux list-sessions -F "#S") "NEW SESSION" "ZSH")
+if command -v tmuxinator >> /dev/null; then
+    tmuxinators=`tmuxinator list | tail -n +2` 
+else
+    tmuxinators=""
+fi
+options=($(tmux list-sessions -F "#S") "NEW SESSION" "ZSH" $tmuxinators)
 echo "Available sessions"
 echo "------------------"
 echo " "
@@ -25,7 +30,11 @@ do
             zsh -l -i
             break;;
         *) 
-            tmux -2 attach-session -t $opt 
+            if [[ " ${tmuxinators[*]} " == *" $opt "* ]]; then
+                    tmuxinator start $opt
+            else
+                tmux -2 attach-session -t $opt 
+            fi
             break
             ;; 
     esac
