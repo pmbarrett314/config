@@ -90,8 +90,6 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 _comp_options+=(globdots)
 
 alias back="pushd"
-alias pacman='sudo pacman'
-
 
 OS=`get_os`
 
