@@ -61,9 +61,11 @@ zstyle :compinstall filename '$PERSONAL_CONFIG_DIR/zsh/.zshrc'
 autoload -Uz compinit
 compinit -d $HOME/.zcompdump
 # End of lines added by compinstall
+
 export ANTIGEN_COMPDUMPFILE=$HOME/.zcompdump
 
 source $PERSONAL_CONFIG_DIR/zsh/antigen/antigen.zsh
+
 
 antigen use oh-my-zsh
 
@@ -124,6 +126,7 @@ fi
 
 
 
+
 antigen apply
 
 if [ -n "${DISPLAY+x}" ]; then
@@ -136,6 +139,7 @@ source virtualenvwrapper.sh
 export WORKON_HOME=~/.virtualenvs
 
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+_comp_options+=(globdots)
 
 alias back="pushd"
 alias pacman='sudo pacman'
