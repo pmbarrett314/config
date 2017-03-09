@@ -5,19 +5,35 @@ call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
 
-Plugin 'rust-lang/rust.vim'
+Plugin 'sheerun/vim-polyglot'
 
-Plugin 'phildawes/racer'
+Plugin 'scrooloose/syntastic'
 
-Plugin 'ervandew/supertab'
+Plugin 'Valloric/YouCompleteMe'
+
+" Plugin 'rust-lang/rust.vim'
+
+" Plugin 'phildawes/racer'
+
+" Plugin 'ervandew/supertab'
 
 call vundle#end()
 filetype plugin indent on
 
 set hidden
-let g:racer_cmd = "/Users/paul/.vim/bundle/racer/target/release/racer"
+" let g:racer_cmd = "/Users/paul/.vim/bundle/racer/target/release/racer"
 
 syntax on
+
+set laststatus=2
+
+set t_Co=256
+
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
+
+
 set number
 set tabstop=4
 set shiftwidth=4
