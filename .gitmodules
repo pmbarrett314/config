@@ -4,3 +4,6 @@
 [submodule "nano/nanorc"]
 	path = nano/nanorc
 	url = https://github.com/nanorc/nanorc
+[submodule "os-info"]
+	path = os-info
+	url = git@github.com:pmbarrett314/os-info
