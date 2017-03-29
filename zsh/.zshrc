@@ -26,7 +26,7 @@ include $PERSONAL_CONFIG_DIR/sh/.rc
 
 include $HOME/.zshrc.local
 
-include $PERSONAL_CONFIG_DIR/scripts/os_info.sh 
+include $PERSONAL_CONFIG_DIR/os-info/os_info.sh 
 
 
 setopt NO_BEEP

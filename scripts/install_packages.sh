@@ -6,7 +6,7 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 fi
 
 
-source $PERSONAL_CONFIG_DIR/scripts/os_info.sh 
+source $PERSONAL_CONFIG_DIR/os-info/os_info.sh 
 
 id -Gn $USER | grep '\bwheel\b' >> /dev/null
 CAN_SUDO=$?
