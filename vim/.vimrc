@@ -29,9 +29,17 @@ set laststatus=2
 
 set t_Co=256
 
-python3 from powerline.vim import setup as powerline_setup
-python3 powerline_setup()
-python3 del powerline_setup
+let os = system("source $PERSONAL_CONFIG_DIR/os-info/os_info.sh && get_os")
+
+if os=~"linux"
+	python3 from powerline.vim import setup as powerline_setup
+	python3 powerline_setup()
+	python3 del powerline_setup
+" elseif os=~"macos"
+" 	python from powerline.vim import setup as powerline_setup
+"	python powerline_setup()
+"	python del powerline_setup
+endif
 
 
 set number
