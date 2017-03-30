@@ -6,3 +6,5 @@ shellcheck sh/.include
 shellcheck sh/.functions
 shellcheck sh/.profile
 shellcheck sh/.rc
+shellcheck sh/default.profile
+shellcheck sh/setup.sh
