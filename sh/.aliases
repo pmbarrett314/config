@@ -1,6 +1,17 @@
+#!/bin/sh
+
+if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
+	echo "PERSONAL_CONFIG_DIR is not set"
+	return 1
+fi
+
+include "$PERSONAL_CONFIG_DIR/os-info/os_info.sh"
+
+OS=$(get_os)
+
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    (test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)") || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
@@ -15,8 +26,6 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-
-alias cdir='cd "$@" && dir .'
 
 #alias .="pwd"
 alias ..="cd .."
@@ -39,14 +48,14 @@ alias ~="cd ~"
 # T does tabsize on cyg/rpiarch
 # --time-style is similar on cyg/rpiarch
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [ "$OS" = "macos" ]; then
 	alias ls='ls -G'
 	alias dir='ls -lhAFT'
 else
 	alias dir='ls -lhAF'
 fi
 
-if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "cygwin" ]]; then
+if [ "$OS" = "Linux" ] || [ "$OS" = "cygwin" ]; then
 	alias ls='ls --color=auto'
 fi
 
@@ -67,21 +76,21 @@ alias l='ls -CF'
 # f tries to remove without prompt, regardless of permissions or whether the file exits mac
 # f changes permissions if necessary rpiarch
 # f ignores nonexistent and never prompts cyg
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [ "$OS" = "macos" ]; then
 	alias del='rm -iP'
 	alias zap='rm -iP'
 	alias deltree='rm -rfd'
 	alias deltreesecure='rm -rfPd'
 fi
 
-if [[ "$OSTYPE" == "linux-gnu"* || "$OSTYPE" == "cygwin" ]]; then
+if [ "$OS" = "Linux" ] || [ "$OS" = "cygwin" ]; then
 	alias del='rm -i'
 	alias zap='rm -i'
 	alias deltree='rm -rf'
 	alias deltreesecure='rm -rf'
 fi
 
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+if [ "$OS" = "Linux" ]; then
 	alias deltree='rm -rfd'
 	alias deltreesecure='rm -rfPd'
 fi
