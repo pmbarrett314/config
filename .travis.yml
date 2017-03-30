@@ -19,3 +19,4 @@ before_install:
 
 script:
   - bash test.sh
+  - shellcheck sh/.include

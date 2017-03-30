@@ -1,3 +1,6 @@
+#!/bin/sh
+
 include () {
-    [[ -f "$1" ]] && source "$1"
+	# shellcheck source=/dev/null
+    [ -f "$1" ] && . "$1"
 }
