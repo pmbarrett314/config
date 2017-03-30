@@ -1,11 +1,23 @@
-if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
+#!/bin/sh
+
+if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
 	echo "PERSONAL_CONFIG_DIR is not set"
 	return 1
 fi
 
-include $PERSONAL_CONFIG_DIR/os-info/os_info.sh
+# shellcheck source=/dev/null
+include "$PERSONAL_CONFIG_DIR/os-info/os_info.sh"
 
-nameterm()
-{
-echo -n -e "\033]0;$@\007"
+nameterm(){
+	printf "\033]0;%s\007" "$@"
+}
+
+run_base64(){
+	OS=$(get_os)
+
+	if [ "$OS" = "macos" ] ; then
+		eval "$(printf "%s" "$1" | base64 -D)"
+	else	
+		eval "$(printf "%s" "$1" | base64 -d))"
+	fi
 }
