@@ -13,3 +13,4 @@ shellcheck nano/setup.sh
 shellcheck readline/setup.sh 
 shellcheck vim/setup.sh 
 shellcheck setup.sh
+shellcheck scripts/install_packages.sh

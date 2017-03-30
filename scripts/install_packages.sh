@@ -1,50 +1,45 @@
 #! /bin/sh
 
-if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
+if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
 	echo "PERSONAL_CONFIG_DIR is not set"
 	return 1
 fi
 
+# shellcheck source=/dev/null
+. "$PERSONAL_CONFIG_DIR/os-info/os_info.sh" 
 
-source $PERSONAL_CONFIG_DIR/os-info/os_info.sh 
-
-id -Gn $USER | grep '\bwheel\b' >> /dev/null
+id -Gn "$USER" | grep '\bwheel\b' >> /dev/null
 CAN_SUDO=$?
 
 
-DIST=`get_distro`
+DIST=$(get_distro)
 
-if [[ $DIST == "Arch" ]]; then
+if [ "$DIST" = "Arch" ]; then
 	PACKAGE_LIST="vim git zsh make python-pip"
-	if [[ $CAN_SUDO == false ]]; then
+	if [ "$CAN_SUDO" = false ]; then
 		echo "You need sudo privileges to do this"
 		return 1
 	fi
 	
-	sudo pacman -S $PACKAGE_LIST
-elif [[ $DIST == "Ubuntu" ]]; then
+	sudo pacman -S "$PACKAGE_LIST"
+elif [ "$DIST" = "Ubuntu" ]; then
 	PACKAGE_LIST="vim git zsh make python-pip"
-	if [[ $CAN_SUDO == false ]]; then
+	if [ "$CAN_SUDO" = false ]; then
 		echo "You need sudo privileges to do this"
 		return 1
 	fi
 
-	sudo apt-get install $PACKAGE_LIST
+	sudo apt-get install "$PACKAGE_LIST"
 
 else 
-	echo $DIST
+	echo "Unknown distro: $DIST"
+	echo "Not installing packages"
 fi
 
-if command -v pip >> /dev/null && [[ $CAN_SUDO == true ]]; then
+if command -v pip >> /dev/null && [ $CAN_SUDO = true ]; then
 	sudo pip install virtualenvwrapper
 
-	OS=`get_os`
-
-	if [[ $OS = "macos" ]] ; then
-		eval "$($(echo -n "c3VkbyBwaXAgaW5zdGFsbCB0aGVmdWNrCg==" | base64 -D))"
-	else	
-		eval "$($(echo -n "c3VkbyBwaXAgaW5zdGFsbCB0aGVmdWNrCg==" | base64 -d))"
-	fi
+	run_base64 "c3VkbyBwaXAgaW5zdGFsbCB0aGVmdWNrCg=="
 fi
 
 
