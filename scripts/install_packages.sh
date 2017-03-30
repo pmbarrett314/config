@@ -36,7 +36,7 @@ else
 	echo "Not installing packages"
 fi
 
-if command -v pip >> /dev/null && [ $CAN_SUDO = true ]; then
+if command -v pip >> /dev/null 2>&1 && [ $CAN_SUDO = true ]; then
 	sudo pip install virtualenvwrapper
 
 	run_base64 "c3VkbyBwaXAgaW5zdGFsbCB0aGVmdWNrCg=="

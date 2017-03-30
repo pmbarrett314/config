@@ -13,17 +13,25 @@ cd "$PERSONAL_CONFIG_DIR" && git submodule init && git submodule update
 # shellcheck source=/dev/null
 . "$PERSONAL_CONFIG_DIR/sh/setup.sh"
 
-# shellcheck source=/dev/null
-. "$PERSONAL_CONFIG_DIR/zsh/setup.sh"
+if command -v zsh >/dev/null 2>&1; then
+	# shellcheck source=/dev/null
+	. "$PERSONAL_CONFIG_DIR/zsh/setup.sh"
+fi
 
-# shellcheck source=/dev/null
-. "$PERSONAL_CONFIG_DIR/bash/setup.sh"
+if command -v bash >/dev/null 2>&1; then
+	# shellcheck source=/dev/null
+	. "$PERSONAL_CONFIG_DIR/bash/setup.sh"
+fi
 
-# shellcheck source=/dev/null
-. "$PERSONAL_CONFIG_DIR/vim/setup.sh"
+if command -v vim >/dev/null 2>&1; then
+	# shellcheck source=/dev/null
+	. "$PERSONAL_CONFIG_DIR/vim/setup.sh"
+fi
 
-# shellcheck source=/dev/null
-. "$PERSONAL_CONFIG_DIR/git/setup.sh"
+if command -v git >/dev/null 2>&1; then
+	# shellcheck source=/dev/null
+	. "$PERSONAL_CONFIG_DIR/git/setup.sh"
+fi
 
 # shellcheck source=/dev/null
 . "$PERSONAL_CONFIG_DIR/nano/setup.sh" || return 1
