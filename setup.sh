@@ -15,7 +15,7 @@ cd "$PERSONAL_CONFIG_DIR" && git submodule init && git submodule update
 
 if command -v zsh >/dev/null 2>&1; then
 	# shellcheck source=/dev/null
-	. "$PERSONAL_CONFIG_DIR/zsh/setup.sh"
+	. "$PERSONAL_CONFIG_DIR/zsh/setup.zsh"
 fi
 
 if command -v bash >/dev/null 2>&1; then
