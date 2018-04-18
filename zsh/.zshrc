@@ -71,8 +71,7 @@ antigen use oh-my-zsh
 
 for PLUGIN in $(echo $ANTIGEN_PLUGINS | sed "s/:/ /g"); do antigen bundle $PLUGIN; done
 
-
-antigen theme $PERSONAL_CONFIG_DIR/zsh --no-local-clone
+antigen theme $PERSONAL_CONFIG_DIR/zsh/ .zsh-theme --no-local-clone 
 
 
 antigen apply
