@@ -10,7 +10,7 @@ fi
 
 
 #https://superuser.com/a/1183480/317458
-CAN_SUDO=A=$(sudo -n -v 2>&1);test -z "$A" || echo $A|grep -q asswor
+CAN_SUDO=A=$(sudo -n -v 2>&1);test -z "$A" || echo "$A"|grep -q asswor
 
 
 DIST=$(get_distro)
@@ -37,7 +37,7 @@ else
 	echo "Not installing packages"
 fi
 
-if command -v pip >> /dev/null 2>&1 && [ $CAN_SUDO = true ]; then
+if command -v pip >> /dev/null 2>&1 && [ "$CAN_SUDO" = true ]; then
 	sudo pip install virtualenvwrapper
 
 	run_base64 "c3VkbyBwaXAgaW5zdGFsbCB0aGVmdWNrCg=="
