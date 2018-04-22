@@ -8,8 +8,9 @@ fi
 # shellcheck source=/dev/null
 . "$PERSONAL_CONFIG_DIR/os-info/os_info.sh" 
 
-id -Gn "$USER" | grep '\bwheel\b' >> /dev/null
-CAN_SUDO=$?
+
+#https://superuser.com/a/1183480/317458
+CAN_SUDO=A=$(sudo -n -v 2>&1);test -z "$A" || echo $A|grep -q asswor
 
 
 DIST=$(get_distro)
