@@ -62,7 +62,7 @@ autoload -Uz compinit
 compinit -d $HOME/.zcompdump
 # End of lines added by compinstall
 
-export ANTIGEN_COMPDUMPFILE=$HOME/.zcompdump
+export ANTIGEN_COMPDUMP="$HOME/.zcompdump"
 
 source $PERSONAL_CONFIG_DIR/zsh/antigen/antigen.zsh
 
