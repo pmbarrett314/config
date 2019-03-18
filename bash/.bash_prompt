@@ -50,6 +50,10 @@ if [ ! -n "${SKIP_BASH_RPROMPT+x}" ]; then
 	if [[ ! $PROMPT_COMMAND =~ __rprompt ]]; then
 	    export PROMPT_COMMAND="__rprompt; ${PROMPT_COMMAND:-:}"
 	fi
-
-	export RPROMPT='$(hostname -s)'
+    
+    if [[ $OS = "msys" ]]; then
+        export RPROMPT='$(hostname)'
+    else
+	    export RPROMPT='$(hostname -s)'
+    fi
 fi
