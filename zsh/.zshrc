@@ -1,3 +1,8 @@
+if [ -f "$HOME/.zshrc.local.pre" ]; then
+		include_once "$HOME/.zshrc.local.pre"
+fi
+
+
 if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	echo "PERSONAL_CONFIG_DIR is not set"
 	return 1
@@ -22,9 +27,13 @@ function remove_from_antigen_plugins(){
 }
 
 
-include $PERSONAL_CONFIG_DIR/sh/.rc
+include_once_with_locals $PERSONAL_CONFIG_DIR/sh/.rc
 
-include $HOME/.zshrc.local
+if [ -e "$HOME/.zshrc.local" ]; then
+  echo "move .zshrc.local to .zshrc.local.pre"
+  include $HOME/.zshrc.local
+fi
+
 
 include $PERSONAL_CONFIG_DIR/os-info/os_info.sh 
 
@@ -83,7 +92,7 @@ if [ -n "${DISPLAY+x}" ]; then
 fi
 
 if command -v virtualenvwrapper.sh >> /dev/null 2>&1; then
-	source virtualenvwrapper.sh
+	#source virtualenvwrapper.sh
 	export WORKON_HOME=~/.virtualenvs
 fi
 
@@ -102,4 +111,6 @@ fi
 
 bindkey -e
 
-include $HOME/.zshrc.local.post
+if [ -f "$HOME/.zshrc.local.post" ]; then
+		include_once "$HOME/.zshrc.local.post"
+fi

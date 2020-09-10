@@ -14,7 +14,3 @@ if [[ -a $HOME/.bash_profile ]]; then
 	echo "moving .bash_profile to .old_bash_profile"
 fi
 cp $PERSONAL_CONFIG_DIR/bash/default.bash_profile $HOME/.bash_profile
-
-if [[ ! -a $HOME/.bash_local ]]; then
-	touch .bash_local
-fi

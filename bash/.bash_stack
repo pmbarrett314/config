@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #stack based navigation
 #this version of pushd is not silent - alias cd='pushd'; the one below is silent
 cd()

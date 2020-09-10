@@ -1,9 +1,8 @@
-include () {
-    [[ -f "$1" ]] && source "$1"
-}
+#!/bin/zsh
 
 export PERSONAL_CONFIG_DIR=$HOME/code/config
 
-include $PERSONAL_CONFIG_DIR/zsh/.zshenv
+INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
+[[ -f $INCLUDE ]] && source "$INCLUDE"
 
-export ZDOTDIR=$PERSONAL_CONFIG_DIR/zsh
+include_once_with_locals $PERSONAL_CONFIG_DIR/zsh/.zshenv

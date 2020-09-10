@@ -1,7 +1,16 @@
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
-include $HOME/.bash_local
+
+
+if [ -e "$HOME/.bash_local" ]; then
+  echo "move .bash_local to .bashrc.local.pre"
+  include $HOME/.bash_local
+fi
+
+if [ -f "$HOME/.bashrc.local.pre" ]; then
+  include_once "$HOME/.bash_profile.local.pre"
+fi
 
 # If not running interactively, don't do anything
 case $- in
@@ -10,7 +19,7 @@ case $- in
 esac
 
 
-include $PERSONAL_CONFIG_DIR/sh/.rc
+include_once_with_locals $PERSONAL_CONFIG_DIR/sh/.rc
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
@@ -51,11 +60,11 @@ fi
 
 
 
-include $PERSONAL_CONFIG_DIR/bash/.bash_prompt
-include $PERSONAL_CONFIG_DIR/bash/.bash_stack
+include_once $PERSONAL_CONFIG_DIR/bash/.bash_prompt
+include_once $PERSONAL_CONFIG_DIR/bash/.bash_stack
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-	include $PERSONAL_CONFIG_DIR/bash/platform/mac.bashrc
+	include_once $PERSONAL_CONFIG_DIR/bash/platform/mac.bashrc
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -74,3 +83,7 @@ if command -v virtualenvwrapper.sh >> /dev/null 2>&1; then
   export WORKON_HOME=~/.virtualenvs
 fi
 
+
+if [ -f "$HOME/.bashrc.local.post" ]; then
+  include_once "$HOME/.bashrc.local.post"
+fi
