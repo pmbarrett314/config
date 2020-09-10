@@ -4,3 +4,82 @@ include () {
 	# shellcheck source=/dev/null
     [ -f "$1" ] && . "$1"
 }
+
+include_once ()
+{
+	#this should work in pure POSIX. may not be optimal, but works
+	#TODO: check if we're running a better shell and don't use eval.
+	varname=PMB_VARS_LOADED_$$
+
+	eval file_list="\$$varname"
+	for file in `echo "$file_list"`
+	do 
+		if [ "$file" = "$1" ]; then 
+			return 0 
+		fi
+	done
+
+	eval_string="$varname"="\"$1 $file_list\"&& export $varname"
+	eval $eval_string
+	
+	export $varname
+
+	include $1
+}
+
+include_with_locals()
+{
+	if [ -f "$HOME/`basename $1`.local.pre" ]; then
+		include_once "$HOME/`basename $1`.local.pre"
+	fi
+	include $1
+	if [ -f "$HOME/`basename $1`.local.post" ]; then
+			include_once "$HOME/`basename $1`.local.post"
+	fi
+}
+
+include_once_with_locals()
+{
+	#this should work in pure POSIX. may not be optimal, but works
+	#TODO: check if we're running a better shell and don't use eval.
+	varname=PMB_VARS_LOADED_$$
+
+	eval file_list="\$$varname"
+	for file in `echo "$file_list"`
+	do 
+		if [ "$file" = "$1" ]; then 
+			return 0 
+		fi
+	done
+
+	eval_string="$varname"="\"$1 $file_list\"&& export $varname"
+	eval $eval_string
+	
+	export $varname
+
+	include_with_locals $1
+}
+
+
+clear_current_load_vars()
+{	
+	for name in $(env | grep PMB_.*_$$ | awk -F "=" '{print $1}')
+		do unset $name
+	done
+}
+
+clear_all_load_vars()
+{	
+	#TODO: add PID to regex
+	for name in $(env | grep PMB_.* | awk -F "=" '{print $1}')
+		do unset $name
+	done
+}
+
+dump_stack(){
+    local i=0
+    local line_no
+    local function_name
+    local file_name
+    while caller $i ;do ((i++)) ;done | while read line_no function_name file_name;do echo -e "\t$file_name:$line_no\t$function_name" ;done >&2
+}
