@@ -6,10 +6,11 @@ addons:
   homebrew:
     packages:
     - shellcheck
-    update: true
 os:
   - linux
   - osx
+
+osx_image: xcode12.2
 
 script:
   - bash test.sh
