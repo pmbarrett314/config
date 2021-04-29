@@ -69,13 +69,16 @@ fi
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
 	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		# shellcheck disable=SC1091
 		. /usr/share/bash-completion/bash_completion
 	elif [ -f /etc/bash_completion ]; then
+		# shellcheck disable=1091
 		. /etc/bash_completion
 	fi
 fi
 
 if command -v virtualenvwrapper.sh >>/dev/null 2>&1; then
+	# shellcheck disable=SC1091
 	source virtualenvwrapper.sh
 	export WORKON_HOME=~/.virtualenvs
 fi
