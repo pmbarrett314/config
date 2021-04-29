@@ -5,7 +5,7 @@ if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
 	return 1
 fi
 
-if [  -e "$HOME/.vimrc" ]; then
+if [ -e "$HOME/.vimrc" ]; then
 	mv "$HOME/.vimrc" "$HOME/.old_vimrc"
 	echo "moving .vimrc to .old_vimrc"
 fi

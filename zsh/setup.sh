@@ -3,13 +3,12 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	return 1
 fi
 
-if [[  -a $HOME/.zshenv ]]; then
+if [[ -e $HOME/.zshenv ]]; then
 	echo "moving .zshenv to .old_zshenv"
 	mv $HOME/.zshenv $HOME/.old_zshenv
 fi
 cp $PERSONAL_CONFIG_DIR/zsh/default.zshenv $HOME/.zshenv
 
-
-if [[ ! -a $HOME/.zshrc.local ]]; then
+if [[ ! -e $HOME/.zshrc.local ]]; then
 	touch $HOME/.zshrc.local
 fi

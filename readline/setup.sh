@@ -5,7 +5,7 @@ if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
 	return 1
 fi
 
-if [  -e "$HOME/.inputrc" ]; then
+if [ -e "$HOME/.inputrc" ]; then
 	mv "$HOME/.inputrc" "$HOME/.old_inputrc"
 	echo "moving .inputrc to .old_inputrc"
 fi

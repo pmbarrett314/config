@@ -13,15 +13,14 @@ include_once ()
 
 	eval file_list="\$$varname"
 	for file in `echo "$file_list"`
-	do 
-		if [ "$file" = "$1" ]; then 
-			return 0 
+	do
+		if [ "$file" = "$1" ]; then
+			return 0
 		fi
 	done
 
 	eval_string="$varname"="\"$1 $file_list\"&& export $varname"
 	eval $eval_string
-	
 	export $varname
 
 	include $1
@@ -46,15 +45,14 @@ include_once_with_locals()
 
 	eval file_list="\$$varname"
 	for file in `echo "$file_list"`
-	do 
-		if [ "$file" = "$1" ]; then 
-			return 0 
+	do
+		if [ "$file" = "$1" ]; then
+			return 0
 		fi
 	done
 
 	eval_string="$varname"="\"$1 $file_list\"&& export $varname"
 	eval $eval_string
-	
 	export $varname
 
 	include_with_locals $1
@@ -62,14 +60,14 @@ include_once_with_locals()
 
 
 clear_current_load_vars()
-{	
+{
 	for name in $(env | grep PMB_.*_$$ | awk -F "=" '{print $1}')
 		do unset $name
 	done
 }
 
 clear_all_load_vars()
-{	
+{
 	#TODO: add PID to regex
 	for name in $(env | grep PMB_.* | awk -F "=" '{print $1}')
 		do unset $name

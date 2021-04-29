@@ -23,7 +23,7 @@ extract () {
        echo "'$1' is not a valid file!"
    fi
  }
-	
+
 man() {
 	env \
 		LESS_TERMCAP_mb=$(printf "\e[1;31m") \

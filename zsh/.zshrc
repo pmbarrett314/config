@@ -1,7 +1,6 @@
 if [ -f "$HOME/.zshrc.local.pre" ]; then
-		include_once "$HOME/.zshrc.local.pre"
+	include_once "$HOME/.zshrc.local.pre"
 fi
-
 
 if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	echo "PERSONAL_CONFIG_DIR is not set"
@@ -11,32 +10,29 @@ fi
 #some defaults
 export ANTIGEN_PLUGINS="sudo:git:pip:python:autopep8:virtualenv:zsh-users/zsh-syntax-highlighting"
 
-function add_to_antigen_plugins(){
+function add_to_antigen_plugins() {
 	remove_from_antigen_plugins $1
 	ANTIGEN_PLUGINS+=":$1"
 }
 
-function remove_from_antigen_plugins(){
- 	escaped_lhs=$(printf '%s\n' ":$1:" | sed 's:[][\/.^$*]:\\&:g')
-    export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS"|sed "s/$escaped_lhs/:/")
-    escaped_lhs=$(printf '%s\n' ":$1" | sed 's:[][\/.^$*]:\\&:g')
-    export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS"|sed "s/$escaped_lhs/:/")
-    escaped_lhs=$(printf '%s\n' "$1:" | sed 's:[][\/.^$*]:\\&:g')
-    export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS"|sed "s/$escaped_lhs/:/")
+function remove_from_antigen_plugins() {
+	escaped_lhs=$(printf '%s\n' ":$1:" | sed 's:[][\/.^$*]:\\&:g')
+	export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS" | sed "s/$escaped_lhs/:/")
+	escaped_lhs=$(printf '%s\n' ":$1" | sed 's:[][\/.^$*]:\\&:g')
+	export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS" | sed "s/$escaped_lhs/:/")
+	escaped_lhs=$(printf '%s\n' "$1:" | sed 's:[][\/.^$*]:\\&:g')
+	export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS" | sed "s/$escaped_lhs/:/")
 
 }
-
 
 include_once_with_locals $PERSONAL_CONFIG_DIR/sh/.rc
 
 if [ -e "$HOME/.zshrc.local" ]; then
-  echo "move .zshrc.local to .zshrc.local.pre"
-  include $HOME/.zshrc.local
+	echo "move .zshrc.local to .zshrc.local.pre"
+	include $HOME/.zshrc.local
 fi
 
-
-include $PERSONAL_CONFIG_DIR/os-info/os_info.sh 
-
+include $PERSONAL_CONFIG_DIR/os-info/os_info.sh
 
 setopt NO_BEEP
 setopt AUTO_PUSHD
@@ -61,7 +57,7 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
 
-unsetopt NOMATCH 
+unsetopt NOMATCH
 unsetopt NOTIFY
 
 # The following lines were added by compinstall
@@ -75,24 +71,22 @@ export ANTIGEN_COMPDUMP="$HOME/.zcompdump"
 
 source $PERSONAL_CONFIG_DIR/zsh/antigen/antigen.zsh
 
-
 antigen use oh-my-zsh
 
 for PLUGIN in $(echo $ANTIGEN_PLUGINS | sed "s/:/ /g"); do antigen bundle $PLUGIN; done
 
-antigen theme $PERSONAL_CONFIG_DIR/zsh/ .zsh-theme --no-local-clone 
-
+antigen theme $PERSONAL_CONFIG_DIR/zsh/ .zsh-theme --no-local-clone
 
 antigen apply
 
 if [ -n "${DISPLAY+x}" ]; then
-	if command -v st >> /dev/null; then
+	if command -v st >>/dev/null; then
 		export VISUAL="st"
 	fi
 fi
 
-if command -v virtualenvwrapper.sh >> /dev/null 2>&1; then
-	#source virtualenvwrapper.sh
+if command -v virtualenvwrapper.sh >>/dev/null 2>&1; then
+	source virtualenvwrapper.sh
 	export WORKON_HOME=~/.virtualenvs
 fi
 
@@ -101,16 +95,16 @@ _comp_options+=(globdots)
 
 alias back="pushd"
 
-OS=`get_os`
+OS=$(get_os)
 
-if [[ $OS = "macos" ]] ; then
+if [[ $OS = "macos" ]]; then
 	eval "$($(echo -n "dGhlZnVjayAtLWFsaWFzIG9vcHM=" | base64 -D))"
-else	
+else
 	eval "$($(echo -n "dGhlZnVjayAtLWFsaWFzIG9vcHM=" | base64 -d))"
 fi
 
 bindkey -e
 
 if [ -f "$HOME/.zshrc.local.post" ]; then
-		include_once "$HOME/.zshrc.local.post"
+	include_once "$HOME/.zshrc.local.post"
 fi
