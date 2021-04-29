@@ -6,7 +6,7 @@ addons:
   homebrew:
     packages:
     - shellcheck
-
+    update: true
 os:
   - linux
   - osx
