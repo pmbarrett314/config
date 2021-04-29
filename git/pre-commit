@@ -11,8 +11,7 @@ set -e
 #
 # To enable this hook, rename this file to "pre-commit".
 
-if git rev-parse --verify HEAD >/dev/null 2>&1
-then
+if git rev-parse --verify HEAD >/dev/null 2>&1; then
 	against=HEAD
 else
 	# Initial commit: diff against an empty tree object
@@ -32,9 +31,8 @@ if [ "$allownonascii" != "true" ] &&
 	# Note that the use of brackets around a tr range is ok here, (it's
 	# even required, for portability to Solaris 10's /usr/bin/tr), since
 	# the square bracket bytes happen to fall in the designated range.
-	test $(git diff --cached --name-only --diff-filter=A -z $against |
-	  LC_ALL=C tr -d '[ -~]\0' | wc -c) != 0
-then
+	test "$(git diff --cached --name-only --diff-filter=A -z $against |
+		LC_ALL=C tr -d '[ -~]\0' | wc -c)" != 0; then
 	echo "Error: Attempt to add a non-ascii file name."
 	echo
 	echo "This can cause problems if you want to work"
@@ -53,12 +51,12 @@ fi
 # If there are whitespace errors, print the offending file names and fail.
 git diff-index --check --cached $against --
 
-touched_python_files=`git diff --cached --name-only |egrep '\.py$' || true`
+touched_python_files=$(git diff --cached --name-only | grep -E '\.py$' || true)
 if [ -n "$touched_python_files" ]; then
-    autopep8 \
-        --ignore=E26 \
-        --in-place \
-        --jobs=0 \
-        --max-line-length=150 \
-        $touched_python_files
+	autopep8 \
+		--ignore=E26 \
+		--in-place \
+		--jobs=0 \
+		--max-line-length=150 \
+		"$touched_python_files"
 fi

@@ -1,34 +1,33 @@
 if [ ! -n "${SKIP_OH_MY_GIT+x}" ]; then
 	function virtualenv_info() {
-	    previous_exit=$?
-	    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
-	    return previous_exit
-	}	
+		previous_exit=$?
+		[ $VIRTUAL_ENV ] && echo '('$(basename $VIRTUAL_ENV)') '
+		return previous_exit
+	}
 
 	function exit_smiley() {
-	    exit_status=`print -P "%?"`
-	    if [[ exit_status -eq 0 ]]; then
-	        echo "%{$fg_bold[green]%}:%)"
-	    else
-	        echo "%{$fg_bold[red]%}:("
-	    fi
+		exit_status=$(print -P "%?")
+		if [[ exit_status -eq 0 ]]; then
+			echo "%{$fg_bold[green]%}:%)"
+		else
+			echo "%{$fg_bold[red]%}:("
+		fi
 	}
 
 	DID_CD=true
 
 	function precmd() {
-	    print -n -P "%{$fg_bold[magenta]%}"
-	    if "$DID_CD"; then
-	        pwd
-	    fi
-	    print -n -P "%{$reset_color%}"
-	    DID_CD=false
+		print -n -P "%{$fg_bold[magenta]%}"
+		if "$DID_CD"; then
+			pwd
+		fi
+		print -n -P "%{$reset_color%}"
+		DID_CD=false
 	}
 
 	function chpwd() {
-	    DID_CD=true
+		DID_CD=true
 	}
-
 
 	local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
 	omg_ungit_prompt="\$(virtualenv_info)%{$fg_bold[cyan]%}[%*]%{$reset_color%} \$(exit_smiley)%{$reset_color%} %{$fg[cyan]%}%#%{$reset_color%}"
@@ -36,9 +35,9 @@ if [ ! -n "${SKIP_OH_MY_GIT+x}" ]; then
 
 	VIRTUAL_ENV_DISABLE_PROMPT=true
 	function omg_prompt_callback() {
-	    if [ -n "${VIRTUAL_ENV}" ]; then
-	        echo "\e[0;31m(`basename ${VIRTUAL_ENV}`)\e[0m "
-	    fi
+		if [ -n "${VIRTUAL_ENV}" ]; then
+			echo "\e[0;31m($(basename ${VIRTUAL_ENV}))\e[0m "
+		fi
 	}
 
 	antigen-bundle arialdomartini/oh-my-git

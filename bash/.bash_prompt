@@ -2,35 +2,34 @@
 #setup for prompt
 #if we want stack based navigation, this needs to come first, before .bash_stack
 
-
 RESET="\[\017\]"
 NORMAL="\[\033[0m\]"
 RED="\[\033[31;1m\]"
 GREEN="\[\033[32;1m\]"
-YELLOW="\[\033[33;1m\]"
-MAGENTA="\[\033[35;1m\]"
-WHITE="\[\033[37;1m\]"
+#YELLOW="\[\033[33;1m\]"
+#MAGENTA="\[\033[35;1m\]"
+#WHITE="\[\033[37;1m\]"
 BLUE="\[\033[36;1m\]"
 SMILEY="${GREEN}:)${NORMAL}"
 FROWNY="${RED}:(${NORMAL}"
 SELECT="if [ \$? = 0 ]; then echo \"${SMILEY}\"; else echo \"${FROWNY}\"; fi"
 
-CURRENTUSER=`id -un`
+CURRENTUSER=$(id -un)
 if [ "$CURRENTUSER" = "root" ]; then
-    COLOR=$RED
+	COLOR=$RED
 else
-    COLOR=$BLUE
+	COLOR=$BLUE
 fi
 
 didCD=true
 
 function didCDfun() {
-    if $didCD ;then
-        echo -en "\x1B[1;35m"
-        pwd
-        echo -en "\x1B[0m"
-    fi
-    didCD=false
+	if $didCD; then
+		echo -en "\x1B[1;35m"
+		pwd
+		echo -en "\x1B[0m"
+	fi
+	didCD=false
 }
 
 export PROMPT_COMMAND="didCDfun && history -a"
@@ -39,21 +38,23 @@ alias pushd='didCD=true&&pushd'
 alias popd='didCD=true&&popd'
 alias cd='didCD=true&&cd'
 
-if [ ! -n "${SKIP_BASH_RPROMPT+x}" ]; then
+if [ -z "${SKIP_BASH_RPROMPT+x}" ]; then
 	# zsh style right prompt support :)
 	# https://gist.github.com/bobthecow/1285149
 
 	__rprompt() {
-	    printf "%*s\r" "$COLUMNS" "$(eval echo "$RPROMPT")"
+		printf "%*s\r" "$COLUMNS" "$(eval echo "$RPROMPT")"
 	}
 
 	if [[ ! $PROMPT_COMMAND =~ __rprompt ]]; then
-	    export PROMPT_COMMAND="__rprompt; ${PROMPT_COMMAND:-:}"
+		export PROMPT_COMMAND="__rprompt; ${PROMPT_COMMAND:-:}"
 	fi
-    
-    if [[ $OS = "msys" ]]; then
-        export RPROMPT='$(hostname)'
-    else
-	    export RPROMPT='$(hostname -s)'
-    fi
+
+	if [[ $OS = "msys" ]]; then
+		# shellcheck disable=SC2016
+		export RPROMPT='$(hostname)'
+	else
+		# shellcheck disable=SC2016
+		export RPROMPT='$(hostname -s)'
+	fi
 fi

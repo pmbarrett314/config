@@ -11,5 +11,4 @@ if [ -e "$HOME/.profile" ]; then
 fi
 #TODO: add timestamp when moving
 
-
 cp "$PERSONAL_CONFIG_DIR/sh/default.profile" "$HOME/.profile"

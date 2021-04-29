@@ -8,8 +8,8 @@ shellcheck sh/.profile
 shellcheck sh/.rc
 shellcheck sh/default.profile
 shellcheck sh/setup.sh
-shellcheck git/setup.sh 
-shellcheck nano/setup.sh 
-shellcheck readline/setup.sh 
-shellcheck vim/setup.sh 
+shellcheck git/setup.sh
+shellcheck nano/setup.sh
+shellcheck readline/setup.sh
+shellcheck vim/setup.sh
 shellcheck setup.sh
