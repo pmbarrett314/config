@@ -9,7 +9,7 @@ function exit_smiley() {
     if [[ exit_status -eq 0 ]]; then
         echo "%{$fg_bold[green]%}:%)"
     else
-        echo "%{$fg_bold[red]%}:("
+	echo "%{$fg_bold[red]%}:( ($?)"
     fi
 }
 
