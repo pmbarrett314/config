@@ -53,3 +53,10 @@ DerivedData
 *.zwc
 .zcomp*
 *.antigen-compat
+
+home/*
+!home/README.md
+
+*.sublime-workspace
+
+zsh/.zsh_sessions/
