@@ -63,8 +63,7 @@ unsetopt NOTIFY
 # The following lines were added by compinstall
 zstyle :compinstall filename '$PERSONAL_CONFIG_DIR/zsh/.zshrc'
 
-autoload -Uz compinit
-compinit -d $HOME/.zcompdump
+autoload -Uz compinit && compinit -d $HOME/.zcompdump
 # End of lines added by compinstall
 
 export ANTIGEN_COMPDUMP="$HOME/.zcompdump"
