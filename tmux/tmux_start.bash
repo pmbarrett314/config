@@ -1,8 +1,9 @@
 #!/bin/bash
-#homebrew tmux lives here
-export PATH=$PATH:/usr/local/bin
-#uv powerline lives here
-export PATH=$PATH:$HOME/.local/bin
+# Make sure brew + uv tool installs are on PATH (in case launched without shell init).
+for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+	[ -x "$brew_bin" ] && eval "$("$brew_bin" shellenv)" && break
+done
+export PATH="$PATH:$HOME/.local/bin"
 
 # abort if we're already inside a TMUX session
 [ "$TMUX" = "" ] || exit 0
