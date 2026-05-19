@@ -74,28 +74,23 @@ alias l='ls -CF'
 # no d on cygwin, use R/r instead
 # r/R removes file hierarchy, implies d mac/cyg/rpiarch
 # i asks for confirmation before each file mac/cyg/rpiarch
-# P does secure delete, overwrite with FF,00,FF mac
-# use shred for this on cyg/arch
 # f tries to remove without prompt, regardless of permissions or whether the file exits mac
 # f changes permissions if necessary rpiarch
 # f ignores nonexistent and never prompts cyg
 if [ "$OS" = "macos" ]; then
-	alias del='rm -iP'
-	alias zap='rm -iP'
+	alias del='rm -i'
+	alias zap='rm -i'
 	alias deltree='rm -rfd'
-	alias deltreesecure='rm -rfPd'
 fi
 
 if [ "$OS" = "Linux" ] || [ "$OS" = "cygwin" ]; then
 	alias del='rm -i'
 	alias zap='rm -i'
 	alias deltree='rm -rf'
-	alias deltreesecure='rm -rf'
 fi
 
 if [ "$OS" = "Linux" ]; then
 	alias deltree='rm -rfd'
-	alias deltreesecure='rm -rfPd'
 fi
 
 #clears and prints a line
