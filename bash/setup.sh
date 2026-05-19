@@ -15,4 +15,4 @@ if [[ -e $HOME/.bash_profile ]]; then
 	mv "$HOME/.bash_profile" "$HOME/.old_bash_profile"
 	echo "moving .bash_profile to .old_bash_profile"
 fi
-cp "$PERSONAL_CONFIG_DIR/bash/default.bash_profile" "s$HOME/.bash_profile"
+cp "$PERSONAL_CONFIG_DIR/bash/default.bash_profile" "$HOME/.bash_profile"
