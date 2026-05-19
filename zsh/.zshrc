@@ -65,13 +65,19 @@ fpath+=~/.zfunc
 # The following lines were added by compinstall
 zstyle :compinstall filename '$PERSONAL_CONFIG_DIR/zsh/.zshrc'
 
-autoload -Uz compinit && compinit -d $HOME/.zcompdump
+autoload -Uz compinit
+if [[ -n $HOME/.zcompdump(#qN.mh+24) ]]; then
+	compinit -d $HOME/.zcompdump
+else
+	compinit -C -d $HOME/.zcompdump
+fi
 # End of lines added by compinstall
 
 export ANTIGEN_COMPDUMP="$HOME/.zcompdump"
 
 source $PERSONAL_CONFIG_DIR/zsh/antigen/antigen.zsh
 
+skip_global_compinit=1
 antigen use oh-my-zsh
 
 for PLUGIN in $(echo $ANTIGEN_PLUGINS | sed "s/:/ /g"); do antigen bundle $PLUGIN; done
