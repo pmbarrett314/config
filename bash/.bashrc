@@ -77,12 +77,6 @@ if ! shopt -oq posix; then
 	fi
 fi
 
-if command -v virtualenvwrapper.sh >>/dev/null 2>&1; then
-	# shellcheck disable=SC1091
-	source virtualenvwrapper.sh
-	export WORKON_HOME=~/.virtualenvs
-fi
-
 if [ -f "$HOME/.bashrc.local.post" ]; then
 	include_once "$HOME/.bashrc.local.post"
 fi
