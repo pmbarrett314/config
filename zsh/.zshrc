@@ -91,14 +91,6 @@ _comp_options+=(globdots)
 
 alias back="pushd"
 
-OS=$(get_os)
-
-if [[ $OS = "macos" ]]; then
-	eval "$($(echo -n "dGhlZnVjayAtLWFsaWFzIG9vcHM=" | base64 -D))"
-else
-	eval "$($(echo -n "dGhlZnVjayAtLWFsaWFzIG9vcHM=" | base64 -d))"
-fi
-
 bindkey -e
 
 if [ -f "$HOME/.zshrc.local.post" ]; then
