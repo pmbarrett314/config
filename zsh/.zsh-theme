@@ -1,29 +1,32 @@
+typeset -g LAST_EXIT=0
+
 function virtualenv_info() {
     previous_exit=$?
     [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
     return previous_exit
 }
 
-function exit_smiley() {
-    #exit_status=`print -P "%?"`
-    exit_status=$?
-    if [[ exit_status -eq 0 ]]; then
-        echo "%{$fg_bold[green]%}:%)"
-    else
-	echo "%{$fg_bold[red]%}:( ($exit_status)"
-    fi
-}
-
-DID_CD=true
-
 function precmd() {
+    LAST_EXIT=$?
     print -n -P "%{$fg_bold[magenta]%}"
-    if "$DID_CD"; then
+    if [[ "$DID_CD" == true ]]; then
         pwd
     fi
     print -n -P "%{$reset_color%}"
     DID_CD=false
 }
+
+function exit_smiley() {
+    if (( LAST_EXIT == 0 )); then
+        echo "%{$fg_bold[green]%}:%)"
+    else
+	   echo "%{$fg_bold[red]%}:( ($LAST_EXIT)"
+    fi
+}
+
+DID_CD=true
+
+
 
 function chpwd() {
     DID_CD=true

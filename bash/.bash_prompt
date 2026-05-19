@@ -24,7 +24,7 @@ fi
 didCD=true
 
 function didCDfun() {
-	if $didCD; then
+	if [[ "$didCD" == true ]]; then
 		echo -en "\x1B[1;35m"
 		pwd
 		echo -en "\x1B[0m"
