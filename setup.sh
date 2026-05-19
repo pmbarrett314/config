@@ -30,8 +30,10 @@ if command -v git >/dev/null 2>&1; then
 	. "$PERSONAL_CONFIG_DIR/git/setup.sh"
 fi
 
-# shellcheck source=/dev/null
-. "$PERSONAL_CONFIG_DIR/nano/setup.sh" || return 1
+if command -v nano >/dev/null 2>&1; then
+	# shellcheck source=/dev/null
+	. "$PERSONAL_CONFIG_DIR/nano/setup.sh" || return 1
+fi
 
 # shellcheck source=/dev/null
 . "$PERSONAL_CONFIG_DIR/readline/setup.sh"
