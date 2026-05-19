@@ -35,8 +35,8 @@ shopt -s dotglob
 shopt -s checkwinsize
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-export HISTSIZE=50000000
-export HISTFILESIZE=10000000
+export HISTSIZE=5000000
+export HISTFILESIZE=1000000
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
