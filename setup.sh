@@ -5,9 +5,6 @@ if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
 	return 1
 fi
 
-# shellcheck source=/dev/null
-. "$PERSONAL_CONFIG_DIR/scripts/install_packages.sh"
-
 cd "$PERSONAL_CONFIG_DIR" && git submodule init && git submodule update
 
 # shellcheck source=/dev/null
