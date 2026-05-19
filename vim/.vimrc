@@ -29,7 +29,7 @@ set laststatus=2
 
 set t_Co=256
 
-let os = system("source $PERSONAL_CONFIG_DIR/os-info/os_info.sh && get_os")
+let os = system(". $PERSONAL_CONFIG_DIR/os-info/os_info.sh && get_os")
 
 if os=~"linux"
 	python3 from powerline.vim import setup as powerline_setup
