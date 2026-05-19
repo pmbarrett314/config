@@ -8,7 +8,7 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 fi
 
 #some defaults
-export ANTIGEN_PLUGINS="sudo:git:pip:python:autopep8:virtualenv:zsh-users/zsh-syntax-highlighting"
+export ANTIGEN_PLUGINS="sudo:git:pip:python:autopep8:virtualenv:zsh-users/zsh-syntax-highlighting:zsh-users/zsh-autosuggestions"
 
 function add_to_antigen_plugins() {
 	remove_from_antigen_plugins $1
