@@ -85,11 +85,6 @@ if [ -n "${DISPLAY+x}" ]; then
 	fi
 fi
 
-if command -v virtualenvwrapper.sh >>/dev/null 2>&1; then
-	source virtualenvwrapper.sh
-	export WORKON_HOME=~/.virtualenvs
-fi
-
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 _comp_options+=(globdots)
 
