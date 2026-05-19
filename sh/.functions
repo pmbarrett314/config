@@ -29,3 +29,27 @@ run_base64() {
 cdir() {
 	cd "$@" && dir .
 }
+
+# Notify when a long-running command finishes. Use: `sleep 10; alert`
+# Picks the best available notifier — Linux notify-send, macOS terminal-notifier or osascript.
+alert() {
+	_alert_status=$?
+	_alert_cmd=$(history | tail -n 1 | sed -e 's/^[[:space:]]*[0-9]\{1,\}[[:space:]]*//' -e 's/[;&|][[:space:]]*alert$//')
+	if [ "$_alert_status" = 0 ]; then
+		_alert_title="Done"
+		_alert_icon="terminal"
+	else
+		_alert_title="Failed"
+		_alert_icon="error"
+	fi
+	if command -v notify-send >/dev/null 2>&1; then
+		notify-send --urgency=low -i "$_alert_icon" "$_alert_cmd"
+	elif command -v terminal-notifier >/dev/null 2>&1; then
+		terminal-notifier -message "$_alert_cmd" -title "$_alert_title" >/dev/null 2>&1
+	elif command -v osascript >/dev/null 2>&1; then
+		osascript -e 'on run argv
+display notification (item 1 of argv) with title (item 2 of argv)
+end run' "$_alert_cmd" "$_alert_title" >/dev/null 2>&1
+	fi
+	unset _alert_status _alert_cmd _alert_title _alert_icon
+}
