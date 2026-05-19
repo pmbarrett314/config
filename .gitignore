@@ -60,3 +60,5 @@ home/*
 *.sublime-workspace
 
 zsh/.zsh_sessions/
+
+.claude/
