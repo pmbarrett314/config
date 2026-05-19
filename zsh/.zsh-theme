@@ -5,11 +5,12 @@ function virtualenv_info() {
 }
 
 function exit_smiley() {
-    exit_status=`print -P "%?"`
+    #exit_status=`print -P "%?"`
+    exit_status=$?
     if [[ exit_status -eq 0 ]]; then
         echo "%{$fg_bold[green]%}:%)"
     else
-	echo "%{$fg_bold[red]%}:( ($?)"
+	echo "%{$fg_bold[red]%}:( ($exit_status)"
     fi
 }
 
