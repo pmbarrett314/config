@@ -1,7 +1,7 @@
 #!/bin/bash
 #homebrew tmux lives here
 export PATH=$PATH:/usr/local/bin
-#pipx powerline lives here
+#uv powerline lives here
 export PATH=$PATH:$HOME/.local/bin
 
 # abort if we're already inside a TMUX session
