@@ -9,7 +9,7 @@ if [ -e "$HOME/.bash_local" ]; then
 fi
 
 if [ -f "$HOME/.bashrc.local.pre" ]; then
-	include_once "$HOME/.bash_profile.local.pre"
+	include_once "$HOME/.bashrc.local.pre"
 fi
 
 # If not running interactively, don't do anything
