@@ -60,6 +60,8 @@ setopt HIST_IGNORE_SPACE
 unsetopt NOMATCH
 unsetopt NOTIFY
 
+fpath+=~/.zfunc
+
 # The following lines were added by compinstall
 zstyle :compinstall filename '$PERSONAL_CONFIG_DIR/zsh/.zshrc'
 
