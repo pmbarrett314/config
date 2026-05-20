@@ -57,7 +57,22 @@ if [ -d "$HOME/bin" ]; then
 	PATH="$HOME/bin:$PATH"
 fi
 
-include_once "$PERSONAL_CONFIG_DIR/bash/.bash_prompt"
+# Prompt: starship if installed, fallback to handcrafted theme
+if command -v starship >/dev/null 2>&1; then
+	eval "$(starship init bash)"
+	# Show pwd in magenta after each directory change
+	_did_cd=true
+	_show_pwd_on_cd() {
+		[[ "$_did_cd" == true ]] && printf '\x1B[1;35m%s\x1B[0m\n' "$PWD"
+		_did_cd=false
+	}
+	alias cd='_did_cd=true && cd'
+	alias pushd='_did_cd=true && pushd'
+	alias popd='_did_cd=true && popd'
+	PROMPT_COMMAND="_show_pwd_on_cd; ${PROMPT_COMMAND:-:}"
+else
+	include_once "$PERSONAL_CONFIG_DIR/bash/.bash_prompt"
+fi
 include_once "$PERSONAL_CONFIG_DIR/bash/.bash_stack"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then

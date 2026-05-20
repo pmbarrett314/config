@@ -70,8 +70,15 @@ if [[ ! -f $zsh_plugins_zsh || $zsh_plugins_txt -nt $zsh_plugins_zsh ]]; then
 fi
 source "$zsh_plugins_zsh"
 
-# Theme sourced directly (no plugin manager involvement)
-source "$PERSONAL_CONFIG_DIR/zsh/.zsh-theme"
+# Prompt: starship if installed, fallback to handcrafted theme
+if command -v starship >/dev/null 2>&1; then
+	eval "$(starship init zsh)"
+	# Show pwd in magenta after each directory change
+	function _show_pwd_on_cd() { print -P "%F{magenta}%/%f"; }
+	chpwd_functions+=(_show_pwd_on_cd)
+else
+	source "$PERSONAL_CONFIG_DIR/zsh/.zsh-theme"
+fi
 
 if [ -n "${DISPLAY+x}" ]; then
 	if command -v st >>/dev/null; then

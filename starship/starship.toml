@@ -1,0 +1,45 @@
+format = """\
+$time \
+${custom.venv}\
+$status\
+$character"""
+
+right_format = "$username[@]($style)$hostname"
+add_newline = false
+
+[time]
+disabled = false
+time_format = "%H:%M:%S"
+format = '[\[$time\]]($style)'
+style = "bold cyan"
+
+[character]
+success_symbol = "[\\$](bold cyan)"
+error_symbol = "[\\$](bold red)"
+
+[status]
+disabled = false
+map_symbol = true
+recognize_signal_code = false
+format = '$symbol '
+success_symbol = '[:\)](bold green)'
+symbol = '[:\( \($status\)](bold red)'
+
+[username]
+show_always = true
+format = "[$user]($style)"
+style_user = "bold white"
+
+[hostname]
+ssh_only = false
+format = "[$hostname]($style)"
+style = "bold white"
+
+[directory]
+disabled = true
+
+[custom.venv]
+when = '[ -n "$VIRTUAL_ENV" ]'
+command = 'echo "($(basename "$VIRTUAL_ENV"))"'
+style = "bold yellow"
+format = "[$output ]($style)"
