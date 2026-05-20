@@ -27,6 +27,11 @@ if filereadable(s:plug)
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-repeat'
 
+  " Per-machine plugins / pre-plugin vars
+  if filereadable(expand('~/.vimrc.local.pre'))
+    source ~/.vimrc.local.pre
+  endif
+
   call plug#end()
 endif
 
@@ -101,3 +106,8 @@ augroup END
 nnoremap <leader>f :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader>g :Rg<CR>
+
+" Per-machine overrides
+if filereadable(expand('~/.vimrc.local.post'))
+  source ~/.vimrc.local.post
+endif
