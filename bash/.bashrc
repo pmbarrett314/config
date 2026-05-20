@@ -92,6 +92,8 @@ if ! shopt -oq posix; then
 	fi
 fi
 
+command -v atuin >/dev/null 2>&1 && eval "$(atuin init bash --disable-up-arrow)"
+
 if [ -f "$HOME/.bashrc.local.post" ]; then
 	include_once "$HOME/.bashrc.local.post"
 fi

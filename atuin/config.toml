@@ -1,0 +1,8 @@
+auto_sync = false
+update_check = false       # package manager handles updates
+style = "compact"
+inline_height = 25
+show_preview = true
+enter_accept = true
+filter_mode = "host"
+search_mode = "fuzzy"
