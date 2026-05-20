@@ -4,5 +4,10 @@
 		{
 			"path": "."
 		},
+		{
+			"path": "~",
+			"file_include_patterns": [".*"],
+			"folder_include_patterns": ["none"],
+		},
 	]
 }
