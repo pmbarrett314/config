@@ -1,0 +1,6 @@
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+Aloxaf/fzf-tab
+hcgraf/zsh-sudo
+zsh-users/zsh-history-substring-search

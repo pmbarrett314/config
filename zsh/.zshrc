@@ -7,24 +7,6 @@ if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	return 1
 fi
 
-#some defaults
-export ANTIGEN_PLUGINS="sudo:git:pip:python:autopep8:virtualenv:zsh-users/zsh-syntax-highlighting:zsh-users/zsh-autosuggestions"
-
-function add_to_antigen_plugins() {
-	remove_from_antigen_plugins $1
-	ANTIGEN_PLUGINS+=":$1"
-}
-
-function remove_from_antigen_plugins() {
-	escaped_lhs=$(printf '%s\n' ":$1:" | sed 's:[][\/.^$*]:\\&:g')
-	export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS" | sed "s/$escaped_lhs/:/")
-	escaped_lhs=$(printf '%s\n' ":$1" | sed 's:[][\/.^$*]:\\&:g')
-	export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS" | sed "s/$escaped_lhs/:/")
-	escaped_lhs=$(printf '%s\n' "$1:" | sed 's:[][\/.^$*]:\\&:g')
-	export ANTIGEN_PLUGINS=$(echo "$ANTIGEN_PLUGINS" | sed "s/$escaped_lhs/:/")
-
-}
-
 include_once_with_locals $PERSONAL_CONFIG_DIR/sh/.rc
 
 if [ -e "$HOME/.zshrc.local" ]; then
@@ -73,18 +55,23 @@ else
 fi
 # End of lines added by compinstall
 
-export ANTIGEN_COMPDUMP="$HOME/.zcompdump"
+# Auto-install antidote
+ANTIDOTE_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/antidote"
+if [ ! -d "$ANTIDOTE_HOME/.git" ]; then
+	git clone --depth 1 https://github.com/mattmc3/antidote "$ANTIDOTE_HOME"
+fi
+source "$ANTIDOTE_HOME/antidote.zsh"
 
-source $PERSONAL_CONFIG_DIR/zsh/antigen/antigen.zsh
+# Compile and cache the plugin list (static-source for fast warm starts)
+zsh_plugins_txt="$PERSONAL_CONFIG_DIR/zsh/.zsh_plugins.txt"
+zsh_plugins_zsh="$PERSONAL_CONFIG_DIR/zsh/.zsh_plugins.zsh"
+if [[ ! -f $zsh_plugins_zsh || $zsh_plugins_txt -nt $zsh_plugins_zsh ]]; then
+	antidote bundle <"$zsh_plugins_txt" >"$zsh_plugins_zsh"
+fi
+source "$zsh_plugins_zsh"
 
-skip_global_compinit=1
-antigen use oh-my-zsh
-
-for PLUGIN in $(echo $ANTIGEN_PLUGINS | sed "s/:/ /g"); do antigen bundle $PLUGIN; done
-
-antigen theme $PERSONAL_CONFIG_DIR/zsh/ .zsh-theme --no-local-clone
-
-antigen apply
+# Theme sourced directly (no plugin manager involvement)
+source "$PERSONAL_CONFIG_DIR/zsh/.zsh-theme"
 
 if [ -n "${DISPLAY+x}" ]; then
 	if command -v st >>/dev/null; then
@@ -98,6 +85,13 @@ _comp_options+=(globdots)
 alias back="pushd"
 
 bindkey -e
+
+bindkey "^[[A" up-line-or-search
+bindkey "^[[B" down-line-or-search
+bindkey "^[OA" up-line-or-search
+bindkey "^[OB" down-line-or-search
+[[ -n "${terminfo[kcuu1]}" ]] && bindkey "${terminfo[kcuu1]}" up-line-or-search
+[[ -n "${terminfo[kcud1]}" ]] && bindkey "${terminfo[kcud1]}" down-line-or-search
 
 if [ -f "$HOME/.zshrc.local.post" ]; then
 	include_once "$HOME/.zshrc.local.post"

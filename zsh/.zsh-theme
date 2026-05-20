@@ -1,3 +1,6 @@
+autoload -U colors && colors
+setopt PROMPT_SUBST
+
 typeset -g LAST_EXIT=0
 
 function virtualenv_info() {
@@ -32,6 +35,5 @@ function chpwd() {
     DID_CD=true
 }
 
-local ret_status="%(?,%{$fg_bold[green]%}:%) ,%{$fg_bold[red]%}:( %s)"
 PROMPT="\$(virtualenv_info)%{$fg_bold[cyan]%}[%*]%{$reset_color%} \$(exit_smiley)%{$reset_color%} %{$fg[cyan]%}%#%{$reset_color%}"
 RPROMPT='%{$reset_color%}%{$fg_bold[white]%} %n@%m%{$reset_color%}'
