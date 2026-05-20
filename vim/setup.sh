@@ -11,8 +11,5 @@ if [ -e "$HOME/.vimrc" ]; then
 fi
 cp "$PERSONAL_CONFIG_DIR/vim/default.vimrc" "$HOME/.vimrc"
 
-git clone https://github.com/VundleVim/Vundle.vim.git "$HOME/.vim/bundle/Vundle.vim"
-
-vim +PluginInstall +qall
-
-"$HOME/.vim/bundle/YouCompleteMe/install.py" --clang-completer
+echo "Launch vim once so vim-plug can install plugins."
+echo "Then run :LspInstallServer in a file to add a language server."
