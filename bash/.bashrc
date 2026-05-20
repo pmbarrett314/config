@@ -60,20 +60,20 @@ fi
 # Prompt: starship if installed, fallback to handcrafted theme
 if command -v starship >/dev/null 2>&1; then
 	eval "$(starship init bash)"
-	# Show pwd in magenta after each directory change
-	_did_cd=true
+	# Show pwd in magenta whenever the directory changes.
+	_last_pwd=""
 	_show_pwd_on_cd() {
-		[[ "$_did_cd" == true ]] && printf '\x1B[1;35m%s\x1B[0m\n' "$PWD"
-		_did_cd=false
+		if [[ "$PWD" != "$_last_pwd" ]]; then
+			printf '\x1B[1;35m%s\x1B[0m\n' "$PWD"
+			_last_pwd="$PWD"
+		fi
 	}
-	alias cd='_did_cd=true && cd'
-	alias pushd='_did_cd=true && pushd'
-	alias popd='_did_cd=true && popd'
 	PROMPT_COMMAND="_show_pwd_on_cd; ${PROMPT_COMMAND:-:}"
 else
 	include_once "$PERSONAL_CONFIG_DIR/bash/.bash_prompt"
 fi
-include_once "$PERSONAL_CONFIG_DIR/bash/.bash_stack"
+
+alias back='cd -'
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	include_once "$PERSONAL_CONFIG_DIR/bash/platform/mac.bashrc"
@@ -92,6 +92,9 @@ if ! shopt -oq posix; then
 	fi
 fi
 
+# Tool integrations — fzf before atuin so atuin wins the Ctrl-R binding
+command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash --cmd cd)"
 command -v atuin >/dev/null 2>&1 && eval "$(atuin init bash --disable-up-arrow)"
 
 if [ -f "$HOME/.bashrc.local.post" ]; then

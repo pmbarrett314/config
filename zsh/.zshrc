@@ -100,6 +100,8 @@ bindkey "^[OB" down-line-or-search
 [[ -n "${terminfo[kcuu1]}" ]] && bindkey "${terminfo[kcuu1]}" up-line-or-search
 [[ -n "${terminfo[kcud1]}" ]] && bindkey "${terminfo[kcud1]}" down-line-or-search
 
+command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
+command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh --cmd cd)"
 command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh --disable-up-arrow)"
 
 if [ -f "$HOME/.zshrc.local.post" ]; then
