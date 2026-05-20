@@ -66,7 +66,7 @@ source "$ANTIDOTE_HOME/antidote.zsh"
 zsh_plugins_txt="$PERSONAL_CONFIG_DIR/zsh/.zsh_plugins.txt"
 zsh_plugins_zsh="$PERSONAL_CONFIG_DIR/zsh/.zsh_plugins.zsh"
 if [[ ! -f $zsh_plugins_zsh || $zsh_plugins_txt -nt $zsh_plugins_zsh ]]; then
-	antidote bundle <"$zsh_plugins_txt" >"$zsh_plugins_zsh"
+	antidote bundle <"$zsh_plugins_txt" >|"$zsh_plugins_zsh"
 fi
 source "$zsh_plugins_zsh"
 
