@@ -5,12 +5,6 @@ if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
 	return 1
 fi
 
-cd "$PERSONAL_CONFIG_DIR/nano/nanorc/" || return 1
-
-make install TEXT=white
-if [ ! -f "$HOME/.nanorc" ]; then
-	touch "$HOME/.nanorc"
-fi
-echo "include $HOME/.nano/syntax/ALL.nanorc" >>~/.nanorc
+curl -fsSL https://raw.githubusercontent.com/galenguyer/nano-syntax-highlighting/master/install.sh | bash
 
 cd "$PERSONAL_CONFIG_DIR" || return 1

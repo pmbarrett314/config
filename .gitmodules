@@ -1,6 +1,3 @@
-[submodule "nano/nanorc"]
-	path = nano/nanorc
-	url = https://github.com/scopatz/nanorc
 [submodule "os-info"]
 	path = os-info
 	url = https://github.com/pmbarrett314/os-info
