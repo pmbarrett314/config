@@ -6,6 +6,7 @@
 #   include_with_locals      — source $1 and any ~/$(basename $1).local.{pre,post}
 #   include_once_with_locals — dedup + locals
 #   clear_load_vars          — reset the load list (forces re-includes mid-session)
+#   get_os                   — print the OS family
 
 # Pick the fastest dedup backend for the current shell.
 if [ -n "$ZSH_VERSION" ]; then
@@ -63,4 +64,17 @@ clear_load_vars() {
 	else
 		_PMB_LOADED=":"
 	fi
+}
+
+# get_os — print the OS family
+get_os() {
+	case "$(uname -s)" in
+		Darwin)       echo macos   ;;
+		Linux)        echo linux   ;;
+		*BSD)         echo bsd     ;;
+		CYGWIN*)      echo cygwin  ;;
+		MINGW*|MSYS*) echo msys    ;;
+		SunOS)        echo solaris ;;
+		*)            echo unknown ;;
+	esac
 }

@@ -9,9 +9,6 @@ INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
 # shellcheck source=/dev/null
 [ -f "$INCLUDE" ] && . "$INCLUDE"
 
-# shellcheck source=/dev/null
-include "$PERSONAL_CONFIG_DIR/os-info/os_info.sh"
-
 nameterm() {
 	printf "\033]0;%s\007" "$@"
 }

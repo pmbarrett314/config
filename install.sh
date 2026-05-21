@@ -48,10 +48,6 @@ copy_if_absent() {
 	fi
 }
 
-echo "--> submodules"
-git -C "$PERSONAL_CONFIG_DIR" submodule update --init --recursive ||
-	echo "  WARNING: submodule update failed — os-info may be missing"
-
 #these are just links so they update when the repo is pulled
 echo "--> shell / editor stubs"
 link "$PERSONAL_CONFIG_DIR/sh/default.profile" "$HOME/.profile"

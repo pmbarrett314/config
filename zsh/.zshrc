@@ -14,8 +14,6 @@ if [ -e "$HOME/.zshrc.local" ]; then
 	include $HOME/.zshrc.local
 fi
 
-include $PERSONAL_CONFIG_DIR/os-info/os_info.sh
-
 setopt NO_BEEP
 setopt AUTO_PUSHD
 setopt AUTO_CD

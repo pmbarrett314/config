@@ -75,7 +75,7 @@ fi
 
 alias back='cd -'
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
+if [ "$(get_os)" = macos ]; then
 	include_once "$PERSONAL_CONFIG_DIR/bash/platform/mac.bashrc"
 fi
 
