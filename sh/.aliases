@@ -105,6 +105,7 @@ if command -v eza >/dev/null 2>&1; then
 fi
 
 command -v lazygit >/dev/null 2>&1 && alias lg='lazygit'
+command -v brew >/dev/null 2>&1 && alias update='brew update && brew upgrade'
 
 if [ -f "$HOME/.aliases.local.post" ]; then
 	include_once "$HOME/.aliases.local.post"

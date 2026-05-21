@@ -1,0 +1,44 @@
+#!/bin/bash
+# Interactive config shared by bash and zsh
+# Sourced by bash/.bashrc and zsh/.zshrc.
+
+if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
+	echo "PERSONAL_CONFIG_DIR is not set"
+	return 1
+fi
+
+if [ -f "$HOME/.bashzshrc.local.pre" ]; then
+	include_once "$HOME/.bashzshrc.local.pre"
+fi
+
+if [ -n "$ZSH_VERSION" ]; then
+	_sh=zsh
+elif [ -n "$BASH_VERSION" ]; then
+	_sh=bash
+else
+	_sh=""
+fi
+
+if [ -n "$_sh" ]; then
+	# Tool integrations
+	# fzf needs to come before atuin so atuin gets ctrl+r
+	command -v fzf    >/dev/null 2>&1 && eval "$(fzf --"$_sh")"
+	command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init "$_sh" --cmd cd)"
+	command -v atuin  >/dev/null 2>&1 && eval "$(atuin init "$_sh" --disable-up-arrow)"
+	command -v direnv >/dev/null 2>&1 && eval "$(direnv hook "$_sh")"
+	command -v navi   >/dev/null 2>&1 && eval "$(navi widget "$_sh")"
+
+	# uv / uvx shell completions
+	command -v uv  >/dev/null 2>&1 && eval "$(uv generate-shell-completion "$_sh")"
+	command -v uvx >/dev/null 2>&1 && eval "$(uvx --generate-shell-completion "$_sh")"
+
+	# iTerm2 shell integration if installed
+	# shellcheck source=/dev/null
+	[ -f "$HOME/.iterm2_shell_integration.$_sh" ] && . "$HOME/.iterm2_shell_integration.$_sh"
+fi
+
+unset _sh
+
+if [ -f "$HOME/.bashzshrc.local.post" ]; then
+	include_once "$HOME/.bashzshrc.local.post"
+fi

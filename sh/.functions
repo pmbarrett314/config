@@ -82,6 +82,14 @@ stt() {
 	st .
 }
 
+join_msg() {
+	curl --data-urlencode "text=$2" \
+		--data-urlencode "title=$1" \
+		--data-urlencode "apikey=$JOIN_KEY" \
+		--data-urlencode "deviceId=group.all" \
+		"https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush"
+}
+
 if [ -f "$HOME/.functions.local.post" ]; then
 	include_once "$HOME/.functions.local.post"
 fi

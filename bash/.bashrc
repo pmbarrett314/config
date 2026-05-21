@@ -93,11 +93,7 @@ if ! shopt -oq posix; then
 fi
 
 # Tool integrations — fzf before atuin so atuin wins the Ctrl-R binding
-command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)"
-command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash --cmd cd)"
-command -v atuin >/dev/null 2>&1 && eval "$(atuin init bash --disable-up-arrow)"
-command -v direnv >/dev/null 2>&1 && eval "$(direnv hook bash)"
-command -v navi >/dev/null 2>&1 && eval "$(navi widget bash)"
+include_once_with_locals "$PERSONAL_CONFIG_DIR/sh/.bashzshrc"
 
 if [ -f "$HOME/.bashrc.local.post" ]; then
 	include_once "$HOME/.bashrc.local.post"

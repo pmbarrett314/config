@@ -78,12 +78,6 @@ else
 	source "$PERSONAL_CONFIG_DIR/zsh/.zsh-theme"
 fi
 
-if [ -n "${DISPLAY+x}" ]; then
-	if command -v st >>/dev/null; then
-		export VISUAL="st"
-	fi
-fi
-
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 _comp_options+=(globdots)
 
@@ -104,11 +98,7 @@ bindkey "^[OB" down-line-or-beginning-search
 [[ -n "${terminfo[kcuu1]}" ]] && bindkey "${terminfo[kcuu1]}" up-line-or-beginning-search
 [[ -n "${terminfo[kcud1]}" ]] && bindkey "${terminfo[kcud1]}" down-line-or-beginning-search
 
-command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
-command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh --cmd cd)"
-command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh --disable-up-arrow)"
-command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
-command -v navi >/dev/null 2>&1 && eval "$(navi widget zsh)"
+include_once_with_locals $PERSONAL_CONFIG_DIR/sh/.bashzshrc
 
 if [ -f "$HOME/.zshrc.local.post" ]; then
 	include_once "$HOME/.zshrc.local.post"
