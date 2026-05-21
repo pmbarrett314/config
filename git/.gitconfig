@@ -4,12 +4,9 @@
     in = incoming
     outgoing = log @{u}..
     out = outgoing
-[user]
-    email = pmbarrett314@gmail.com
-    name = Paul Barrett
 
 [push]
-    default = simple
+    autoSetupRemote = true
 
 [mergetool]
     prompt = false
@@ -17,7 +14,6 @@
     keepTemporaries = false
 
 [merge]
-    tool = bc3
     conflictstyle = zdiff3
 
 [core]
@@ -33,11 +29,3 @@
 
 [diff]
     colorMoved = default
-
-[mergetool]
-    bc3 = trustExitCode
-
-[mergetool "winmerge"]
-    name = WinMerge
-    trustExitCode = true
-    cmd = "/cygdrive/c/Program\\ Files\\ \\(x86\\)/WinMerge/WinMergeU.exe" -u -e -dl \"Local\" -dr \"Remote\" $LOCAL $REMOTE $MERGED

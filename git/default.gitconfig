@@ -1,2 +1,6 @@
 [include]
 	path=~/code/config/git/.gitconfig
+
+[user]
+	email = pmbarrett314@gmail.com
+	name = Paul Barrett
