@@ -53,3 +53,30 @@ end run' "$_alert_cmd" "$_alert_title" >/dev/null 2>&1
 	fi
 	unset _alert_status _alert_cmd _alert_title _alert_icon
 }
+
+# Find subl if possible. Mac version as default because that's where I use it the most
+_subl_bin() {
+	if command -v subl >/dev/null 2>&1; then
+		command -v subl
+	elif [ -x "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" ]; then
+		printf '%s\n' "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+	else
+		return 1
+	fi
+}
+
+# st [path...] — open files/dirs in Sublime Text (current dir if no args).
+st() {
+	_st_bin=$(_subl_bin) || {
+		echo "st: Sublime Text (subl) not found" >&2
+		return 1
+	}
+	[ "$#" -eq 0 ] && set -- .
+	"$_st_bin" "$@"
+	unset _st_bin
+}
+
+# stt — open the current directory in Sublime Text.
+stt() {
+	st .
+}
