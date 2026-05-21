@@ -9,6 +9,10 @@ INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
 # shellcheck source=/dev/null
 [ -f "$INCLUDE" ] && . "$INCLUDE"
 
+if [ -f "$HOME/.aliases.local.pre" ]; then
+	include_once "$HOME/.aliases.local.pre"
+fi
+
 OS=$(get_os)
 
 # enable color support of ls and also add handy aliases
@@ -101,3 +105,7 @@ if command -v eza >/dev/null 2>&1; then
 fi
 
 command -v lazygit >/dev/null 2>&1 && alias lg='lazygit'
+
+if [ -f "$HOME/.aliases.local.post" ]; then
+	include_once "$HOME/.aliases.local.post"
+fi

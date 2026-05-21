@@ -8,4 +8,4 @@ INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
 # shellcheck source=/dev/null
 [ -f "$INCLUDE" ] && . "$INCLUDE"
 
-include "$PERSONAL_CONFIG_DIR/sh/.profile"
+include_once_with_locals "$PERSONAL_CONFIG_DIR/sh/.profile"

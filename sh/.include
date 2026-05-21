@@ -7,6 +7,10 @@
 #   include_once_with_locals — dedup + locals
 #   clear_load_vars          — reset the load list (forces re-includes mid-session)
 #   get_os                   — print the OS family
+#
+# every overridable rc file sources ~/.<basename>.local.pre
+# near its top and ~/.<basename>.local.post at its end
+# Uses inlcude-once to avoid duplication even if a file is include_with_locals'd
 
 # Pick the fastest dedup backend for the current shell.
 if [ -n "$ZSH_VERSION" ]; then
