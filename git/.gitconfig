@@ -18,6 +18,21 @@
 
 [merge]
     tool = bc3
+    conflictstyle = zdiff3
+
+[core]
+    pager = "command -v delta >/dev/null 2>&1 && delta || less"
+
+[interactive]
+    diffFilter = "command -v delta >/dev/null 2>&1 && delta --color-only || cat"
+
+[delta]
+    navigate = true
+    line-numbers = true
+    side-by-side = true
+
+[diff]
+    colorMoved = default
 
 [mergetool]
     bc3 = trustExitCode

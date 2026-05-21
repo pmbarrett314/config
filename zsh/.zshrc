@@ -110,6 +110,7 @@ command -v fzf >/dev/null 2>&1 && eval "$(fzf --zsh)"
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init zsh --cmd cd)"
 command -v atuin >/dev/null 2>&1 && eval "$(atuin init zsh --disable-up-arrow)"
 command -v direnv >/dev/null 2>&1 && eval "$(direnv hook zsh)"
+command -v navi >/dev/null 2>&1 && eval "$(navi widget zsh)"
 
 if [ -f "$HOME/.zshrc.local.post" ]; then
 	include_once "$HOME/.zshrc.local.post"

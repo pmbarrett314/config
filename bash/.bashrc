@@ -97,6 +97,7 @@ command -v fzf >/dev/null 2>&1 && eval "$(fzf --bash)"
 command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init bash --cmd cd)"
 command -v atuin >/dev/null 2>&1 && eval "$(atuin init bash --disable-up-arrow)"
 command -v direnv >/dev/null 2>&1 && eval "$(direnv hook bash)"
+command -v navi >/dev/null 2>&1 && eval "$(navi widget bash)"
 
 if [ -f "$HOME/.bashrc.local.post" ]; then
 	include_once "$HOME/.bashrc.local.post"
