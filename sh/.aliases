@@ -45,24 +45,18 @@ alias ~="cd ~"
 # h is human readble with binary prefixes (K is kibibyte, etc.) mac/cyg/rpiarch
 # F displays characters to show filetype (classify) mac/cyg/rpiarch
 # C is multi column, default behavior mac/cyg/rpi
-# T goes with l to show complete time to second mac
-# T does tabsize on cyg/rpiarch
-# --time-style is similar on cyg/rpiarch
 
 # Detect ls flavor: GNU (coreutils) accepts --color=auto, BSD (macOS default) doesn't.
 # This handles macOS with `brew install coreutils` (or ls aliased to gls) correctly.
 if ls --color=auto -d / >/dev/null 2>&1; then
 	# GNU ls — Linux native, cygwin/msys, or coreutils on macOS
 	alias ls='ls --color=auto'
-	alias dir='ls -lhAF --time-style=full-iso'
 elif [ "$OS" = "macos" ]; then
 	# BSD ls (macOS default)
 	alias ls='ls -G'
-	alias dir='ls -lhAFT'
-else
-	# Other Unix (Solaris, etc.) — no portable color or full-time flag
-	alias dir='ls -lhAF'
 fi
+
+alias dir='ls -lhAF'
 
 alias ll='ls -AlF'
 alias la='ls -Ahl'
@@ -107,3 +101,5 @@ if command -v eza >/dev/null 2>&1; then
 	alias dir="eza --group --long --header --git --classify --all"
 	alias dis="eza --group --long --header --git --classify --all --sort=size"
 fi
+
+command -v lazygit >/dev/null 2>&1 && alias lg='lazygit'
