@@ -1,0 +1,29 @@
+# pkgs/Brewfile — macOS (and Linuxbrew).
+#   brew bundle --file=pkgs/Brewfile
+# Re-runnable: brew bundle skips formulae that are already installed.
+# tpack (tmux plugin manager) is handled by scripts/install_packages.sh.
+
+# Modern CLI tools
+brew "eza"
+brew "bat"
+brew "ripgrep"
+brew "fd"
+brew "fzf"
+brew "zoxide"
+brew "starship"
+brew "git-delta"
+brew "lazygit"
+brew "gh"
+brew "tealdeer"
+brew "navi"
+brew "fastfetch"
+brew "atuin"
+brew "direnv"
+brew "tmux-mem-cpu-load"
+
+# Base shell, multiplexer, editors
+brew "zsh"
+brew "tmux"
+brew "vim"
+brew "nano"
+brew "git"

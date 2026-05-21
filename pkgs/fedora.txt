@@ -1,0 +1,27 @@
+# pkgs/fedora.txt — Fedora / RHEL (dnf). One package per line; blank and # are ignored
+# packages are installed one at a time with error report at the end
+
+# Modern CLI tools
+eza
+bat
+ripgrep
+fd-find
+fzf
+zoxide
+starship
+git-delta
+lazygit
+gh
+tealdeer
+navi
+fastfetch
+atuin
+direnv
+
+# Base shell, multiplexer, editors
+zsh
+tmux
+vim
+nano
+git
+curl

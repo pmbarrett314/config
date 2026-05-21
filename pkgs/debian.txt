@@ -1,0 +1,30 @@
+# pkgs/debian.txt — Debian / Ubuntu (apt). One package per line; blank and # are ignored
+# packages are installed one at a time with error report at the end
+#
+# The script also symlinks fdfind -> ~/.local/bin/fd and batcat ->
+# ~/.local/bin/bat afterward, since Debian renames those two binaries.
+
+# Modern CLI tools
+eza
+bat
+ripgrep
+fd-find
+fzf
+zoxide
+starship
+git-delta
+lazygit
+gh
+tealdeer
+navi
+fastfetch
+atuin
+direnv
+
+# Base shell, multiplexer, editors
+zsh
+tmux
+vim
+nano
+git
+curl

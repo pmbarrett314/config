@@ -67,6 +67,13 @@ if command -v nano >/dev/null 2>&1 && command -v curl >/dev/null 2>&1; then
 		bash || echo "  WARNING: nano highlighting install failed"
 fi
 
+# --- packages --------------------------------------------------------------
+if [ -x "$PERSONAL_CONFIG_DIR/scripts/install_packages.sh" ]; then
+	"$PERSONAL_CONFIG_DIR/scripts/install_packages.sh" || echo "  WARNING: package install reported errors"
+else
+	echo "--> packages skipped — scripts/install_packages.sh not found"
+fi
+
 # --- done ------------------------------------------------------------------
 echo
 echo "--> done — open a new shell."
