@@ -72,7 +72,7 @@ source "$zsh_plugins_zsh"
 if command -v starship >/dev/null 2>&1; then
 	eval "$(starship init zsh)"
 	# Show pwd in magenta after each directory change
-	function _show_pwd_on_cd() { print -P "%F{magenta}%/%f"; }
+	function _show_pwd_on_cd() { [[ -o interactive ]] && print -P "%F{magenta}%/%f"; }
 	chpwd_functions+=(_show_pwd_on_cd)
 else
 	source "$PERSONAL_CONFIG_DIR/zsh/.zsh-theme"
