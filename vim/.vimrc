@@ -1,3 +1,7 @@
+if filereadable(expand('~/.vimrc.local.pre'))
+  source ~/.vimrc.local.pre
+endif
+
 " vim-plug: auto-install on first launch
 let s:plug = expand('~/.vim/autoload/plug.vim')
 if !filereadable(s:plug) && executable('curl')
@@ -27,9 +31,9 @@ if filereadable(s:plug)
   Plug 'tpope/vim-commentary'
   Plug 'tpope/vim-repeat'
 
-  " Per-machine plugins / pre-plugin vars
-  if filereadable(expand('~/.vimrc.local.pre'))
-    source ~/.vimrc.local.pre
+  " Per-machine plugins — Plug lines go in ~/.vimrc.local.plugins
+  if filereadable(expand('~/.vimrc.local.plugins'))
+    source ~/.vimrc.local.plugins
   endif
 
   call plug#end()
