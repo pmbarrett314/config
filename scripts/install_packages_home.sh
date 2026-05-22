@@ -2,7 +2,7 @@
 # install_packages_home.sh — install dotfiles into ~/.local/bin
 # as fallback for no package manager or no root
 #
-# Prebuilt release binaries are fetched with eget
+# Prebuilt release binaries are fetched with ubi
 # tmux-mem-cpu load not included because it needs a build and I probably don't need it on non-root machines anyways
 # git, tmux, vim, nano, zsh not included because we assume they'll be there and if not I probably can't install them well
 
@@ -18,38 +18,35 @@ if ! command -v curl >/dev/null 2>&1; then
 fi
 mkdir -p "$BIN"
 
-# --- bootstrap eget --------------------------------------------------------
-eget_bin=""
-if command -v eget >/dev/null 2>&1; then
-	eget_bin=$(command -v eget)
-elif [ -x "$BIN/eget" ]; then
-	eget_bin="$BIN/eget"
+# --- bootstrap ubi ---------------------------------------------------------
+ubi_bin=""
+if command -v ubi >/dev/null 2>&1; then
+	ubi_bin=$(command -v ubi)
+elif [ -x "$BIN/ubi" ]; then
+	ubi_bin="$BIN/ubi"
 else
-	echo "  bootstrapping eget..."
-	_tmp=$(mktemp -d)
-	if (cd "$_tmp" && curl -fsSL https://zyedidia.github.io/eget.sh | sh) >/dev/null 2>&1 && [ -x "$_tmp/eget" ]; then
-		mv "$_tmp/eget" "$BIN/eget"
-		eget_bin="$BIN/eget"
-		echo "  eget -> $BIN/eget"
-	else
-		echo "  could not bootstrap eget — see https://github.com/zyedidia/eget"
+	echo "  bootstrapping ubi..."
+	if curl --silent --location \
+		https://raw.githubusercontent.com/houseabsolute/ubi/master/bootstrap/bootstrap-ubi.sh |
+		TARGET="$BIN" sh; then
+		[ -x "$BIN/ubi" ] && ubi_bin="$BIN/ubi" && echo "  ubi -> $BIN/ubi"
 	fi
-	rm -rf "$_tmp"
+	[ -z "$ubi_bin" ] && echo "  could not bootstrap ubi — see https://github.com/houseabsolute/ubi"
 fi
 
 # --- fetch prebuilt binaries ----------------------------------------------
-# fetch NAME OWNER/REPO — install ~/.local/bin/NAME via eget
-# skip if already present
+# fetch BINNAME OWNER/REPO — install ~/.local/bin/BINNAME via ubi
+# skip if already present;
 fetch() {
 	if command -v "$1" >/dev/null 2>&1; then
 		echo "  ok       $1 (already present)"
 		return 0
 	fi
-	if [ -z "$eget_bin" ]; then
-		echo "  SKIP     $1 (no eget)"
+	if [ -z "$ubi_bin" ]; then
+		echo "  SKIP     $1 (no ubi)"
 		return 1
 	fi
-	if "$eget_bin" --to "$BIN/$1" "$2" >/dev/null 2>&1; then
+	if "$ubi_bin" --project "$2" --in "$BIN" --exe "$1"; then
 		echo "  got      $1 <- $2"
 	else
 		echo "  FAILED   $1 <- $2"
