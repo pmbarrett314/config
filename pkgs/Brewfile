@@ -20,6 +20,7 @@ brew "fastfetch"
 brew "atuin"
 brew "direnv"
 brew "tmux-mem-cpu-load"
+brew "tmuxinator"
 
 # Base shell, multiplexer, editors
 brew "zsh"

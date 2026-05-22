@@ -17,6 +17,7 @@ navi
 fastfetch
 atuin
 direnv
+tmuxinator
 
 # Base shell, multiplexer, editors
 zsh
