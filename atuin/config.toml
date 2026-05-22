@@ -1,4 +1,7 @@
-auto_sync = false
+auto_sync = false #keep set to false
+# Per-machine sync (personal machines only) goes in ~/.env.local.post:
+#   export ATUIN_SYNC_ADDRESS="https://<server>"
+#   export ATUIN_AUTO_SYNC=true
 update_check = false       # package manager handles updates
 style = "compact"
 inline_height = 25
