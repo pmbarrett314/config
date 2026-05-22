@@ -20,3 +20,5 @@ repos:
     rev: v3.13.1-1
     hooks:
       - id: shfmt
+        # -kp keeps intentional column alignment
+        args: ["-w", "-kp"]
