@@ -69,7 +69,7 @@ fi
 
 # --- packages --------------------------------------------------------------
 if [ -x "$PERSONAL_CONFIG_DIR/scripts/install_packages.sh" ]; then
-	"$PERSONAL_CONFIG_DIR/scripts/install_packages.sh" || echo "  WARNING: package install reported errors"
+	"$PERSONAL_CONFIG_DIR/scripts/install_packages.sh" "$@" || echo "  WARNING: package install reported errors"
 else
 	echo "--> packages skipped — scripts/install_packages.sh not found"
 fi
