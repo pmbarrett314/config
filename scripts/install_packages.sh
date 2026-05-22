@@ -187,11 +187,17 @@ Linux)
 		distro=$(. /etc/os-release 2>/dev/null && echo "${ID:-} ${ID_LIKE:-}")
 	fi
 
-	if [ "$(id -u)" -ne 0 ] && ! command -v sudo >/dev/null 2>&1; then
-		echo "  no root/sudo for the system package manager"
-		run_home
+	if [ "$(id -u)" -ne 0 ]; then
+		if ! command -v sudo >/dev/null 2>&1; then
+			echo "  no sudo on this system"
+			run_home
+		fi
+		# Prime sudo and surface failures
+		if ! sudo -v; then
+			echo "  sudo is not usable for this user"
+			run_home
+		fi
 	fi
-	[ "$(id -u)" -eq 0 ] || sudo -v # prime sudo once, with a visible prompt
 
 	case " $distro " in
 	*" arch "*) do_pacman ;;
