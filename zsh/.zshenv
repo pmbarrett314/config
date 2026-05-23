@@ -8,14 +8,10 @@ INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
 
 typeset -U path PATH
 
-if [ -f "$HOME/.zshenv.local.pre" ]; then
-	include_once "$HOME/.zshenv.local.pre"
-fi
+include_once "$HOME/.zshenv.local.pre"
 
 include_once_with_locals $PERSONAL_CONFIG_DIR/sh/.env
 
 export ZDOTDIR=$PERSONAL_CONFIG_DIR/zsh
 
-if [ -f "$HOME/.zshenv.local.post" ]; then
-	include_once "$HOME/.zshenv.local.post"
-fi
+include_once "$HOME/.zshenv.local.post"

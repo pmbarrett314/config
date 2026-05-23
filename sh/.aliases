@@ -9,9 +9,7 @@ INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
 # shellcheck source=/dev/null
 [ -f "$INCLUDE" ] && . "$INCLUDE"
 
-if [ -f "$HOME/.aliases.local.pre" ]; then
-	include_once "$HOME/.aliases.local.pre"
-fi
+include_once "$HOME/.aliases.local.pre"
 
 OS=$(get_os)
 
@@ -107,6 +105,4 @@ fi
 command -v lazygit >/dev/null 2>&1 && alias lg='lazygit'
 command -v brew >/dev/null 2>&1 && alias update='brew update && brew upgrade'
 
-if [ -f "$HOME/.aliases.local.post" ]; then
-	include_once "$HOME/.aliases.local.post"
-fi
+include_once "$HOME/.aliases.local.post"

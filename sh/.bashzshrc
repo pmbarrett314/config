@@ -7,9 +7,7 @@ if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
 	return 1
 fi
 
-if [ -f "$HOME/.bashzshrc.local.pre" ]; then
-	include_once "$HOME/.bashzshrc.local.pre"
-fi
+include_once "$HOME/.bashzshrc.local.pre"
 
 if [ -n "$ZSH_VERSION" ]; then
 	_sh=zsh
@@ -39,6 +37,4 @@ fi
 
 unset _sh
 
-if [ -f "$HOME/.bashzshrc.local.post" ]; then
-	include_once "$HOME/.bashzshrc.local.post"
-fi
+include_once "$HOME/.bashzshrc.local.post"

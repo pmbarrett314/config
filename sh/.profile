@@ -4,9 +4,7 @@
 #loads .env
 #loads .rc if running interactively
 
-if [ -f "$HOME/.profile.local.pre" ]; then
-	include_once "$HOME/.profile.local.pre"
-fi
+include_once "$HOME/.profile.local.pre"
 
 
 if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
@@ -21,6 +19,4 @@ case "$-" in
 *)	 : ;;
 esac
 
-if [ -f "$HOME/.profile.local.post" ]; then
-	include_once "$HOME/.profile.local.post"
-fi
+include_once "$HOME/.profile.local.post"

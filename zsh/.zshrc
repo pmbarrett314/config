@@ -1,6 +1,4 @@
-if [ -f "$HOME/.zshrc.local.pre" ]; then
-	include_once "$HOME/.zshrc.local.pre"
-fi
+include_once "$HOME/.zshrc.local.pre"
 
 if [ -z ${PERSONAL_CONFIG_DIR+x} ]; then
 	echo "PERSONAL_CONFIG_DIR is not set"
@@ -100,6 +98,4 @@ bindkey "^[OB" down-line-or-beginning-search
 
 include_once_with_locals $PERSONAL_CONFIG_DIR/sh/.bashzshrc
 
-if [ -f "$HOME/.zshrc.local.post" ]; then
-	include_once "$HOME/.zshrc.local.post"
-fi
+include_once "$HOME/.zshrc.local.post"

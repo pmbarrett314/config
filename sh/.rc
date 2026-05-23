@@ -6,13 +6,9 @@ if [ -z "${PERSONAL_CONFIG_DIR+x}" ]; then
 	return 1
 fi
 
-if [ -f "$HOME/.rc.local.pre" ]; then
-	include_once "$HOME/.rc.local.pre"
-fi
+include_once "$HOME/.rc.local.pre"
 
 include_once_with_locals "$PERSONAL_CONFIG_DIR/sh/.functions"
 include_once_with_locals "$PERSONAL_CONFIG_DIR/sh/.aliases"
 
-if [ -f "$HOME/.rc.local.post" ]; then
-	include_once "$HOME/.rc.local.post"
-fi
+include_once "$HOME/.rc.local.post"

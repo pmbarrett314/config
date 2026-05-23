@@ -2,7 +2,7 @@
 # Cross-shell include helpers.
 #
 #   include                  — source $1 if it exists
-#   include_once             — source $1 unless already loaded this session
+#   include_once             — source $1 if it exists, unless already loaded this session
 #   include_with_locals      — source $1 and any ~/$(basename $1).local.{pre,post}
 #   include_once_with_locals — dedup + locals
 #   clear_load_vars          — reset the load list (forces re-includes mid-session)
@@ -10,7 +10,7 @@
 #
 # every overridable rc file sources ~/.<basename>.local.pre
 # near its top and ~/.<basename>.local.post at its end
-# Uses inlcude-once to avoid duplication even if a file is include_with_locals'd
+# Uses include-once to avoid duplication even if a file is include_with_locals'd
 
 # Pick the fastest dedup backend for the current shell.
 if [ -n "${ZSH_VERSION:-}" ]; then
@@ -40,16 +40,18 @@ include() {
 }
 
 include_once() {
-	_pmb_is_loaded "$1" && return 0
+	_pmb_is_loaded "${1:-}" && return 0
+	[ -f "${1:-}" ] || return 0
 	_pmb_mark "$1"
-	include "$1"
+	# shellcheck source=/dev/null
+	. "$1"
 }
 
 include_with_locals() {
 	_pmb_base="$HOME/$(basename "$1")"
-	[ -f "${_pmb_base}.local.pre" ]  && include_once "${_pmb_base}.local.pre"
+	include_once "${_pmb_base}.local.pre"
 	include "$1"
-	[ -f "${_pmb_base}.local.post" ] && include_once "${_pmb_base}.local.post"
+	include_once "${_pmb_base}.local.post"
 	unset _pmb_base
 }
 
@@ -69,9 +71,9 @@ prepend_path() {
 
 clear_load_vars() {
 	unset _PMB_LOADED
-	if [ -n "$ZSH_VERSION" ]; then
+	if [ -n "${ZSH_VERSION:-}" ]; then
 		typeset -gA _PMB_LOADED
-	elif [ -n "$BASH_VERSION" ] && [ "${BASH_VERSINFO[0]:-0}" -ge 4 ]; then
+	elif [ -n "${BASH_VERSION:-}" ] && [ "${BASH_VERSINFO[0]:-0}" -ge 4 ]; then
 		declare -gA _PMB_LOADED
 	else
 		_PMB_LOADED=":"

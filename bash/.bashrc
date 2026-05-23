@@ -8,9 +8,7 @@ if [ -e "$HOME/.bash_local" ]; then
 	include "$HOME/.bash_local"
 fi
 
-if [ -f "$HOME/.bashrc.local.pre" ]; then
-	include_once "$HOME/.bashrc.local.pre"
-fi
+include_once "$HOME/.bashrc.local.pre"
 
 # If not running interactively, don't do anything
 case $- in
@@ -86,6 +84,4 @@ fi
 # Tool integrations — fzf before atuin so atuin wins the Ctrl-R binding
 include_once_with_locals "$PERSONAL_CONFIG_DIR/sh/.bashzshrc"
 
-if [ -f "$HOME/.bashrc.local.post" ]; then
-	include_once "$HOME/.bashrc.local.post"
-fi
+include_once "$HOME/.bashrc.local.post"

@@ -9,9 +9,7 @@ INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
 # shellcheck source=/dev/null
 [ -f "$INCLUDE" ] && . "$INCLUDE"
 
-if [ -f "$HOME/.functions.local.pre" ]; then
-	include_once "$HOME/.functions.local.pre"
-fi
+include_once "$HOME/.functions.local.pre"
 
 nameterm() {
 	printf "\033]0;%s\007" "$@"
@@ -90,6 +88,4 @@ join_msg() {
 		"https://joinjoaomgcd.appspot.com/_ah/api/messaging/v1/sendPush"
 }
 
-if [ -f "$HOME/.functions.local.post" ]; then
-	include_once "$HOME/.functions.local.post"
-fi
+include_once "$HOME/.functions.local.post"
