@@ -31,8 +31,7 @@ if [ -n "$_sh" ]; then
 	command -v uvx >/dev/null 2>&1 && eval "$(uvx --generate-shell-completion "$_sh")"
 
 	# iTerm2 shell integration if installed
-	# shellcheck source=/dev/null
-	[ -f "$HOME/.iterm2_shell_integration.$_sh" ] && . "$HOME/.iterm2_shell_integration.$_sh"
+	include "$HOME/.iterm2_shell_integration.$_sh"
 fi
 
 unset _sh
