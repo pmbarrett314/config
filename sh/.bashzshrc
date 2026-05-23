@@ -26,14 +26,24 @@ if [ -n "$_sh" ]; then
 	command -v direnv >/dev/null 2>&1 && eval "$(direnv hook "$_sh")"
 	command -v navi   >/dev/null 2>&1 && eval "$(navi widget "$_sh")"
 
-	# uv / uvx shell completions
-	command -v uv  >/dev/null 2>&1 && eval "$(uv generate-shell-completion "$_sh")"
-	command -v uvx >/dev/null 2>&1 && eval "$(uvx --generate-shell-completion "$_sh")"
+	if command -v uv >/dev/null 2>&1; then
+		uv() {
+			unset -f uv
+			eval "$(command uv generate-shell-completion "$_sh")"
+			uv "$@"
+		}
+	fi
+	if command -v uvx >/dev/null 2>&1; then
+		uvx() {
+			unset -f uvx
+			eval "$(command uvx --generate-shell-completion "$_sh")"
+			uvx "$@"
+		}
+	fi
 
 	# iTerm2 shell integration if installed
 	include "$HOME/.iterm2_shell_integration.$_sh"
 fi
 
-unset _sh
 
 include_once "$HOME/.bashzshrc.local.post"
