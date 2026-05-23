@@ -13,11 +13,11 @@
 # Uses inlcude-once to avoid duplication even if a file is include_with_locals'd
 
 # Pick the fastest dedup backend for the current shell.
-if [ -n "$ZSH_VERSION" ]; then
+if [ -n "${ZSH_VERSION:-}" ]; then
 	typeset -gA _PMB_LOADED
 	_pmb_is_loaded() { [ -n "${_PMB_LOADED[$1]-}" ]; }
 	_pmb_mark()      { _PMB_LOADED[$1]=1; }
-elif [ -n "$BASH_VERSION" ] && [ "${BASH_VERSINFO[0]:-0}" -ge 4 ]; then
+elif [ -n "${BASH_VERSION:-}" ] && [ "${BASH_VERSINFO[0]:-0}" -ge 4 ]; then
 	declare -gA _PMB_LOADED
 	_pmb_is_loaded() { [ -n "${_PMB_LOADED[$1]-}" ]; }
 	_pmb_mark()      { _PMB_LOADED[$1]=1; }
