@@ -65,10 +65,11 @@ install_list() {
 	_failed=""
 	while IFS= read -r _pkg || [ -n "$_pkg" ]; do
 		case $_pkg in '' | \#*) continue ;; esac
-		if "$@" "$_pkg" >/dev/null 2>&1; then
+		if _out=$("$@" "$_pkg" 2>&1); then
 			echo "  ok       $_pkg"
 		else
 			echo "  FAILED   $_pkg"
+			printf '%s\n' "$_out" | tail -5 | sed 's/^/      /'
 			_failed="$_failed $_pkg"
 		fi
 	done <"$_list"
