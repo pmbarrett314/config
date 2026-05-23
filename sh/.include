@@ -59,6 +59,14 @@ include_once_with_locals() {
 	include_with_locals "$1"
 }
 
+prepend_path() {
+    [ -d "$1" ] || return 0
+    case ":${PATH-}:" in
+        *":$1:"*) ;;
+        *) PATH="$1${PATH:+:$PATH}" ;;
+    esac
+}
+
 clear_load_vars() {
 	unset _PMB_LOADED
 	if [ -n "$ZSH_VERSION" ]; then

@@ -52,11 +52,6 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
 	debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ]; then
-	PATH="$HOME/bin:$PATH"
-fi
-
 # Prompt: starship if installed, fallback to handcrafted theme
 if command -v starship >/dev/null 2>&1; then
 	eval "$(starship init bash)"

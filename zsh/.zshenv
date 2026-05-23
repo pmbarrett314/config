@@ -6,6 +6,8 @@ fi
 INCLUDE="$PERSONAL_CONFIG_DIR/sh/.include"
 [[ -f $INCLUDE ]] && source "$INCLUDE"
 
+typeset -U path PATH
+
 if [ -f "$HOME/.zshenv.local.pre" ]; then
 	include_once "$HOME/.zshenv.local.pre"
 fi
