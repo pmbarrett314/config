@@ -75,10 +75,6 @@ fi
 
 alias back='cd -'
 
-if [ "$(get_os)" = macos ]; then
-	include_once "$PERSONAL_CONFIG_DIR/bash/platform/mac.bashrc"
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
