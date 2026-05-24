@@ -13,7 +13,7 @@ tmux has-session -t _default 2>/dev/null || tmux new-session -s _default -d
 
 # present menu for user to choose which workspace to open
 PS3="Please choose your session: "
-if command -v tmuxinator >>/dev/null; then
+if command -v tmuxinator >/dev/null; then
 	tmuxinators=$(tmuxinator list | tail -n +2 | tr -s '[:space:]' ' ')
 else
 	tmuxinators=""
