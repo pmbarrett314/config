@@ -20,5 +20,5 @@ jobs:
     - name: Run ShellCheck
       uses: ludeeus/action-shellcheck@master
       with:
-        ignore_paths: zsh sh/.include
+        ignore_paths: zsh sh/.include tests/bats tests/test_helper/bats-assert tests/test_helper/bats-support
         check_together: true
