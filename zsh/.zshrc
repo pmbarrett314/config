@@ -76,6 +76,10 @@ fi
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 _comp_options+=(globdots)
 
+# Redirect completion cache out of ZDOTDIR. Nothing does this with current config
+# but this is harmless, just in case
+zstyle ':completion::complete:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
+
 alias back="pushd"
 
 autoload -U up-line-or-beginning-search
