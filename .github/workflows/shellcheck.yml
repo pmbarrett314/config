@@ -20,5 +20,5 @@ jobs:
     - name: Run ShellCheck
       uses: ludeeus/action-shellcheck@master
       with:
-        ignore_paths: zsh sh/.include nano/nanorc
+        ignore_paths: zsh sh/.include
         check_together: true
