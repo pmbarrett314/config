@@ -20,9 +20,14 @@ echo "--> dotfiles install — $PERSONAL_CONFIG_DIR"
 # --- helpers ---------------------------------------------------------------
 # link SRC DEST — symlink DEST -> SRC.
 # Back up real files with timestamps if they exist.
+# Crash if we can't find them, we're running against this repo.
 link() {
 	_src=$1
 	_dest=$2
+	if [ ! -e "$_src" ]; then
+		echo "  ERROR   source $_src missing" >&2
+		return 1
+	fi
 	if [ -L "$_dest" ]; then
 		if [ "$(readlink "$_dest")" = "$_src" ]; then
 			echo "  ok      $_dest"
@@ -38,8 +43,13 @@ link() {
 }
 
 # copy_if_absent SRC DEST
-# for files that can't just be links so we don't delete them
+# For files that can't just be links so we don't delete them.
+# Also crash if file not found.
 copy_if_absent() {
+	if [ ! -e "$1" ]; then
+		echo "  ERROR   source $1 missing" >&2
+		return 1
+	fi
 	if [ -e "$2" ] || [ -L "$2" ]; then
 		echo "  keep    $2 (already present)"
 	else
