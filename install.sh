@@ -72,6 +72,18 @@ echo "--> caches + state dirs"
 mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 mkdir -p "$HOME/.vim/undo"
 
+if command -v git >/dev/null 2>&1; then
+	echo "--> antidote (zsh plugin manager)"
+	_antidote_home="${XDG_DATA_HOME:-$HOME/.local/share}/antidote"
+	if [ ! -d "$_antidote_home/.git" ]; then
+		git clone --depth 1 https://github.com/mattmc3/antidote "$_antidote_home" ||
+			echo "  WARNING: antidote clone failed"
+	else
+		echo "  ok      antidote already cloned"
+	fi
+	unset _antidote_home
+fi
+
 # --- packages --------------------------------------------------------------
 if [ -x "$PERSONAL_CONFIG_DIR/scripts/install_packages.sh" ]; then
 	"$PERSONAL_CONFIG_DIR/scripts/install_packages.sh" "$@" || echo "  WARNING: package install reported errors"

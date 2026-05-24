@@ -51,12 +51,8 @@ else
 fi
 # End of lines added by compinstall
 
-# Auto-install antidote
-ANTIDOTE_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/antidote"
-if [ ! -d "$ANTIDOTE_HOME/.git" ]; then
-	git clone --depth 1 https://github.com/mattmc3/antidote "$ANTIDOTE_HOME"
-fi
-source "$ANTIDOTE_HOME/antidote.zsh"
+# Plugin manager (install.sh clones antidote into XDG_DATA_HOME)
+source "${XDG_DATA_HOME:-$HOME/.local/share}/antidote/antidote.zsh"
 
 # Compile and cache the plugin list (static-source for fast warm starts).
 # Cache dir is created by install.sh.
