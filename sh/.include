@@ -48,7 +48,8 @@ include_once() {
 }
 
 include_with_locals() {
-	_pmb_base="$HOME/$(basename "$1")"
+	# basename equivalent in pure POSIX
+	_pmb_base="$HOME/${1##*/}"
 	include_once "${_pmb_base}.local.pre"
 	include "$1"
 	include_once "${_pmb_base}.local.post"
