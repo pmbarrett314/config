@@ -13,6 +13,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - { name: ubuntu-22.04,   container: ubuntu:22.04 }
+          - { name: ubuntu-24.04,   container: ubuntu:24.04 }
+          - { name: debian-12,      container: debian:12 }
+          - { name: fedora-41,      container: fedora:41 }
+          - { name: rocky-9,        container: rockylinux:9 }
+          - { name: rocky-9-nosudo, container: rockylinux:9, nosudo: true }
           - { name: arch,           container: greyltc/archlinux-aur }
     env:
       DEBIAN_FRONTEND: noninteractive
