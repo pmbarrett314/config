@@ -149,25 +149,16 @@ install_list() {
 	fi
 }
 
-# install_tpack — tmux plugin manager; not in standard repos on any platform.
-install_tpack() {
-	if command -v tpack >/dev/null 2>&1; then
-		echo "  tpack already installed"
-		return
-	fi
-	if command -v brew >/dev/null 2>&1; then
-		brew install tmuxpack/tpack/tpack && return
-	fi
-	for _h in yay paru; do
-		if command -v "$_h" >/dev/null 2>&1; then
-			"$_h" -S --needed --noconfirm tpack-bin && return
+AUR_USER="${AUR_USER:-}"
+
+if [ -z "$AUR_USER" ] && [ "$(id -u)" -eq 0 ]; then
+	for _u in build builder aur _aurbuild ab; do
+		if id "$_u" >/dev/null 2>&1; then
+			AUR_USER=$_u
+			break
 		fi
 	done
-	if command -v go >/dev/null 2>&1; then
-		go install github.com/tmuxpack/tpack/cmd/tpack@latest && return
-	fi
-	echo "  tpack: install manually"
-}
+fi
 
 # do_pacman / do_apt / do_dnf — install the package list for one manager.
 # TODO: Make aur packages also file-configurable if we add more
@@ -183,9 +174,16 @@ do_pacman() {
 		fi
 	done
 	if [ -n "$_aur" ]; then
-		"$_aur" -S --needed --noconfirm tmux-mem-cpu-load || true
-	else
-		echo "  AUR: no helper (yay/paru) — skipping tmux-mem-cpu-load"
+		if [ "$(id -u)" -eq 0 ]; then
+			if [ -n "$AUR_USER" ]; then
+				echo "  AUR build as $AUR_USER"
+				su "$AUR_USER" -s /bin/sh -c "$_aur -S --needed --noconfirm tmux-mem-cpu-load tmuxinator tpack" || true
+			else
+				echo "  AUR: running as root, no build user found (set AUR_USER) — skipping"
+			fi
+		else
+			"$_aur" -S --needed --noconfirm tmux-mem-cpu-load tmuxinator || true
+		fi
 	fi
 }
 
@@ -198,6 +196,14 @@ do_apt() {
 
 do_dnf() {
 	echo "  dnf"
+	# EPEL and CRB needed for RHEL (rocky, alma, rhel, centos)
+	case " $distro " in
+	*" rhel "* | *" rocky "* | *" almalinux "* | *" centos "*)
+		echo "  enabling EPEL + CRB (RHEL-family)"
+		as_root dnf install -y epel-release || true
+		as_root dnf config-manager --set-enabled crb || true
+		;;
+	esac
 	install_list "dnf" "$PKGS/fedora.txt" as_root dnf install -y
 	echo "  tmux-mem-cpu-load: not packaged for dnf — build from source or skip"
 }
