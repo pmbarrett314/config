@@ -25,7 +25,7 @@ brew "atuin"
 brew "direnv"
 brew "tmux-mem-cpu-load"
 brew "tmuxinator"
-brew "tpack"
+brew "tmuxpack/tpack/tpack"
 
 # Base shell, multiplexer, editors
 brew "zsh"
