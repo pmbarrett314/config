@@ -66,6 +66,10 @@ if command -v nano >/dev/null 2>&1 && command -v curl >/dev/null 2>&1; then
 	curl -fsSL https://raw.githubusercontent.com/galenguyer/nano-syntax-highlighting/master/install.sh |
 		bash || echo "  WARNING: nano highlighting install failed"
 fi
+
+# --- runtime dirs + plugin manager clones ----------------------------------
+echo "--> caches + state dirs"
+mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 mkdir -p "$HOME/.vim/undo"
 
 # --- packages --------------------------------------------------------------

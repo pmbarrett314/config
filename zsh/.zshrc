@@ -58,9 +58,10 @@ if [ ! -d "$ANTIDOTE_HOME/.git" ]; then
 fi
 source "$ANTIDOTE_HOME/antidote.zsh"
 
-# Compile and cache the plugin list (static-source for fast warm starts)
+# Compile and cache the plugin list (static-source for fast warm starts).
+# Cache dir is created by install.sh.
 zsh_plugins_txt="$PERSONAL_CONFIG_DIR/zsh/.zsh_plugins.txt"
-zsh_plugins_zsh="$PERSONAL_CONFIG_DIR/zsh/.zsh_plugins.zsh"
+zsh_plugins_zsh="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/plugins.zsh"
 if [[ ! -f $zsh_plugins_zsh || $zsh_plugins_txt -nt $zsh_plugins_zsh ]]; then
 	antidote bundle <"$zsh_plugins_txt" >|"$zsh_plugins_zsh"
 fi

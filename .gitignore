@@ -61,6 +61,4 @@ home/*
 
 zsh/.zsh_sessions/
 
-zsh/.zsh_plugins.zsh
-
 .claude/
