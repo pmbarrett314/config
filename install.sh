@@ -66,6 +66,7 @@ if command -v nano >/dev/null 2>&1 && command -v curl >/dev/null 2>&1; then
 	curl -fsSL https://raw.githubusercontent.com/galenguyer/nano-syntax-highlighting/master/install.sh |
 		bash || echo "  WARNING: nano highlighting install failed"
 fi
+mkdir -p "$HOME/.vim/undo"
 
 # --- packages --------------------------------------------------------------
 if [ -x "$PERSONAL_CONFIG_DIR/scripts/install_packages.sh" ]; then

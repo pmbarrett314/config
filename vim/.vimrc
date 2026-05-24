@@ -76,9 +76,6 @@ set smarttab
 " Persistent undo, no swap files
 set undofile
 set undodir=~/.vim/undo//
-if !isdirectory($HOME . '/.vim/undo')
-  call mkdir($HOME . '/.vim/undo', 'p')
-endif
 set noswapfile
 
 " Plugin configuration
