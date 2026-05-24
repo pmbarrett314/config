@@ -12,6 +12,10 @@ PERSONAL_CONFIG_DIR="${PERSONAL_CONFIG_DIR:-$(
 PKGS="$PERSONAL_CONFIG_DIR/pkgs"
 HOME_SCRIPT="$PERSONAL_CONFIG_DIR/scripts/install_packages_home.sh"
 
+# ubi helpers: ubi_bootstrap, ubi_project, ubi_fetch, UBI_BINS.
+# shellcheck source=scripts/ubi.sh
+. "$PERSONAL_CONFIG_DIR/scripts/ubi.sh"
+
 # run_home [force] — the gate for the home-directory install.
 # If force is set don't confirm
 # if force is not set, prompt if running interactively otherwise exit
@@ -52,7 +56,73 @@ as_root() {
 	fi
 }
 
-# install_list LABEL LIST_FILE INSTALL_CMD... — run INSTALL_CMD <pkg> for every
+# install_package ENTRY INSTALL_CMD...
+#
+# ENTRY is "PKGNAME" or "PKGNAME:BINNAME" — BINNAME defaults to PKGNAME and
+# is the binary we expect to be available after install.
+#
+# 1. if pkg_<PKGNAME> exists call it instead of INSTALL_CMD.
+# 	It receives INSTALL_CMD as args
+#	For per-package custom behavior
+#	pkg_curl() { "$@" curl libcurl-openssl-dev; }
+# 2. Else call INSTALL_CMD PKGNAME
+# 3. Afterwards check if command exists
+# 4. If not, fall back to ubi_fetch
+install_package() {
+	_entry=$1
+	shift
+	# Parse "PKGNAME[:BINNAME]".
+	case $_entry in
+	*:*)
+		_pkg="${_entry%%:*}"
+		_bin="${_entry#*:}"
+		;;
+	*)
+		_pkg=$_entry
+		_bin=$_entry
+		;;
+	esac
+	# Build "pkg_<sanitized>" — `-` -> `_`
+	_hook="pkg_"
+	_rest=$_pkg
+	while :; do
+		case $_rest in
+		*-*)
+			_hook="${_hook}${_rest%%-*}_"
+			_rest="${_rest#*-}"
+			;;
+		*)
+			_hook="${_hook}${_rest}"
+			break
+			;;
+		esac
+	done
+	# 1 + 2: hook or default PM call.
+	if command -v "$_hook" >/dev/null 2>&1; then
+		"$_hook" "$@"
+	else
+		"$@" "$_pkg"
+	fi
+	_rc=$?
+	# 3: PM-provided binary is present — done.
+	if [ $_rc -eq 0 ] && command -v "$_bin" >/dev/null 2>&1; then
+		unset _entry _pkg _bin _hook _rest _rc
+		return 0
+	fi
+	# 4: ubi fallback if we have a project for this binary.
+	_project=$(ubi_project "$_bin")
+	if [ -n "$_project" ]; then
+		echo "  trying ubi fallback for $_bin <- $_project"
+		if ubi_fetch "$_bin" "$_project"; then
+			unset _entry _pkg _bin _hook _rest _rc _project
+			return 0
+		fi
+	fi
+	unset _entry _pkg _bin _hook _rest _rc _project
+	return 1
+}
+
+# install_list LABEL LIST_FILE INSTALL_CMD... — install_package every
 # non-comment line of LIST_FILE; collect and report the ones that fail.
 install_list() {
 	_label=$1
@@ -65,7 +135,7 @@ install_list() {
 	_failed=""
 	while IFS= read -r _pkg || [ -n "$_pkg" ]; do
 		case $_pkg in '' | \#*) continue ;; esac
-		if _out=$("$@" "$_pkg" 2>&1); then
+		if _out=$(install_package "$_pkg" "$@" 2>&1); then
 			echo "  ok       $_pkg"
 		else
 			echo "  FAILED   $_pkg"
@@ -123,10 +193,6 @@ do_apt() {
 	echo "  apt"
 	as_root apt-get update >/dev/null 2>&1 || true
 	install_list "apt" "$PKGS/debian.txt" as_root apt-get install -y
-	# Debian renames these binaries — link them to the names the config uses.
-	mkdir -p "$HOME/.local/bin"
-	command -v fdfind >/dev/null 2>&1 && ln -sf "$(command -v fdfind)" "$HOME/.local/bin/fd"
-	command -v batcat >/dev/null 2>&1 && ln -sf "$(command -v batcat)" "$HOME/.local/bin/bat"
 	echo "  tmux-mem-cpu-load: not packaged for apt — build from source or skip"
 }
 
@@ -179,7 +245,6 @@ Darwin)
 	fi
 	echo "  macOS — brew bundle"
 	brew bundle --file="$PKGS/Brewfile"
-	install_tpack
 	;;
 Linux)
 	distro=""
@@ -206,7 +271,6 @@ Linux)
 	*" fedora "* | *" rhel "*) do_dnf ;;
 	*) handle_unknown_distro ;;
 	esac
-	install_tpack
 	;;
 *)
 	echo "  unsupported OS: $(uname -s)"

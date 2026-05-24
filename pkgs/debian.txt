@@ -1,21 +1,20 @@
-# pkgs/debian.txt — Debian / Ubuntu (apt). One package per line; blank and # are ignored
-# packages are installed one at a time with error report at the end
-#
-# The script also symlinks fdfind -> ~/.local/bin/fd and batcat ->
-# ~/.local/bin/bat afterward, since Debian renames those two binaries.
+# pkgs/debian.txt — Debian / Ubuntu (apt). One entry per line; blank and # are ignored.
+# Entries: PKGNAME[:BINNAME] — BINNAME defaults to PKGNAME. Used to verify the
+# install actually produced a usable binary (and to look up the ubi fallback
+# project when the system PM can't provide it).
 
 # Modern CLI tools
 eza
 bat
-ripgrep
-fd-find
+ripgrep:rg
+fd-find:fd
 fzf
 zoxide
 starship
-git-delta
+git-delta:delta
 lazygit
 gh
-tealdeer
+tealdeer:tldr
 navi
 fastfetch
 atuin

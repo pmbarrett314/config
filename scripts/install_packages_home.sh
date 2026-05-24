@@ -1,77 +1,52 @@
 #!/bin/sh
-# install_packages_home.sh — install dotfiles into ~/.local/bin
-# as fallback for no package manager or no root
-#
-# Prebuilt release binaries are fetched with ubi
-# tmux-mem-cpu load not included because it needs a build and I probably don't need it on non-root machines anyways
-# git, tmux, vim, nano, zsh not included because we assume they'll be there and if not I probably can't install them well
+# install_packages_home.sh — bulk-install portable userland CLI binaries
+# into ~/.local/bin via ubi. Use when there is no system package manager,
+# or via `install.sh --home` if we don't have root.
 
 set -u
 
-BIN="$HOME/.local/bin"
+PERSONAL_CONFIG_DIR="${PERSONAL_CONFIG_DIR:-$(
+	unset CDPATH
+	cd -- "$(dirname -- "$0")/.." >/dev/null 2>&1 && pwd -P
+)}"
 
-echo "--> home install — $BIN"
+# ubi helpers: ubi_bootstrap, ubi_project, ubi_fetch, UBI_BINS.
+# shellcheck source=scripts/ubi.sh
+. "$PERSONAL_CONFIG_DIR/scripts/ubi.sh"
 
-if ! command -v curl >/dev/null 2>&1; then
-	echo "  curl is required and not available — cannot continue"
+echo "--> home install -> $UBI_DEST"
+mkdir -p "$UBI_DEST"
+
+if ! ubi_bootstrap; then
+	echo "  could not bootstrap ubi — see https://github.com/houseabsolute/ubi"
 	exit 1
 fi
-mkdir -p "$BIN"
 
-# --- bootstrap ubi ---------------------------------------------------------
-ubi_bin=""
-if command -v ubi >/dev/null 2>&1; then
-	ubi_bin=$(command -v ubi)
-elif [ -x "$BIN/ubi" ]; then
-	ubi_bin="$BIN/ubi"
-else
-	echo "  bootstrapping ubi..."
-	if curl --silent --location \
-		https://raw.githubusercontent.com/houseabsolute/ubi/master/bootstrap/bootstrap-ubi.sh |
-		TARGET="$BIN" sh; then
-		[ -x "$BIN/ubi" ] && ubi_bin="$BIN/ubi" && echo "  ubi -> $BIN/ubi"
-	fi
-	[ -z "$ubi_bin" ] && echo "  could not bootstrap ubi — see https://github.com/houseabsolute/ubi"
-fi
-
-# --- fetch prebuilt binaries ----------------------------------------------
-# fetch BINNAME OWNER/REPO — install ~/.local/bin/BINNAME via ubi
-# skip if already present;
+# fetch BINNAME — install BINNAME via ubi using its project from ubi_project.
+# Skip if already present.
 fetch() {
 	if command -v "$1" >/dev/null 2>&1; then
 		echo "  ok       $1 (already present)"
 		return 0
 	fi
-	if [ -z "$ubi_bin" ]; then
-		echo "  SKIP     $1 (no ubi)"
+	_p=$(ubi_project "$1")
+	if [ -z "$_p" ]; then
+		echo "  SKIP     $1 (no ubi mapping)"
 		return 1
 	fi
-	if "$ubi_bin" --project "$2" --in "$BIN" --exe "$1"; then
-		echo "  got      $1 <- $2"
+	if ubi_fetch "$1" "$_p"; then
+		echo "  got      $1 <- $_p"
 	else
-		echo "  FAILED   $1 <- $2"
+		echo "  FAILED   $1 <- $_p"
 		return 1
 	fi
 }
 
 _failed=""
-fetch starship  starship/starship       || _failed="$_failed starship"
-fetch zoxide    ajeetdsouza/zoxide      || _failed="$_failed zoxide"
-fetch atuin     atuinsh/atuin           || _failed="$_failed atuin"
-fetch fzf       junegunn/fzf            || _failed="$_failed fzf"
-fetch fd        sharkdp/fd              || _failed="$_failed fd"
-fetch bat       sharkdp/bat             || _failed="$_failed bat"
-fetch rg        BurntSushi/ripgrep      || _failed="$_failed rg"
-fetch eza       eza-community/eza       || _failed="$_failed eza"
-fetch delta     dandavison/delta        || _failed="$_failed delta"
-fetch lazygit   jesseduffield/lazygit   || _failed="$_failed lazygit"
-fetch gh        cli/cli                 || _failed="$_failed gh"
-fetch tldr      tealdeer-rs/tealdeer    || _failed="$_failed tldr"
-fetch navi      denisidoro/navi         || _failed="$_failed navi"
-fetch direnv    direnv/direnv           || _failed="$_failed direnv"
-fetch fastfetch fastfetch-cli/fastfetch || _failed="$_failed fastfetch"
-fetch tpack     tmuxpack/tpack          || _failed="$_failed tpack"
+for _b in $UBI_BINS; do
+	fetch "$_b" || _failed="$_failed $_b"
+done
 
 [ -n "$_failed" ] && echo "  could not install:$_failed"
 
-echo "--> home install done — open a new shell so ~/.local/bin is on PATH"
+echo "--> home install done — open a new shell so $UBI_DEST is on PATH"

@@ -1,7 +1,11 @@
 # pkgs/Brewfile — macOS (and Linuxbrew).
 #   brew bundle --file=pkgs/Brewfile
 # Re-runnable: brew bundle skips formulae that are already installed.
-# tpack (tmux plugin manager) is handled by scripts/install_packages.sh.
+#
+# Mac uses `brew bundle` (not install_package) so the colon-syntax + ubi
+# fallback doesn't apply here — homebrew has all of these natively.
+
+tap "tmuxpack/tpack"
 
 # Modern CLI tools
 brew "eza"
@@ -21,6 +25,7 @@ brew "atuin"
 brew "direnv"
 brew "tmux-mem-cpu-load"
 brew "tmuxinator"
+brew "tpack"
 
 # Base shell, multiplexer, editors
 brew "zsh"
