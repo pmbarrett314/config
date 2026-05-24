@@ -1,0 +1,79 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linux:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: arch,           container: greyltc/archlinux-aur }
+    env:
+      DEBIAN_FRONTEND: noninteractive
+    steps:
+      - name: Pre-bootstrap (git, curl, bash, zsh, sudo)
+        shell: sh
+        run: |
+          if command -v apt-get >/dev/null 2>&1; then
+            apt-get update
+            apt-get install -y git curl bash zsh sudo ca-certificates
+          elif command -v dnf >/dev/null 2>&1; then
+            # --allowerasing handle conflicts by overwrite installing the new package
+            # fixes curl on rocky
+            dnf install -y --allowerasing git curl bash zsh sudo
+          elif command -v pacman >/dev/null 2>&1; then
+            pacman -Sy --noconfirm git curl bash zsh sudo
+          else
+            echo "no known package manager in container" >&2
+            exit 1
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Setup no-sudo user
+        if: matrix.nosudo
+        run: |
+          useradd -m -s /bin/bash tester
+          # Move the workspace under tester's home and own it.
+          cp -a "$GITHUB_WORKSPACE" /home/tester/config
+          chown -R tester:tester /home/tester/config
+          # Make sudo unreachable so the install path can't fall back to it.
+          rm -f /usr/bin/sudo /usr/local/bin/sudo /usr/sbin/sudo
+
+      - name: Run install.sh
+        if: '!matrix.nosudo'
+        run: ./install.sh
+
+      - name: Run install.sh (no-sudo, --home)
+        if: matrix.nosudo
+        run: su tester -c 'cd /home/tester/config && ./install.sh --home'
+
+      - name: Run bats
+        if: '!matrix.nosudo'
+        run: ./tests/bats/bin/bats tests/
+
+      - name: Run bats (no-sudo)
+        if: matrix.nosudo
+        run: su tester -c 'cd /home/tester/config && ./tests/bats/bin/bats tests/'
+
+  macos:
+   name: macos-intel
+   runs-on: macos-13
+   steps:
+     - uses: actions/checkout@v4
+       with:
+         submodules: true
+
+     - name: Run install.sh
+       run: ./install.sh
+
+     - name: Run bats
+       run: ./tests/bats/bin/bats tests/
