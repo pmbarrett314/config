@@ -81,6 +81,7 @@ fi
 echo "--> caches + state dirs"
 mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
 mkdir -p "$HOME/.vim/undo"
+mkdir -p "$HOME/.local/bin"
 
 if command -v git >/dev/null 2>&1; then
 	echo "--> antidote (zsh plugin manager)"
