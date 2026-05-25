@@ -69,7 +69,7 @@ jobs:
 
       - name: Run bats (no-sudo)
         if: matrix.nosudo
-        run: su tester -c 'cd /home/tester/config && ./tests/bats/bin/bats tests/'
+        run: su tester -c 'cd /home/tester/config && PMB_TEST_MODE=home ./tests/bats/bin/bats tests/'
 
   macos:
    name: macos-intel
