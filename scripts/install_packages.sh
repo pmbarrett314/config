@@ -12,6 +12,15 @@ PERSONAL_CONFIG_DIR="${PERSONAL_CONFIG_DIR:-$(
 PKGS="$PERSONAL_CONFIG_DIR/pkgs"
 HOME_SCRIPT="$PERSONAL_CONFIG_DIR/scripts/install_packages_home.sh"
 
+get_distro() {
+	if [ -r /etc/os-release ]; then
+		# shellcheck disable=SC1091,SC2154
+		. /etc/os-release 2>/dev/null && echo "${ID:-} ${ID_LIKE:-}"
+		return 0
+	fi
+	echo "unknown"
+}
+
 # ubi helpers: ubi_bootstrap, ubi_project, ubi_fetch, UBI_BINS.
 # shellcheck source=/dev/null
 . "$PERSONAL_CONFIG_DIR/scripts/ubi.sh"
@@ -54,6 +63,23 @@ as_root() {
 	else
 		sudo "$@"
 	fi
+}
+
+pkg_tmuxinator() {
+	echo "-->tmuxinator"
+	distro=$(get_distro)
+	case " $distro " in
+	*" rhel "* | *" rocky "* | *" almalinux "* | *" centos "*)
+		as_root dnf install -y ruby rubygems
+		as_root gem install tmuxinator
+		;;
+	*" fedora "*)
+		as_root dnf copr enable fcsm/tmuxinator -y
+		as_root dnf install tmuxinator -y
+		;;
+	*) "$@" tmuxinator ;;
+	esac
+
 }
 
 # install_package ENTRY INSTALL_CMD...
@@ -253,11 +279,7 @@ Darwin)
 	brew bundle --file="$PKGS/Brewfile"
 	;;
 Linux)
-	distro=""
-	if [ -r /etc/os-release ]; then
-		# shellcheck disable=SC1091,SC2154
-		distro=$(. /etc/os-release 2>/dev/null && echo "${ID:-} ${ID_LIKE:-}")
-	fi
+	distro=$(get_distro)
 
 	if [ "$(id -u)" -ne 0 ]; then
 		if ! command -v sudo >/dev/null 2>&1; then
