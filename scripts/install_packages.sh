@@ -13,7 +13,7 @@ PKGS="$PERSONAL_CONFIG_DIR/pkgs"
 HOME_SCRIPT="$PERSONAL_CONFIG_DIR/scripts/install_packages_home.sh"
 
 # ubi helpers: ubi_bootstrap, ubi_project, ubi_fetch, UBI_BINS.
-# shellcheck source=scripts/ubi.sh
+# shellcheck source=/dev/null
 . "$PERSONAL_CONFIG_DIR/scripts/ubi.sh"
 
 # run_home [force] — the gate for the home-directory install.
@@ -182,7 +182,7 @@ do_pacman() {
 				echo "  AUR: running as root, no build user found (set AUR_USER) — skipping"
 			fi
 		else
-			"$_aur" -S --needed --noconfirm tmux-mem-cpu-load tmuxinator || true
+			"$_aur" -S --needed --noconfirm tmux-mem-cpu-load tmuxinator tpack-bin || true
 		fi
 	fi
 }
