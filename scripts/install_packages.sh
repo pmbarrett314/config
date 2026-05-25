@@ -82,6 +82,10 @@ pkg_tmuxinator() {
 
 }
 
+pkg_atuin() {
+	curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+}
+
 # install_package ENTRY INSTALL_CMD...
 #
 # ENTRY is "PKGNAME" or "PKGNAME:BINNAME" — BINNAME defaults to PKGNAME and

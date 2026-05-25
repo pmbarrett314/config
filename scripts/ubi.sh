@@ -46,7 +46,6 @@ ubi_project() {
 	case "$1" in
 	starship) echo starship/starship ;;
 	zoxide) echo ajeetdsouza/zoxide ;;
-	atuin) echo atuinsh/atuin ;;
 	fzf) echo junegunn/fzf ;;
 	fd) echo sharkdp/fd ;;
 	bat) echo sharkdp/bat ;;
@@ -65,7 +64,7 @@ ubi_project() {
 
 # UBI_BINS — every binary ubi_project knows about. Used by the bulk
 # installer (install_packages_home.sh). Keep in sync with ubi_project.
-UBI_BINS="starship zoxide atuin fzf fd bat rg eza delta lazygit gh tldr navi direnv fastfetch tpack"
+UBI_BINS="starship zoxide fzf fd bat rg eza delta lazygit gh tldr navi direnv fastfetch tpack"
 
 export UBI_BINS
 

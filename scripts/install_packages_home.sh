@@ -56,4 +56,7 @@ eval "$("$HOME/.local/bin/mise" activate bash)"
 "$HOME/.local/bin/mise" use -g ruby@latest
 "$HOME/.local/bin/mise" x -- gem install tmuxinator
 
+echo "--> atuin (setup script — cargo-dist installer in GH release)"
+curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+
 echo "--> home install done — open a new shell so $UBI_DEST is on PATH"
