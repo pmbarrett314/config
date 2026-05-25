@@ -22,6 +22,7 @@ jobs:
           - { name: arch,           container: greyltc/archlinux-aur }
     env:
       DEBIAN_FRONTEND: noninteractive
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Pre-bootstrap (git, curl, bash, zsh, sudo)
         shell: sh
