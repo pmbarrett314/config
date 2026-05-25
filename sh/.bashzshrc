@@ -20,8 +20,16 @@ fi
 if [ -n "$_sh" ]; then
 	# Tool integrations
 	command -v mise   >/dev/null 2>&1 && eval "$(mise activate "$_sh")"
-	# fzf needs to come before atuin so atuin gets ctrl+r
-	command -v fzf    >/dev/null 2>&1 && eval "$(fzf --"$_sh")"
+	# fzf needs to come before atuin so atuin gets ctrl+r.
+	# fzf older than 0.48.0 doesn't have shell init
+	if command -v fzf >/dev/null 2>&1; then
+		_fzf_ver=$(fzf --version 2>/dev/null | awk '{print $1}')
+		if [ -n "$_fzf_ver" ] &&
+			[ "$(printf '0.48.0\n%s\n' "$_fzf_ver" | sort -V | head -n 1)" = "0.48.0" ]; then
+			eval "$(fzf --"$_sh")"
+		fi
+		unset _fzf_ver
+	fi
 	command -v zoxide >/dev/null 2>&1 && eval "$(zoxide init "$_sh" --cmd cd)"
 	command -v atuin  >/dev/null 2>&1 && eval "$(atuin init "$_sh" --disable-up-arrow)"
 	command -v direnv >/dev/null 2>&1 && eval "$(direnv hook "$_sh")"
