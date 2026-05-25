@@ -35,8 +35,9 @@ else
 fi
 
 include() {
+	[ -f "${1:-}" ] || return 0
 	# shellcheck source=/dev/null
-	[ -f "$1" ] && . "$1"
+	. "$1"
 }
 
 include_once() {
