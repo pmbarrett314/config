@@ -74,6 +74,8 @@ jobs:
   macos:
    name: macos-intel
    runs-on: macos-15-intel
+   env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
    steps:
      - uses: actions/checkout@v4
        with:
