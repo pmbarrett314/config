@@ -11,7 +11,7 @@ PERSONAL_CONFIG_DIR="${PERSONAL_CONFIG_DIR:-$(
 )}"
 
 # ubi helpers: ubi_bootstrap, ubi_project, ubi_fetch, UBI_BINS.
-# shellcheck source=scripts/ubi.sh
+# shellcheck source=/dev/null
 . "$PERSONAL_CONFIG_DIR/scripts/ubi.sh"
 
 echo "--> home install -> $UBI_DEST"
@@ -48,5 +48,12 @@ for _b in $UBI_BINS; do
 done
 
 [ -n "$_failed" ] && echo "  could not install:$_failed"
+
+echo "--> tmuxinator"
+curl https://mise.run | sh
+eval "$("$HOME/.local/bin/mise" activate bash)"
+"$HOME/.local/bin/mise" settings ruby.compile=false
+"$HOME/.local/bin/mise" use -g ruby@latest
+"$HOME/.local/bin/mise" x -- gem install tmuxinator
 
 echo "--> home install done — open a new shell so $UBI_DEST is on PATH"
