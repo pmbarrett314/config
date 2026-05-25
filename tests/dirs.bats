@@ -63,3 +63,15 @@ setup_file() {
 	data="${XDG_DATA_HOME:-$HOME/.local/share}"
 	[ -d "$data/antidote/.git" ]
 }
+
+# --- tmux plugins (tpack runs in install.sh after the PM step) ---
+
+@test "tpack plugin dir exists" {
+	command -v tpack >/dev/null 2>&1 || skip "tpack not installed"
+	[ -d "$HOME/.tmux/plugins" ]
+}
+
+@test "tpack installed a declared plugin (tmux-power)" {
+	command -v tpack >/dev/null 2>&1 || skip "tpack not installed"
+	[ -d "$HOME/.tmux/plugins/tmux-power" ]
+}
