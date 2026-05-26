@@ -102,8 +102,9 @@ else
 	echo "--> packages skipped — scripts/install_packages.sh not found"
 fi
 
+PATH="$HOME/.local/bin:$PATH"
 echo "--> tpack plugins."
-command -v tpack >/dev/null 2>&1 && { tpack init && tpack install || echo "  WARNING: tpack setup failed"; }
+command -v tpack >/dev/null 2>&1 && { tpack install || echo "  WARNING: tpack setup failed"; }
 
 # --- done ------------------------------------------------------------------
 echo
