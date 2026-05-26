@@ -58,6 +58,29 @@ copy_if_absent() {
 	fi
 }
 
+# copy_if_absent_template SRC DEST
+# Like copy_if_absent, but substitutes @VAR@ placeholders in SRC with the
+# corresponding shell variable values during the copy. Used for files that
+# need to reference the repo location but
+# must be plain enough for downstream parsers — e.g. tmux's `source-file`
+# directive, which can't expand $ENV_VARs natively.
+#
+# Add a `-e "s|@FOO@|$FOO|g"` line below to support more vars.
+copy_if_absent_template() {
+	if [ ! -e "$1" ]; then
+		echo "  ERROR   source $1 missing" >&2
+		return 1
+	fi
+	if [ -e "$2" ] || [ -L "$2" ]; then
+		echo "  keep    $2 (already present)"
+	else
+		sed -e "s|@PERSONAL_CONFIG_DIR@|$PERSONAL_CONFIG_DIR|g" \
+			-e "s|@HOME@|$HOME|g" \
+			"$1" >"$2"
+		echo "  copy    $2 <- $1 (template substituted)"
+	fi
+}
+
 #these are just links so they update when the repo is pulled
 echo "--> shell / editor stubs"
 link "$PERSONAL_CONFIG_DIR/sh/default.profile" "$HOME/.profile"
@@ -68,8 +91,8 @@ link "$PERSONAL_CONFIG_DIR/vim/default.vimrc" "$HOME/.vimrc"
 
 #these are copied, update per machine if needed
 echo "--> per-machine files"
-copy_if_absent "$PERSONAL_CONFIG_DIR/git/default.gitconfig" "$HOME/.gitconfig"
-copy_if_absent "$PERSONAL_CONFIG_DIR/tmux/default.tmux.conf" "$HOME/.tmux.conf"
+copy_if_absent          "$PERSONAL_CONFIG_DIR/git/default.gitconfig"  "$HOME/.gitconfig"
+copy_if_absent_template "$PERSONAL_CONFIG_DIR/tmux/default.tmux.conf.template" "$HOME/.tmux.conf"
 
 if command -v nano >/dev/null 2>&1 && command -v curl >/dev/null 2>&1; then
 	echo "--> nano syntax highlighting"
@@ -104,12 +127,6 @@ fi
 
 PATH="$HOME/.local/bin:$PATH"
 echo "--> tpack plugins."
-
-if command -v tpack >/dev/null 2>&1; then
-	tpack init && tpack install || echo "  WARNING: tpack install failed"
-else
-	echo "  WARNING: tpack not found on PATH — plugins not installed"
-fi
 
 # --- done ------------------------------------------------------------------
 echo

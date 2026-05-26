@@ -6,7 +6,7 @@ set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 
 # Shared tmux config from the roaming config
 # Needs to be exactly source-file (not a run-shell wrapper) tpack can follow it
-source-file ~/code/config/tmux/.tmux.conf
+source-file @PERSONAL_CONFIG_DIR@/tmux/.tmux.conf
 
 bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
 bind -n WheelDownPane select-pane -t= \; send-keys -M
