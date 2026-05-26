@@ -128,6 +128,26 @@ fi
 PATH="$HOME/.local/bin:$PATH"
 echo "--> tpack plugins."
 
+if command -v tpack >/dev/null 2>&1; then
+
+	tmux new-session -d -s _tpack_bootstrap "tpack init && tpack install"
+
+	# Block until the session dies (= the inner command finished).
+	_attempts=0
+	while tmux has-session -t _tpack_bootstrap 2>/dev/null; do
+		sleep 1
+		_attempts=$((_attempts + 1))
+		if [ $_attempts -gt 120 ]; then
+			tmux kill-session -t _tpack_bootstrap 2>/dev/null
+			echo "  WARNING: tpack install timed out after 2min"
+			break
+		fi
+	done
+	[ -d "$HOME/.tmux/plugins/tmux-power" ] || echo "  WARNING: tpack install failed (no plugins under ~/.tmux/plugins/)"
+else
+	echo "  WARNING: tpack not found on PATH — plugins not installed"
+fi
+
 # --- done ------------------------------------------------------------------
 echo
 echo "--> done — open a new shell."
