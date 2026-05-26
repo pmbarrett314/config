@@ -104,7 +104,11 @@ fi
 
 PATH="$HOME/.local/bin:$PATH"
 echo "--> tpack plugins."
-command -v tpack >/dev/null 2>&1 && { tpack install || echo "  WARNING: tpack setup failed"; }
+if command -v tpack >/dev/null 2>&1; then
+	tpack install || echo "  WARNING: tpack install failed"
+else
+	echo "  WARNING: tpack not found on PATH — plugins not installed"
+fi
 
 # --- done ------------------------------------------------------------------
 echo
