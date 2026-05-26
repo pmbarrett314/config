@@ -83,7 +83,16 @@ pkg_tmuxinator() {
 }
 
 pkg_atuin() {
-	curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+	echo "-->atuin"
+	distro=$(get_distro)
+	case " $distro " in
+	*" arch "*)
+		"$@" atuin
+		;;
+	*)
+		curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+		;;
+	esac
 }
 
 # install_package ENTRY INSTALL_CMD...
