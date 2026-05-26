@@ -45,6 +45,10 @@ jobs:
         with:
           submodules: true
 
+      - name: Install tmux and vim on nosudo rocky
+        if: matrix.nosudo && contains(matrix.container, 'rocky')
+        run: dnf install -y tmux vim
+
       - name: Setup no-sudo user
         if: matrix.nosudo
         run: |
