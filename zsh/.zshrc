@@ -34,6 +34,7 @@ setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
+setopt HIST_NO_STORE
 
 unsetopt NOMATCH
 unsetopt NOTIFY
@@ -83,6 +84,23 @@ _comp_options+=(globdots)
 zstyle ':completion::complete:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
 
 alias back="pushd"
+
+function h() {
+    # check if we passed any parameters
+    if [ -z "$*" ]; then
+        # if no parameters were passed print entire history
+        builtin history 1
+    else
+        # if words were passed use it as a search
+        builtin history 1 | egrep --color=auto "$@"
+    fi
+}
+
+
+function history() {
+    builtin history 1
+}
+
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
