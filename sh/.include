@@ -71,6 +71,23 @@ prepend_path() {
     esac
 }
 
+# force_prepend_path DIR — put DIR first, even if it is already in PATH.
+# needed on mac to because OS-provided helpers run after .env and overwrite PATh
+force_prepend_path() {
+	[ -d "$1" ] || return 0
+	_fpp=":${PATH-}:"
+	while :; do
+		case "$_fpp" in
+		*":$1:"*) _fpp="${_fpp%%":$1:"*}:${_fpp#*":$1:"}" ;;
+		*) break ;;
+		esac
+	done
+	_fpp="${_fpp#:}"
+	_fpp="${_fpp%:}"
+	PATH="$1${_fpp:+:$_fpp}"
+	unset _fpp
+}
+
 clear_load_vars() {
 	unset _PMB_LOADED
 	if [ -n "${ZSH_VERSION:-}" ]; then
