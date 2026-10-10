@@ -1,9 +1,20 @@
 #!/bin/bash
-# Make sure brew + uv tool installs are on PATH (in case launched without shell init).
+# Launched directly from iterm, not through shell
+# Need to rebuild path to match login shell: ~/.local/bin, then port, then brew
+PERSONAL_CONFIG_DIR="${PERSONAL_CONFIG_DIR:-$(
+	unset CDPATH
+	cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." >/dev/null 2>&1 && pwd -P
+)}"
+# shellcheck source=/dev/null
+. "$PERSONAL_CONFIG_DIR/sh/.include"
+
 for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
 	[ -x "$brew_bin" ] && eval "$("$brew_bin" shellenv)" && break
 done
-export PATH="$PATH:$HOME/.local/bin"
+force_prepend_path /opt/local/sbin
+force_prepend_path /opt/local/bin
+force_prepend_path "$HOME/.local/bin"
+export PATH
 
 # abort if we're already inside a TMUX session
 [ "$TMUX" = "" ] || exit 0
