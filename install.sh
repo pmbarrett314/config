@@ -91,7 +91,7 @@ link "$PERSONAL_CONFIG_DIR/vim/default.vimrc" "$HOME/.vimrc"
 
 #these are copied, update per machine if needed
 echo "--> per-machine files"
-copy_if_absent          "$PERSONAL_CONFIG_DIR/git/default.gitconfig"  "$HOME/.gitconfig"
+copy_if_absent "$PERSONAL_CONFIG_DIR/git/default.gitconfig" "$HOME/.gitconfig"
 copy_if_absent_template "$PERSONAL_CONFIG_DIR/tmux/default.tmux.conf.template" "$HOME/.tmux.conf"
 
 if command -v nano >/dev/null 2>&1 && command -v curl >/dev/null 2>&1; then
@@ -143,7 +143,14 @@ if command -v tpack >/dev/null 2>&1; then
 			break
 		fi
 	done
-	[ -d "$HOME/.tmux/plugins/tmux-power" ] || echo "  WARNING: tpack install failed (no plugins under ~/.tmux/plugins/)"
+	# tpack 2.x appends the checked-out commit to the clone directory
+	# (tmux-power-<HASH>), so match the prefix, not the bare name.
+	if ! (
+		set -- "$HOME"/.tmux/plugins/tmux-power-*/
+		[ -d "$1" ]
+	); then
+		echo "  WARNING: tpack install failed (no plugins under ~/.tmux/plugins/)"
+	fi
 else
 	echo "  WARNING: tpack not found on PATH — plugins not installed"
 fi
