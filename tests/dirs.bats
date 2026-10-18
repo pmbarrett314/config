@@ -73,5 +73,8 @@ setup_file() {
 
 @test "tpack installed a declared plugin (tmux-power)" {
 	command -v tpack >/dev/null 2>&1 || skip "tpack not installed"
-	[ -d "$HOME/.tmux/plugins/tmux-power" ]
+	# tpack 2.x appends the checked-out commit to the clone directory
+	# (tmux-power-<HASH>), so match the prefix, not the bare name.
+	found=("$HOME"/.tmux/plugins/tmux-power-*/)
+	[ -d "${found[0]}" ]
 }
