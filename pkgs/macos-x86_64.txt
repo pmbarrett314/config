@@ -1,0 +1,49 @@
+# pkgs/macos-x86_64.txt — Intel Macs only. One entry per line; blank and # ignored.
+# Entries: FORMULA[:BINNAME] — BINNAME defaults to FORMULA.
+#
+# This exists because my daily driver is an Intel Macbook.
+# Since brew dropped support for Intel Macs, brew now builds everything from source, which takes forever.
+# Used from install_packages.sh. Installs each named binary into ~/.local/bin from ubi or cargo. Falls back to brew for ones it can't.
+#
+# Adding an entry also needs a mapping: ubi_project in scripts/ubi.sh for
+# an upstream asset, or cargo_crate in scripts/cargo.sh for a source build.
+# Prefer ubi getting upstream binary is easier than compiling.
+#
+# These binaries also need completions installed, which happens in scripts/completions.sh
+
+uv
+pixi
+prek
+difftastic:difft
+atuin
+pandoc
+shellcheck
+git-delta:delta
+
+# Rust-built
+bat
+eza
+fd
+presenterm
+ripgrep:rg
+starship
+tealdeer:tldr
+zoxide
+
+# Go-built
+act
+direnv
+duf
+fzf
+gh
+git-flow-next:git-flow
+glow
+lazygit
+rclone
+shfmt
+tpack
+yamlfmt
+
+
+# fastfetch is expensive, it pulls in 4+ GB of build dependencies.
+fastfetch

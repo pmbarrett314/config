@@ -1,0 +1,41 @@
+# pkgs/macports.txt — MacPorts ports for macOS. One entry per line; blank and
+# # ignored. Entries: PORT [+variant ...] [-variant ...]
+#
+#
+# LEAVE VARIANTS OFF unless you mean it. MacPorts publishes one prebuilt
+# archive per port built with that port's *default* variants, so naming a
+# variant here is usually what turns a download into a local compile. The
+# defaults are already what we want: curl +ssl, wget +gnutls, ffmpeg +gpl2,
+# vim +huge, ruby40 +yjit, gnupg2 +pinentry_mac.
+#
+# Port names differ from Homebrew's
+#   imagemagick -> ImageMagick7   (plain `ImageMagick` is still 6.x)
+#   gnupg       -> gnupg2
+#   node        -> nodejs26
+#   ruby        -> ruby40
+#   openssl@3   -> openssl3
+#   python@3.13 -> python313
+
+# Media and images
+ffmpeg
+ImageMagick7
+mat2
+poppler
+
+# Runtimes
+nodejs26
+ruby40
+
+# Shell
+zsh
+
+# Tools
+cmake
+git
+git-lfs
+gnupg2
+navi
+nmap
+rsync
+vim
+wget
